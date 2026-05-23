@@ -110,7 +110,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('[Contact API] Error:', error);
+    console.error('[Contact API] Error:', error instanceof Error ? error.message : error);
+    console.error('[Contact API] Stack:', error instanceof Error ? error.stack : 'no stack');
     return NextResponse.json(
       { success: false, message: 'Internal server error' },
       { status: 500 }

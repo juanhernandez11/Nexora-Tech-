@@ -7,6 +7,9 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  experimental: {
+    serverComponentsExternalPackages: ['nodemailer'],
+  },
 };
 
 export default withNextIntl(nextConfig);
