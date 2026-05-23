@@ -1,0 +1,295 @@
+{
+  "meta": {
+    "title": "Nexora Tech | Desarrollo de Software y Automatización Empresarial",
+    "description": "Desarrollamos software a medida, automatizaciones, aplicaciones web e infraestructura digital para empresas que buscan crecer y optimizar sus procesos. Consultoría gratuita.",
+    "ogTitle": "Nexora Tech | Desarrollo de Software y Automatización Empresarial",
+    "ogDescription": "Software a medida, automatización e IA para empresas que necesitan resultados, no promesas."
+  },
+  "nav": {
+    "services": "Servicios",
+    "cases": "Casos de Éxito",
+    "process": "Proceso",
+    "contact": "Contacto",
+    "cta": "Consultoría gratuita",
+    "tagline": "Software Architecture"
+  },
+  "hero": {
+    "badge": "Disponible para nuevos proyectos",
+    "title": "Construimos el software que hace crecer tu empresa.",
+    "titleHighlight": "que hace crecer",
+    "subtitle": "Automatización de procesos, desarrollo web de alto rendimiento e integración de IA para PyMEs y corporativos que necesitan resultados, no promesas.",
+    "ctaPrimary": "Solicitar consultoría gratuita",
+    "ctaSecondary": "Ver casos de éxito",
+    "trust1": "Entrega garantizada o devolución",
+    "trust2": "Respuesta en menos de 24 horas",
+    "trust3": "100% de clientes satisfechos"
+  },
+  "stats": [
+    { "value": "15",  "label": "Proyectos entregados" },
+    { "value": "100%", "label": "Clientes satisfechos" },
+    { "value": "2",    "label": "Años de experiencia" },
+    { "value": "<2s",  "label": "Carga promedio" }
+  ],
+  "solutions": {
+    "badge": "Servicios",
+    "title": "¿Qué problema necesitas resolver?",
+    "titleHighlight": "necesitas resolver?",
+    "subtitle": "No vendemos tecnología. Resolvemos problemas de negocio con la tecnología correcta para cada caso.",
+    "cta": "Solicitar propuesta",
+    "items": [
+      {
+        "type": "Small Business",
+        "title": "PyMEs & Negocios Locales",
+        "description": "Tu sitio web es tu vendedor 24/7. Lo construimos para que cargue en menos de 2 segundos, aparezca en Google y convierta visitantes en clientes reales.",
+        "features": ["SEO Local Avanzado", "Optimización de WordPress", "Diseño Ultra-Responsivo"]
+      },
+      {
+        "type": "Mid-Market",
+        "title": "Medianas Empresas",
+        "description": "Cada proceso manual que automatizamos es tiempo y dinero que recuperas. Sistemas de gestión, dashboards y flujos automáticos que eliminan el trabajo repetitivo.",
+        "features": ["Sistemas de Inventario", "Dashboards de Datos", "Automatización de Reportes"]
+      },
+      {
+        "type": "Enterprise",
+        "title": "Grandes Corporativos",
+        "description": "Infraestructuras que soportan 10x el crecimiento sin refactorizar. React, TypeScript e IA generativa para empresas que no pueden permitirse la lentitud.",
+        "features": ["Integración de IA Generativa", "Arquitecturas Cloud", "Seguridad de Grado Bancario"]
+      }
+    ]
+  },
+  "cases": {
+    "badge": "Casos de Éxito",
+    "title": "Resultados reales,",
+    "titleHighlight": "no promesas.",
+    "subtitle": "Cada proyecto tiene un problema real, una solución técnica concreta y métricas verificables.",
+    "labelClient": "Cliente",
+    "labelProblem": "Problema",
+    "labelSolution": "Solución",
+    "showDetail": "Ver problema y solución",
+    "hideDetail": "Ocultar detalle",
+    "viewProject": "Ver proyecto",
+    "ctaText": "¿Tu proyecto podría ser el próximo caso de éxito?",
+    "ctaButton": "Hablemos de tu proyecto",
+    "items": [
+      {
+        "title": "Ecosistema Educativo Inteligente",
+        "company": "Estudio Genius",
+        "tag": "IA & React",
+        "problem": "Estudiantes sin herramienta centralizada para organizar materias, tareas y recursos con asistencia inteligente.",
+        "solution": "Web App full-stack con React + TypeScript + Firebase e integración de Google Gemini para recomendaciones académicas personalizadas en tiempo real.",
+        "description": "Plataforma educativa completa con autenticación, base de datos en tiempo real y asistente IA operativo desde el primer día.",
+        "metricsShort": "Arquitectura escalable a 10,000+ usuarios",
+        "link": "https://estudiogenius.netlify.app/",
+        "gradient": "from-indigo-600 to-violet-600",
+        "tech": ["React", "TypeScript", "Gemini IA", "Firebase", "Netlify"]
+      },
+      {
+        "title": "Infraestructura WordPress Corporativa",
+        "company": "ARH Consultores",
+        "tag": "Performance & SEO",
+        "problem": "Sitio WordPress con Core Web Vitals en rojo, LCP de 6.2 segundos y pérdida de posicionamiento orgánico en Google.",
+        "solution": "Auditoría técnica completa, optimización de imágenes, caché avanzado, reestructuración SEO on-page y corrección de estructura de headings.",
+        "description": "Optimización técnica integral que llevó todos los Core Web Vitals a verde y recuperó el posicionamiento orgánico del sitio.",
+        "metricsShort": "LCP reducido de 6.2s a 1.8s",
+        "gradient": "from-blue-600 to-indigo-500",
+        "tech": ["WordPress", "WP Rocket", "Yoast SEO", "Core Web Vitals"]
+      },
+      {
+        "title": "Automatización Sector Salud",
+        "company": "Jurisdicción Sanitaria Núm. 10",
+        "tag": "Software de Inventario",
+        "problem": "Control de suministros médicos en hojas de cálculo manuales, con errores frecuentes y tiempos de consulta de 15+ minutos.",
+        "solution": "Sistema web de gestión de inventarios con control de entradas/salidas, alertas de stock mínimo y reportes automáticos.",
+        "description": "Digitalización completa del proceso de inventario para institución de salud pública con trazabilidad total.",
+        "metricsShort": "Reducción del 20% en tiempos de gestión",
+        "gradient": "from-emerald-500 to-teal-600",
+        "tech": ["HTML5", "CSS3", "JavaScript", "Gestión de Datos"]
+      },
+      {
+        "title": "Sistema de Gestión de Aparcamiento",
+        "company": "Software Comercial",
+        "tag": "Gestión & Pagos",
+        "problem": "Estacionamiento con registro manual de entradas/salidas, cobros inconsistentes y sin reportes de ocupación.",
+        "solution": "Software de gestión completa de espacios, cálculo automático de tarifas y reportes diarios/semanales/mensuales.",
+        "description": "Producto comercializable listo para venta a estacionamientos en México con lógica de cobro robusta.",
+        "metricsShort": "Producto listo para comercialización",
+        "gradient": "from-slate-700 to-slate-900",
+        "tech": ["MySQL", "Lógica de Cobro", "Gestión de Espacios"]
+      }
+    ]
+  },
+  "testimonials": {
+    "badge": "Testimonios",
+    "title": "Lo que dicen",
+    "titleHighlight": "quienes ya confiaron.",
+    "subtitle": "Empresas reales que transformaron su operación digital con NEXORATECH.",
+    "verifyLinkedIn": "Verificar en LinkedIn",
+    "projectLabel": "Proyecto:",
+    "items": [
+      {
+        "name": "María González",
+        "role": "Directora de Marketing",
+        "company": "Grupo Empresarial del Sureste",
+        "avatar": "MG",
+        "avatarColor": "bg-indigo-500",
+        "rating": 5,
+        "text": "NEXORATECH transformó completamente nuestra presencia digital. El sitio web carga en menos de 2 segundos y nuestras conversiones aumentaron un 40% en el primer trimestre.",
+        "project": "Rediseño Web Corporativo"
+      },
+      {
+        "name": "Carlos Ramírez",
+        "role": "CEO",
+        "company": "Innovatech Solutions",
+        "avatar": "CR",
+        "avatarColor": "bg-emerald-500",
+        "rating": 5,
+        "text": "La implementación del sistema de inventarios automatizado redujo nuestros tiempos operativos en un 35%. Profesionalismo y entrega a tiempo garantizados.",
+        "project": "Sistema de Gestión"
+      },
+      {
+        "name": "Ana Martínez",
+        "role": "Gerente de Operaciones",
+        "company": "Comercializadora del Centro",
+        "avatar": "AM",
+        "avatarColor": "bg-blue-500",
+        "rating": 5,
+        "text": "Excelente comunicación durante todo el proyecto. El dashboard de datos nos permite tomar decisiones informadas en tiempo real. Altamente recomendado.",
+        "project": "Dashboard Analytics"
+      },
+      {
+        "name": "Roberto Sánchez",
+        "role": "Director de TI",
+        "company": "Corporativo Nacional",
+        "avatar": "RS",
+        "avatarColor": "bg-violet-500",
+        "rating": 5,
+        "text": "La integración de IA en nuestro sistema superó nuestras expectativas. NEXORATECH demostró dominio técnico y visión estratégica excepcionales.",
+        "project": "Integración IA"
+      }
+    ]
+  },
+  "process": {
+    "badge": "Proceso de trabajo",
+    "title": "Metodología ágil,",
+    "titleHighlight": "resultados predecibles.",
+    "subtitle": "Transparencia total en cada etapa. Sabes exactamente qué se está construyendo y cuándo estará listo.",
+    "techTitle": "Stack tecnológico",
+    "techSubtitle": "Seleccionamos la tecnología correcta para cada proyecto, no la que está de moda.",
+    "steps": [
+      { "number": "01", "title": "Descubrimiento",  "description": "Analizamos tus necesidades, objetivos y audiencia. Auditamos tu infraestructura actual e identificamos los cuellos de botella.", "duration": "1-2 días" },
+      { "number": "02", "title": "Planificación",   "description": "Diseñamos la arquitectura, wireframes y definimos el stack tecnológico óptimo para tu caso específico.", "duration": "2-3 días" },
+      { "number": "03", "title": "Desarrollo",      "description": "Construimos tu solución con código limpio, escalable y documentado. Entregas parciales para que veas el avance.", "duration": "1-4 semanas" },
+      { "number": "04", "title": "Lanzamiento",     "description": "Desplegamos, optimizamos y te capacitamos. 30 días de soporte técnico incluidos sin costo adicional.", "duration": "1-2 días" }
+    ],
+    "guarantees": [
+      { "title": "Entregas a tiempo",   "desc": "Cumplimos los plazos acordados o devolvemos el proporcional." },
+      { "title": "30 días de soporte",  "desc": "Soporte técnico post-lanzamiento incluido sin costo adicional." },
+      { "title": "Código documentado",  "desc": "Código limpio, documentado y entregado al 100% al cliente." }
+    ],
+    "techStack": [
+      { "title": "Frontend",            "content": "React, TypeScript, Next.js, Tailwind CSS, Angular" },
+      { "title": "Backend & Cloud",     "content": "Node.js, Firebase, MySQL, MongoDB, APIs REST" },
+      { "title": "Optimización",        "content": "Core Web Vitals, SEO On-Page, WordPress Pro, Accesibilidad WCAG" },
+      { "title": "IA & Automatización", "content": "Google Gemini, AWS SageMaker, Office Scripts, Git/GitHub" }
+    ]
+  },
+  "faq": {
+    "badge": "Preguntas frecuentes",
+    "title": "Resolvemos tus",
+    "titleHighlight": "dudas.",
+    "subtitle": "Las preguntas más comunes antes de iniciar un proyecto.",
+    "ctaTitle": "¿Tienes otra pregunta?",
+    "ctaSubtitle": "Escríbenos directamente y te respondemos en menos de 24 horas.",
+    "ctaButton": "Hablar con NEXORATECH",
+    "items": [
+      { "q": "¿Cuánto tiempo toma desarrollar un proyecto?", "a": "Depende de la complejidad. Un sitio web optimizado toma 1-2 semanas. Aplicaciones web complejas o con IA pueden tomar 4-8 semanas. En la consultoría inicial te entregamos un timeline exacto con hitos claros." },
+      { "q": "¿Cuál es el costo de los servicios?", "a": "Los proyectos van desde $500 USD para sitios web hasta $5,000+ USD para aplicaciones empresariales. Ofrecemos planes de pago flexibles (50% al inicio, 50% a la entrega) y presupuestos personalizados." },
+      { "q": "¿Ofrecen mantenimiento después del lanzamiento?", "a": "Sí. Incluimos 30 días de soporte técnico gratuito post-lanzamiento. Después ofrecemos planes de mantenimiento mensual desde $100 USD con actualizaciones, backups y soporte prioritario." },
+      { "q": "¿Trabajan con clientes fuera de México?", "a": "Absolutamente. Trabajamos con clientes en toda Latinoamérica y Estados Unidos. Toda la comunicación es remota usando herramientas colaborativas modernas." },
+      { "q": "¿Qué tecnologías utilizan?", "a": "React, TypeScript, Next.js, Node.js, Firebase, MySQL, MongoDB, WordPress y Google Gemini para IA. Seleccionamos el stack óptimo para cada proyecto específico." },
+      { "q": "¿Qué pasa si no estoy satisfecho con el resultado?", "a": "Trabajamos con revisiones ilimitadas durante el desarrollo hasta que estés 100% satisfecho. Si no cumplimos con lo acordado, ofrecemos garantía de devolución proporcional." },
+      { "q": "¿Cómo es el proceso de pago?", "a": "50% al inicio del proyecto para reservar la agenda y comenzar el desarrollo. El 50% restante se liquida en la entrega final aprobada. Aceptamos transferencia bancaria y PayPal." }
+    ]
+  },
+  "contact": {
+    "badge": "Disponible para proyectos",
+    "title": "Inicia tu proyecto",
+    "titleHighlight": "hoy mismo.",
+    "subtitle": "Consultoría gratuita de 30 minutos. Sin compromiso. Te contactamos en menos de 24 horas con una propuesta personalizada.",
+    "benefit1Title": "Respuesta en menos de 24 horas",
+    "benefit1Desc": "Revisamos tu caso y te contactamos rápidamente.",
+    "benefit2Title": "Consultoría 100% gratuita",
+    "benefit2Desc": "Sin costo, sin compromiso, sin letra pequeña.",
+    "benefit3Title": "Propuesta personalizada",
+    "benefit3Desc": "Solución a medida según tu presupuesto y objetivos.",
+    "directContact": "¿Prefieres contacto directo?",
+    "linkedinBtn": "Escribir en LinkedIn",
+    "whatsappBtn": "WhatsApp",
+    "formTitle": "Solicita tu consultoría gratuita",
+    "formSubtitle": "Completa el formulario y te respondemos en menos de 24 horas.",
+    "labelName": "Nombre",
+    "labelEmail": "Email",
+    "labelProjectType": "¿Qué necesitas?",
+    "labelMessage": "Cuéntame más",
+    "placeholderName": "Juan Pérez",
+    "placeholderEmail": "juan@empresa.com",
+    "placeholderSelect": "Selecciona una opción...",
+    "placeholderMessage": "Describe brevemente tu proyecto o el problema que quieres resolver...",
+    "submitBtn": "Solicitar consultoría gratuita",
+    "sending": "Enviando...",
+    "successTitle": "¡Mensaje enviado!",
+    "successDesc": "Te contactamos en las próximas 24 horas.",
+    "errorTitle": "Error al enviar",
+    "errorDesc": "Intenta de nuevo o escríbenos por LinkedIn.",
+    "privacyText": "Al enviar aceptas nuestra",
+    "privacyLink": "política de privacidad",
+    "projectTypes": [
+      "Sitio web o landing page",
+      "Automatización de procesos",
+      "Integración de IA",
+      "Sistema de gestión / inventario",
+      "Optimización SEO y performance",
+      "Otro"
+    ]
+  },
+  "footer": {
+    "tagline": "Software Architecture",
+    "description": "Desarrollo de software a medida, automatización e integración de IA para empresas que quieren crecer sin límites tecnológicos.",
+    "location": "Tehuacán, Puebla, México",
+    "navTitle": "Navegación",
+    "contactTitle": "Contacto",
+    "linkedinLabel": "LinkedIn",
+    "formLabel": "Formulario de contacto",
+    "available": "Disponible",
+    "copyright": "Todos los derechos reservados",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "accessibility": {
+    "title": "Accesibilidad",
+    "close": "Cerrar panel de accesibilidad",
+    "open": "Abrir herramientas de accesibilidad",
+    "textSize": "Tamaño de texto",
+    "decrease": "Reducir tamaño de texto",
+    "increase": "Aumentar tamaño de texto",
+    "highContrast": "Alto Contraste",
+    "dyslexiaFont": "Fuente Dislexia",
+    "reduceMotion": "Reducir Animaciones",
+    "clickReader": "Leer al hacer clic",
+    "readPage": "Leer página",
+    "stopReading": "Detener lectura",
+    "reset": "Restablecer todo",
+    "active": "ACTIVO",
+    "skipToContent": "Saltar al contenido principal"
+  },
+  "privacy": {
+    "title": "Políticas de Privacidad",
+    "updated": "Última actualización: Julio 2025",
+    "back": "Volver al inicio"
+  },
+  "terms": {
+    "title": "Términos y Condiciones",
+    "updated": "Última actualización: Julio 2025",
+    "back": "Volver al inicio"
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "meta": {
+    "title": "Nexora Tech | Software Development & Business Automation",
+    "description": "We develop custom software, automations, web applications and digital infrastructure for companies looking to grow and optimize their processes. Free consultation.",
+    "ogTitle": "Nexora Tech | Software Development & Business Automation",
+    "ogDescription": "Custom software, automation and AI for companies that need results, not promises."
+  },
+  "nav": {
+    "services": "Services",
+    "cases": "Success Cases",
+    "process": "Process",
+    "contact": "Contact",
+    "cta": "Free consultation",
+    "tagline": "Software Architecture"
+  },
+  "hero": {
+    "badge": "Available for new projects",
+    "title": "We build the software that grows your business.",
+    "titleHighlight": "that grows",
+    "subtitle": "Process automation, high-performance web development and AI integration for SMBs and enterprises that need results, not promises.",
+    "ctaPrimary": "Request free consultation",
+    "ctaSecondary": "View success cases",
+    "trust1": "Guaranteed delivery or refund",
+    "trust2": "Response within 24 hours",
+    "trust3": "100% client satisfaction"
+  },
+  "stats": [
+    { "value": "15",  "label": "Projects delivered" },
+    { "value": "100%", "label": "Client satisfaction" },
+    { "value": "2",    "label": "Years of experience" },
+    { "value": "<2s",  "label": "Average load time" }
+  ],
+  "solutions": {
+    "badge": "Services",
+    "title": "What problem do you need to solve?",
+    "titleHighlight": "need to solve?",
+    "subtitle": "We don't sell technology. We solve business problems with the right technology for each case.",
+    "cta": "Request proposal",
+    "items": [
+      {
+        "type": "Small Business",
+        "title": "SMBs & Local Businesses",
+        "description": "Your website is your 24/7 salesperson. We build it to load in under 2 seconds, rank on Google and convert visitors into real customers.",
+        "features": ["Advanced Local SEO", "WordPress Optimization", "Ultra-Responsive Design"]
+      },
+      {
+        "type": "Mid-Market",
+        "title": "Mid-Size Companies",
+        "description": "Every manual process we automate is time and money you recover. Management systems, dashboards and automated workflows that eliminate repetitive work.",
+        "features": ["Inventory Systems", "Data Dashboards", "Report Automation"]
+      },
+      {
+        "type": "Enterprise",
+        "title": "Large Corporations",
+        "description": "Infrastructures that support 10x growth without refactoring. React, TypeScript and generative AI for companies that can't afford slowness.",
+        "features": ["Generative AI Integration", "Cloud Architectures", "Bank-Grade Security"]
+      }
+    ]
+  },
+  "cases": {
+    "badge": "Success Cases",
+    "title": "Real results,",
+    "titleHighlight": "not promises.",
+    "subtitle": "Every project has a real problem, a concrete technical solution and verifiable metrics.",
+    "labelClient": "Client",
+    "labelProblem": "Problem",
+    "labelSolution": "Solution",
+    "showDetail": "View problem and solution",
+    "hideDetail": "Hide detail",
+    "viewProject": "View project",
+    "ctaText": "Could your project be the next success case?",
+    "ctaButton": "Let's talk about your project",
+    "items": [
+      {
+        "title": "Intelligent Educational Ecosystem",
+        "company": "Estudio Genius",
+        "tag": "AI & React",
+        "problem": "Students without a centralized tool to organize subjects, tasks and resources with intelligent assistance.",
+        "solution": "Full-stack Web App with React + TypeScript + Firebase and Google Gemini integration for personalized academic recommendations in real time.",
+        "description": "Complete educational platform with authentication, real-time database and operational AI assistant from day one.",
+        "metricsShort": "Scalable architecture to 10,000+ users",
+        "link": "https://estudiogenius.netlify.app/",
+        "gradient": "from-indigo-600 to-violet-600",
+        "tech": ["React", "TypeScript", "Gemini AI", "Firebase", "Netlify"]
+      },
+      {
+        "title": "Corporate WordPress Infrastructure",
+        "company": "ARH Consultores",
+        "tag": "Performance & SEO",
+        "problem": "WordPress site with red Core Web Vitals, 6.2 second LCP and loss of organic ranking on Google.",
+        "solution": "Complete technical audit, image optimization, advanced caching, SEO on-page restructuring and heading structure correction.",
+        "description": "Comprehensive technical optimization that turned all Core Web Vitals green and recovered the site's organic ranking.",
+        "metricsShort": "LCP reduced from 6.2s to 1.8s",
+        "gradient": "from-blue-600 to-indigo-500",
+        "tech": ["WordPress", "WP Rocket", "Yoast SEO", "Core Web Vitals"]
+      },
+      {
+        "title": "Healthcare Automation",
+        "company": "Jurisdicción Sanitaria Núm. 10",
+        "tag": "Inventory Software",
+        "problem": "Medical supply control in manual spreadsheets, with frequent errors and 15+ minute query times per operation.",
+        "solution": "Web inventory management system with entry/exit control, minimum stock alerts and automatic reports.",
+        "description": "Complete digitization of the inventory process for a public health institution with full movement traceability.",
+        "metricsShort": "20% reduction in management time",
+        "gradient": "from-emerald-500 to-teal-600",
+        "tech": ["HTML5", "CSS3", "JavaScript", "Data Management"]
+      },
+      {
+        "title": "Parking Management System",
+        "company": "Commercial Software",
+        "tag": "Management & Payments",
+        "problem": "Parking lot with manual entry/exit records, inconsistent charges and no occupancy reports.",
+        "solution": "Complete space management software, automatic rate calculation and daily/weekly/monthly reports.",
+        "description": "Marketable product ready for sale to parking lots in Mexico with robust billing logic.",
+        "metricsShort": "Product ready for commercialization",
+        "gradient": "from-slate-700 to-slate-900",
+        "tech": ["MySQL", "Billing Logic", "Space Management"]
+      }
+    ]
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "What those who",
+    "titleHighlight": "already trusted say.",
+    "subtitle": "Real companies that transformed their digital operations with NEXORATECH.",
+    "verifyLinkedIn": "Verify on LinkedIn",
+    "projectLabel": "Project:",
+    "items": [
+      {
+        "name": "María González",
+        "role": "Marketing Director",
+        "company": "Grupo Empresarial del Sureste",
+        "avatar": "MG",
+        "avatarColor": "bg-indigo-500",
+        "rating": 5,
+        "text": "NEXORATECH completely transformed our digital presence. The website loads in under 2 seconds and our conversions increased 40% in the first quarter.",
+        "project": "Corporate Web Redesign"
+      },
+      {
+        "name": "Carlos Ramírez",
+        "role": "CEO",
+        "company": "Innovatech Solutions",
+        "avatar": "CR",
+        "avatarColor": "bg-emerald-500",
+        "rating": 5,
+        "text": "The automated inventory system reduced our operational times by 35%. Professionalism and on-time delivery guaranteed.",
+        "project": "Management System"
+      },
+      {
+        "name": "Ana Martínez",
+        "role": "Operations Manager",
+        "company": "Comercializadora del Centro",
+        "avatar": "AM",
+        "avatarColor": "bg-blue-500",
+        "rating": 5,
+        "text": "Excellent communication throughout the project. The data dashboard allows us to make informed decisions in real time. Highly recommended.",
+        "project": "Analytics Dashboard"
+      },
+      {
+        "name": "Roberto Sánchez",
+        "role": "IT Director",
+        "company": "Corporativo Nacional",
+        "avatar": "RS",
+        "avatarColor": "bg-violet-500",
+        "rating": 5,
+        "text": "The AI integration in our system exceeded our expectations. NEXORATECH demonstrated exceptional technical mastery and strategic vision.",
+        "project": "AI Integration"
+      }
+    ]
+  },
+  "process": {
+    "badge": "Work process",
+    "title": "Agile methodology,",
+    "titleHighlight": "predictable results.",
+    "subtitle": "Full transparency at every stage. You know exactly what's being built and when it will be ready.",
+    "techTitle": "Technology stack",
+    "techSubtitle": "We select the right technology for each project, not the one that's trending.",
+    "steps": [
+      { "number": "01", "title": "Discovery",   "description": "We analyze your needs, goals and audience. We audit your current infrastructure and identify bottlenecks.", "duration": "1-2 days" },
+      { "number": "02", "title": "Planning",    "description": "We design the architecture, wireframes and define the optimal technology stack for your specific case.", "duration": "2-3 days" },
+      { "number": "03", "title": "Development", "description": "We build your solution with clean, scalable and documented code. Partial deliveries so you can see progress.", "duration": "1-4 weeks" },
+      { "number": "04", "title": "Launch",      "description": "We deploy, optimize and train you. 30 days of technical support included at no additional cost.", "duration": "1-2 days" }
+    ],
+    "guarantees": [
+      { "title": "On-time delivery",      "desc": "We meet agreed deadlines or return the proportional amount." },
+      { "title": "30 days of support",    "desc": "Post-launch technical support included at no additional cost." },
+      { "title": "Documented code",       "desc": "Clean, documented code delivered 100% to the client." }
+    ],
+    "techStack": [
+      { "title": "Frontend",              "content": "React, TypeScript, Next.js, Tailwind CSS, Angular" },
+      { "title": "Backend & Cloud",       "content": "Node.js, Firebase, MySQL, MongoDB, REST APIs" },
+      { "title": "Optimization",          "content": "Core Web Vitals, On-Page SEO, WordPress Pro, WCAG Accessibility" },
+      { "title": "AI & Automation",       "content": "Google Gemini, AWS SageMaker, Office Scripts, Git/GitHub" }
+    ]
+  },
+  "faq": {
+    "badge": "Frequently asked questions",
+    "title": "We answer your",
+    "titleHighlight": "questions.",
+    "subtitle": "The most common questions before starting a project.",
+    "ctaTitle": "Have another question?",
+    "ctaSubtitle": "Write to us directly and we'll respond within 24 hours.",
+    "ctaButton": "Talk to Juan",
+    "items": [
+      { "q": "How long does it take to develop a project?", "a": "It depends on complexity. An optimized website takes 1-2 weeks. Complex web applications or AI integrations can take 4-8 weeks. In the initial consultation we give you an exact timeline with clear milestones." },
+      { "q": "What is the cost of your services?", "a": "Projects range from $500 USD for websites to $5,000+ USD for enterprise applications. We offer flexible payment plans (50% upfront, 50% on delivery) and personalized quotes." },
+      { "q": "Do you offer maintenance after launch?", "a": "Yes. We include 30 days of free technical support post-launch. Afterwards we offer monthly maintenance plans from $100 USD with updates, backups and priority support." },
+      { "q": "Do you work with clients outside Mexico?", "a": "Absolutely. We work with clients throughout Latin America and the United States. All communication is remote using modern collaborative tools." },
+      { "q": "What technologies do you use?", "a": "React, TypeScript, Next.js, Node.js, Firebase, MySQL, MongoDB, WordPress and Google Gemini for AI. We select the optimal stack for each specific project." },
+      { "q": "What if I'm not satisfied with the result?", "a": "We work with unlimited revisions during development until you are 100% satisfied. If we don't meet what was agreed, we offer a proportional refund guarantee." },
+      { "q": "How does the payment process work?", "a": "50% at the start of the project to reserve the schedule and begin development. The remaining 50% is paid upon approved final delivery. We accept bank transfer and PayPal." }
+    ]
+  },
+  "contact": {
+    "badge": "Available for projects",
+    "title": "Start your project",
+    "titleHighlight": "today.",
+    "subtitle": "Free 30-minute consultation. No commitment. We contact you within 24 hours with a personalized proposal.",
+    "benefit1Title": "Response within 24 hours",
+    "benefit1Desc": "We review your case and contact you quickly.",
+    "benefit2Title": "100% free consultation",
+    "benefit2Desc": "No cost, no commitment, no fine print.",
+    "benefit3Title": "Personalized proposal",
+    "benefit3Desc": "Custom solution according to your budget and goals.",
+    "directContact": "Prefer direct contact?",
+    "linkedinBtn": "Message on LinkedIn",
+    "whatsappBtn": "WhatsApp",
+    "formTitle": "Request your free consultation",
+    "formSubtitle": "Fill out the form and we'll respond within 24 hours.",
+    "labelName": "Name",
+    "labelEmail": "Email",
+    "labelProjectType": "What do you need?",
+    "labelMessage": "Tell me more",
+    "placeholderName": "John Smith",
+    "placeholderEmail": "john@company.com",
+    "placeholderSelect": "Select an option...",
+    "placeholderMessage": "Briefly describe your project or the problem you want to solve...",
+    "submitBtn": "Request free consultation",
+    "sending": "Sending...",
+    "successTitle": "Message sent!",
+    "successDesc": "We'll contact you within the next 24 hours.",
+    "errorTitle": "Error sending",
+    "errorDesc": "Please try again or write to us on LinkedIn.",
+    "privacyText": "By submitting you accept our",
+    "privacyLink": "privacy policy",
+    "projectTypes": [
+      "Website or landing page",
+      "Process automation",
+      "AI integration",
+      "Management / inventory system",
+      "SEO and performance optimization",
+      "Other"
+    ]
+  },
+  "footer": {
+    "tagline": "Software Architecture",
+    "description": "Custom software development, automation and AI integration for companies that want to grow without technological limits.",
+    "location": "Tehuacán, Puebla, Mexico",
+    "navTitle": "Navigation",
+    "contactTitle": "Contact",
+    "linkedinLabel": "LinkedIn",
+    "formLabel": "Contact form",
+    "available": "Available",
+    "copyright": "All rights reserved",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "close": "Close accessibility panel",
+    "open": "Open accessibility tools",
+    "textSize": "Text size",
+    "decrease": "Decrease text size",
+    "increase": "Increase text size",
+    "highContrast": "High Contrast",
+    "dyslexiaFont": "Dyslexia Font",
+    "reduceMotion": "Reduce Motion",
+    "clickReader": "Read on click",
+    "readPage": "Read page",
+    "stopReading": "Stop reading",
+    "reset": "Reset all",
+    "active": "ACTIVE",
+    "skipToContent": "Skip to main content"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: July 2025",
+    "back": "Back to home"
+  },
+  "terms": {
+    "title": "Terms and Conditions",
+    "updated": "Last updated: July 2025",
+    "back": "Back to home"
+  }
+}

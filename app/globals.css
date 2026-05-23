@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Sora', system-ui, sans-serif;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 99px; }
+.dark ::-webkit-scrollbar-thumb { background: #334155; }
+
+:focus-visible {
+  outline: 3px solid #4F46E5;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection { background-color: #E0E7FF; color: #3730A3; }
+.dark ::selection { background-color: #3730A3; color: #E0E7FF; }
+
+/* ── Carrusel de tecnologías ── */
+@keyframes scroll-x {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-x {
+  animation: scroll-x 28s linear infinite;
+}
+
+.animate-scroll-x:hover {
+  animation-play-state: paused;
+}
+
+/* ── Accesibilidad ── */
+.high-contrast, .high-contrast body { background-color: #000 !important; color: #fff !important; }
+.high-contrast a, .high-contrast button { color: #ffff00 !important; background-color: #000 !important; border: 2px solid #ffff00 !important; }
+.high-contrast * { border-color: #fff !important; text-shadow: none !important; box-shadow: none !important; }
+
+.dyslexia-font, .dyslexia-font * {
+  font-family: 'Comic Sans MS', cursive !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.15em !important;
+  line-height: 1.8 !important;
+}
+
+.reduce-motion *, .reduce-motion *::before, .reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.screen-reader-mode a:hover,
+.screen-reader-mode button:hover,
+.screen-reader-mode p:hover,
+.screen-reader-mode h1:hover,
+.screen-reader-mode h2:hover,
+.screen-reader-mode h3:hover {
+  outline: 3px solid #4F46E5 !important;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
