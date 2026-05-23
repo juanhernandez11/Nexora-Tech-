@@ -15,7 +15,8 @@ interface FormData {
 
 const ContactForm = () => {
   const t = useTranslations('contact');
-  const locale = useLocale() as Locale;
+  const locale      = useLocale() as Locale;
+  const base        = locale === 'en' ? '/en' : '';
   const [formData, setFormData] = useState<FormData>({ name: '', email: '', projectType: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [ref, inView] = useInView(0.06);
@@ -150,7 +151,7 @@ const ContactForm = () => {
                   </button>
                   <p className="text-xs text-slate-400 text-center">
                     {t('privacyText')}{' '}
-                    <a href="/privacy" className="underline hover:text-brand-600 transition-colors">{t('privacyLink')}</a>
+                    <a href={`${base}/privacy`} className="underline hover:text-brand-600 transition-colors">{t('privacyLink')}</a>
                   </p>
                 </form>
               )}

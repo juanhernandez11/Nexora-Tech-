@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Linkedin, MapPin, Mail } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 
@@ -10,9 +10,11 @@ const NAV_ITEMS = [
 ] as const;
 
 const Footer = () => {
-  const t  = useTranslations('footer');
-  const tn = useTranslations('nav');
-  const year = new Date().getFullYear();
+  const t      = useTranslations('footer');
+  const tn     = useTranslations('nav');
+  const locale = useLocale();
+  const year   = new Date().getFullYear();
+  const base   = locale === 'en' ? '/en' : '';
 
   return (
     <footer className="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
@@ -81,9 +83,9 @@ const Footer = () => {
             © {year} Nexora Tech · {t('copyright')}
           </p>
           <div className="flex items-center gap-4">
-            <a href="/privacy" className="text-[11px] font-medium text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 uppercase tracking-widest transition-colors">{t('privacy')}</a>
+            <a href={`${base}/privacy`} className="text-[11px] font-medium text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 uppercase tracking-widest transition-colors">{t('privacy')}</a>
             <span className="text-slate-200 dark:text-slate-700">·</span>
-            <a href="/terms" className="text-[11px] font-medium text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 uppercase tracking-widest transition-colors">{t('terms')}</a>
+            <a href={`${base}/terms`} className="text-[11px] font-medium text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 uppercase tracking-widest transition-colors">{t('terms')}</a>
           </div>
         </div>
       </div>
