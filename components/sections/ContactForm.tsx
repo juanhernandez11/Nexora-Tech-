@@ -88,7 +88,7 @@ const ContactForm = () => {
                 <a href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-5 py-3 bg-blue-600/20 border border-blue-600/30 rounded-xl text-sm font-bold text-blue-400 hover:bg-blue-600/30 transition-colors">
                   <Linkedin size={16} /> {t('linkedinBtn')}
                 </a>
-                <a href="https://wa.me/522381234567?text=Hola%20Juan%2C%20me%20interesa%20una%20consultor%C3%ADa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-5 py-3 bg-emerald-600/20 border border-emerald-600/30 rounded-xl text-sm font-bold text-emerald-400 hover:bg-emerald-600/30 transition-colors">
+                <a href="https://wa.me/522382440637?text=Hola%20Juan%2C%20me%20interesa%20una%20consultor%C3%ADa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-5 py-3 bg-emerald-600/20 border border-emerald-600/30 rounded-xl text-sm font-bold text-emerald-400 hover:bg-emerald-600/30 transition-colors">
                   <MessageCircle size={16} /> {t('whatsappBtn')}
                 </a>
               </div>
