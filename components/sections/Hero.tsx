@@ -6,13 +6,14 @@ import useInView from '@/hooks/useInView';
 
 const Hero = () => {
   const t = useTranslations('hero');
+  const ts = useTranslations('stats');
   const [ref, inView] = useInView(0.05);
 
   const stats = [
-    { value: '15',  label: useTranslations('stats')('0.label') },
-    { value: '100%', label: useTranslations('stats')('1.label') },
-    { value: '2',    label: useTranslations('stats')('2.label') },
-    { value: '<2s',  label: useTranslations('stats')('3.label') },
+    { value: '15',   label: ts('0.label') },
+    { value: '100%', label: ts('1.label') },
+    { value: '2',    label: ts('2.label') },
+    { value: '<2s',  label: ts('3.label') },
   ];
 
   return (

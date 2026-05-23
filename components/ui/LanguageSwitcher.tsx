@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/navigation';
 import { Globe } from 'lucide-react';
 
 const LanguageSwitcher = () => {
@@ -10,14 +10,8 @@ const LanguageSwitcher = () => {
   const pathname = usePathname();
 
   const switchLocale = () => {
-    if (locale === 'es') {
-      // ES no tiene prefijo → agregar /en
-      router.push(`/en${pathname}`);
-    } else {
-      // EN tiene prefijo /en → quitarlo
-      const withoutEn = pathname.replace(/^\/en/, '') || '/';
-      router.push(withoutEn);
-    }
+    const nextLocale = locale === 'es' ? 'en' : 'es';
+    router.replace(pathname, { locale: nextLocale });
   };
 
   return (
