@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
+// Unique gradient IDs per logo to avoid SVG conflicts
 const TECH_LOGOS = [
   {
     name: 'React',
@@ -123,6 +124,166 @@ const TECH_LOGOS = [
         <path d="M12 2C12 2 7 8 7 13.5a5 5 0 0 0 10 0C17 8 12 2 12 2z" fill="#47A248"/>
         <path d="M12 4v16" stroke="#fff" strokeWidth="1" opacity=".5"/>
         <path d="M12 4C12 4 9 9 9 13.5" stroke="#3D8B3D" strokeWidth="1.5" fill="none"/>
+      </svg>
+    ),
+  },
+  // ── Lenguajes ──
+  {
+    name: 'JavaScript',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <rect width="24" height="24" rx="3" fill="#F7DF1E"/>
+        <path d="M7 17.5c.4.7 1 1.2 2 1.2 1.1 0 1.7-.5 1.7-1.3 0-.9-.7-1.2-1.8-1.7l-.6-.3C6.8 14.8 6 14 6 12.5c0-1.4 1-2.4 2.7-2.4 1.1 0 2 .4 2.6 1.4l-1.4.9c-.3-.5-.6-.7-1.2-.7-.6 0-.9.3-.9.7 0 .5.3.7 1.3 1.1l.6.3c1.6.7 2.4 1.5 2.4 3 0 1.7-1.3 2.7-3.1 2.7-1.7 0-2.8-.8-3.4-2l1.4-.9zm7.5.2c.5.8 1.1 1.4 2.2 1.4 1 0 1.6-.5 1.6-1.1 0-.8-.6-1.1-1.7-1.5l-.6-.3c-1.6-.7-2.7-1.5-2.7-3.2 0-1.6 1.2-2.8 3-2.8 1.3 0 2.2.5 2.9 1.6l-1.5.9c-.3-.6-.7-.9-1.4-.9-.6 0-1 .3-1 .9 0 .6.4.9 1.4 1.3l.6.2c1.9.8 2.9 1.6 2.9 3.3 0 1.9-1.5 2.9-3.4 2.9-1.9 0-3.1-.9-3.7-2.2l1.9-.5z" fill="#000"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Python',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <defs>
+          <linearGradient id="py-g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#3776AB"/>
+            <stop offset="100%" stopColor="#FFD43B"/>
+          </linearGradient>
+        </defs>
+        <path d="M12 2C9.5 2 8 3.1 8 4.5V7h4v1H5.5C4 8 3 9.2 3 11s1 3.5 2.5 3.5H6v-2.5C6 10.6 7.6 9 9.5 9H14c1.4 0 2.5-1.1 2.5-2.5v-2C16.5 3.1 14.5 2 12 2zm-1.5 1.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z" fill="#3776AB"/>
+        <path d="M12 22c2.5 0 4-1.1 4-2.5V17h-4v-1h6.5c1.5 0 2.5-1.2 2.5-3s-1-3.5-2.5-3.5H18v2.5C18 13.4 16.4 15 14.5 15H10c-1.4 0-2.5 1.1-2.5 2.5v2C7.5 20.9 9.5 22 12 22zm1.5-1.5a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5z" fill="#FFD43B"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'PHP',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <ellipse cx="12" cy="12" rx="11" ry="7" fill="#777BB4"/>
+        <path d="M5.5 14.5l1-5h1.8c.9 0 1.5.4 1.5 1.2 0 1.1-.8 1.8-2 1.8H7l-.3 2H5.5zm1.7-3h.5c.5 0 .8-.2.8-.6 0-.3-.2-.4-.6-.4h-.5l-.2 1zM10 14.5l1-5h1.8c.9 0 1.5.4 1.5 1.2 0 1.1-.8 1.8-2 1.8h-.8l-.3 2H10zm1.7-3h.5c.5 0 .8-.2.8-.6 0-.3-.2-.4-.6-.4h-.5l-.2 1zM14 14.5l.7-3.5h-.9l.2-1.5h.9l.2-1h1.5l-.2 1h1l-.2 1.5h-1l-.7 3.5H14z" fill="white"/>
+      </svg>
+    ),
+  },
+  // ── Frameworks / UI ──
+  {
+    name: 'Angular',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <path d="M12 2L3 5.5l1.4 12L12 22l7.6-4.5L21 5.5 12 2z" fill="#DD0031"/>
+        <path d="M12 2v20l7.6-4.5L21 5.5 12 2z" fill="#C3002F"/>
+        <path d="M12 5.5L7.5 16h1.7l.9-2.3h3.8l.9 2.3h1.7L12 5.5zm0 3l1.4 3.7h-2.8L12 8.5z" fill="white"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Vue.js',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <path d="M12 21L1 3h4.5L12 14.5 18.5 3H23L12 21z" fill="#41B883"/>
+        <path d="M12 21L7.5 13 5 9h4l3 5.5L15 9h4l-2.5 4L12 21z" fill="#35495E"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Express',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <rect width="24" height="24" rx="3" fill="#000"/>
+        <text x="3" y="15" fontSize="7.5" fontWeight="bold" fill="white" fontFamily="Arial">express</text>
+      </svg>
+    ),
+  },
+  // ── IAs ──
+  {
+    name: 'ChatGPT',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <circle cx="12" cy="12" r="11" fill="#10A37F"/>
+        <path d="M12 5.5a4.5 4.5 0 0 1 4.24 6.01l.01.01A3.5 3.5 0 0 1 13 18.5H11a3.5 3.5 0 0 1-3.25-4.98A4.5 4.5 0 0 1 12 5.5zm0 1.5a3 3 0 0 0-2.6 4.5l.3.5-.2.55A2 2 0 0 0 11 15h2a2 2 0 0 0 1.5-3.35l-.2-.3.1-.4A3 3 0 0 0 12 7z" fill="white"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Claude',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <rect width="24" height="24" rx="6" fill="#D97757"/>
+        <text x="12" y="16" textAnchor="middle" fontSize="9" fontWeight="bold" fill="white" fontFamily="Arial">C</text>
+      </svg>
+    ),
+  },
+  {
+    name: 'Copilot',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <defs>
+          <linearGradient id="cop-g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#7B61FF"/>
+            <stop offset="100%" stopColor="#00B4D8"/>
+          </linearGradient>
+        </defs>
+        <rect width="24" height="24" rx="6" fill="url(#cop-g)"/>
+        <circle cx="9" cy="10" r="2.5" fill="white"/>
+        <circle cx="15" cy="10" r="2.5" fill="white"/>
+        <circle cx="9" cy="10" r="1" fill="#7B61FF"/>
+        <circle cx="15" cy="10" r="1" fill="#7B61FF"/>
+        <path d="M8 15c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  // ── Herramientas / Testing ──
+  {
+    name: 'Postman',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <circle cx="12" cy="12" r="11" fill="#FF6C37"/>
+        <path d="M13.5 8.5a4 4 0 1 1-5.66 5.66L13.5 8.5z" fill="white" opacity=".9"/>
+        <path d="M10 10l4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="14.5" cy="9.5" r="1.5" fill="white"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'VS Code',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <defs>
+          <linearGradient id="vsc-g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#0065A9"/>
+            <stop offset="100%" stopColor="#0078D4"/>
+          </linearGradient>
+        </defs>
+        <path d="M17 2L7 12.5 3 9l-1 1 4.5 4.5L2 18l1 1 4-2.5L17 22l4-2V4l-4-2zm2 17.5l-9-5.5 9-5.5v11z" fill="url(#vsc-g)"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Docker',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <path d="M13 8h2V6h-2v2zm-3 0h2V6h-2v2zm-3 0h2V6H7v2zm3-3h2V3h-2v2zm-3 3h2V6H4v2zm9 0h2V6h-2v2z" fill="#2496ED"/>
+        <path d="M21.8 10.3c-.4-.3-1.4-.4-2.1-.3-.1-.8-.6-1.5-1.4-2l-.5-.3-.3.5c-.3.5-.4 1.3-.3 1.9-.4-.2-.9-.3-1.4-.3H2.2l-.1.5C2 11.5 2 12.5 2.5 13.5c.5 1.1 1.4 1.9 2.5 2.3.5.2 1 .3 1.5.3.7 0 1.3-.1 1.9-.4.5.4 1.1.6 1.8.6h1.1c.4 0 .8-.1 1.1-.3.3.2.7.3 1.1.3h.5c.4 0 .8-.1 1.1-.3.3.2.7.3 1.1.3h.2c1.5 0 2.8-.8 3.5-2 .8.1 1.8-.1 2.3-.7l.3-.3-.2-.3z" fill="#2496ED"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'GitHub',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18c-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z" fill="#181717"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Netlify',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <path d="M16.9 10.6l-.4-.1-2.8-2.8.1-.5 1-4.6L13.5 2l-3.4 5.3-.3.2-5.6.8L3 9.5l4 3.9.1.4-.9 5.5 1.3.7 4.9-2.6.4.1 4.9 2.6 1.3-.7-.9-5.5.1-.4 4-3.9-1.3-1.2-4 .2zm-5.4 4.5l-2.9 1.5.5-3.3-2.4-2.3 3.3-.5 1.5-3 1.5 3 3.3.5-2.4 2.3.5 3.3-2.9-1.5z" fill="#00C7B7"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Vercel',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-7 h-7">
+        <path d="M12 2L2 20h20L12 2z" fill="#000"/>
       </svg>
     ),
   },

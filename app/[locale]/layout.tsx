@@ -69,7 +69,7 @@ const jsonLd = {
   },
   founder: {
     '@type': 'Person',
-    name: 'Juan Ramón Moreno Bravo',
+    name: 'Ing. Juan R.',
     jobTitle: 'Software Architect & Full-Stack Developer',
     sameAs: 'https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/',
   },
