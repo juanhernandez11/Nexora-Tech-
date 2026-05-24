@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/layout/Navbar';
 import MobileMenu from '@/components/layout/MobileMenu';
-import AccessibilityWidget from '@/components/layout/AccessibilityWidget';
 import Hero from '@/components/sections/Hero';
 import Solutions from '@/components/sections/Solutions';
 import SuccessCases from '@/components/sections/SuccessCases';
@@ -10,6 +10,11 @@ import WorkProcess from '@/components/sections/WorkProcess';
 import FAQ from '@/components/sections/FAQ';
 import ContactForm from '@/components/sections/ContactForm';
 import Footer from '@/components/layout/Footer';
+
+const AccessibilityWidget = dynamic(
+  () => import('@/components/layout/AccessibilityWidget'),
+  { ssr: false }
+);
 
 export default function HomePage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
