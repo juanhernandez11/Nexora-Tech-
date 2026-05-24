@@ -17,7 +17,7 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const baseUrl = 'https://NEXORATECH.com';
+  const baseUrl = 'https://nexorate.netlify.app';
   const canonicalUrl = locale === 'es' ? baseUrl : `${baseUrl}/${locale}`;
 
   return {
@@ -59,8 +59,8 @@ const jsonLd = {
   '@type': 'LocalBusiness',
   name: 'Nexora Tech',
   description: 'Desarrollo de software a medida, automatización de procesos e integración de IA para empresas en México.',
-  url: 'https://NEXORATECH.com',
-  logo: 'https://NEXORATECH.com/favicon.svg',
+  url: 'https://nexorate.netlify.app',
+  logo: 'https://nexorate.netlify.app/favicon.svg',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tehuacán',

@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/api/',
     },
-    sitemap: 'https://NEXORATECH.com/sitemap.xml',
-    host: 'https://NEXORATECH.com',
+    sitemap: 'https://nexorate.netlify.app/sitemap.xml',
+    host: 'https://nexorate.netlify.app',
   };
 }

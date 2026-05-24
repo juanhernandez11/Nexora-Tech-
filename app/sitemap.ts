@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-const baseUrl = 'https://NEXORATECH.com';
+const baseUrl = 'https://nexorate.netlify.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
