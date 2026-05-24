@@ -47,7 +47,7 @@ export default async function TermsPage({ params: { locale } }: { params: { loca
           <section>
             <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">4. Pagos y facturación</h2>
             <ul className="list-disc list-inside space-y-2 text-sm mt-2">
-              <li>Los precios se cotizan en USD o MXN según acuerdo previo.</li>
+              <li>Los precios se cotizan en <strong>USD</strong> según propuesta personalizada.</li>
               <li>Se requiere un anticipo del 50% para iniciar el proyecto.</li>
               <li>El saldo restante se liquida al momento de la entrega final.</li>
               <li>Los pagos no son reembolsables una vez iniciado el desarrollo, salvo incumplimiento por parte de NEXORATECH Solutions.</li>
@@ -59,7 +59,7 @@ export default async function TermsPage({ params: { locale } }: { params: { loca
           </section>
           <section>
             <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">6. Revisiones y cambios</h2>
-            <p>Cada proyecto incluye hasta <strong>3 rondas de revisiones</strong> sin costo adicional dentro del alcance acordado. Las modificaciones que excedan el alcance original serán cotizadas por separado.</p>
+            <p>Cada proyecto incluye <strong>revisiones ilimitadas</strong> durante el desarrollo dentro del alcance acordado, hasta que el cliente esté 100% satisfecho con el resultado. Las modificaciones que excedan el alcance original serán cotizadas por separado.</p>
           </section>
           <section>
             <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">7. Soporte post-entrega</h2>

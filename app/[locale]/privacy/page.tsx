@@ -37,7 +37,7 @@ export default async function PrivacyPage({ params: { locale } }: { params: { lo
             <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
               <li>Nombre completo</li>
               <li>Correo electrónico</li>
-              <li>Nombre de la empresa (opcional)</li>
+              <li>Tipo de proyecto o servicio de interés</li>
               <li>Mensaje o descripción del proyecto</li>
             </ul>
             <p className="mt-3">No recopilamos datos sensibles, financieros ni de menores de edad.</p>

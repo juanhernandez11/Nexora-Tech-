@@ -20,6 +20,32 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid email format' },
+        { status: 400 }
+      );
+    }
+
+    // Limitar longitud de campos
+    if (name.length > 100 || email.length > 200 || message.length > 5000) {
+      return NextResponse.json(
+        { success: false, message: 'Field too long' },
+        { status: 400 }
+      );
+    }
+
+    // Sanitizar para evitar inyección HTML en el email
+    const sanitize = (str: string) =>
+      str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+    const safeName        = sanitize(name.trim());
+    const safeEmail       = sanitize(email.trim());
+    const safeProjectType = sanitize((projectType || '').trim());
+    const safeMessage     = sanitize(message.trim());
+
     const emailUser = process.env.EMAIL_USER;
     const emailPass = process.env.EMAIL_PASS;
 
@@ -46,8 +72,8 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from: `"Nexora Tech" <${emailUser}>`,
       to: emailUser,
-      subject: `Nuevo contacto de ${name} — Nexora Tech`,
-      replyTo: email,
+      subject: `Nuevo contacto de ${safeName} — Nexora Tech`,
+      replyTo: safeEmail,
       html: `
         <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:0 auto;background:#f8fafc;padding:32px;border-radius:16px;">
           <div style="background:#4F46E5;padding:20px 32px;border-radius:12px;margin-bottom:24px;">
@@ -56,19 +82,19 @@ export async function POST(req: NextRequest) {
           <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">
             <tr style="border-bottom:1px solid #e2e8f0;">
               <td style="padding:14px 20px;font-weight:700;color:#475569;width:160px;background:#f8fafc;">Nombre</td>
-              <td style="padding:14px 20px;color:#0f172a;">${name}</td>
+              <td style="padding:14px 20px;color:#0f172a;">${safeName}</td>
             </tr>
             <tr style="border-bottom:1px solid #e2e8f0;">
               <td style="padding:14px 20px;font-weight:700;color:#475569;background:#f8fafc;">Email</td>
-              <td style="padding:14px 20px;color:#0f172a;"><a href="mailto:${email}" style="color:#4F46E5;">${email}</a></td>
+              <td style="padding:14px 20px;color:#0f172a;"><a href="mailto:${safeEmail}" style="color:#4F46E5;">${safeEmail}</a></td>
             </tr>
             <tr style="border-bottom:1px solid #e2e8f0;">
               <td style="padding:14px 20px;font-weight:700;color:#475569;background:#f8fafc;">Tipo de proyecto</td>
-              <td style="padding:14px 20px;color:#0f172a;">${projectType || 'No especificado'}</td>
+              <td style="padding:14px 20px;color:#0f172a;">${safeProjectType || 'No especificado'}</td>
             </tr>
             <tr>
               <td style="padding:14px 20px;font-weight:700;color:#475569;background:#f8fafc;vertical-align:top;">Mensaje</td>
-              <td style="padding:14px 20px;color:#0f172a;line-height:1.7;">${message.replace(/\n/g, '<br/>')}</td>
+              <td style="padding:14px 20px;color:#0f172a;line-height:1.7;">${safeMessage.replace(/\n/g, '<br/>')}</td>
             </tr>
           </table>
           <p style="color:#94a3b8;font-size:12px;margin-top:24px;text-align:center;">
@@ -86,14 +112,14 @@ export async function POST(req: NextRequest) {
       html: `
         <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:0 auto;background:#f8fafc;padding:32px;border-radius:16px;">
           <div style="background:#4F46E5;padding:20px 32px;border-radius:12px;margin-bottom:24px;">
-            <h2 style="color:#fff;margin:0;font-size:20px;">¡Gracias por contactarnos, ${name}!</h2>
+            <h2 style="color:#fff;margin:0;font-size:20px;">¡Gracias por contactarnos, ${safeName}!</h2>
           </div>
           <p style="color:#475569;line-height:1.7;font-size:15px;">
             Hemos recibido tu solicitud correctamente. Te contactaremos en las próximas <strong style="color:#0f172a;">24 horas</strong> con una propuesta personalizada para tu proyecto.
           </p>
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin:24px 0;">
             <p style="margin:0;font-weight:700;color:#475569;font-size:13px;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Tu mensaje:</p>
-            <p style="margin:0;color:#0f172a;line-height:1.7;">${message.replace(/\n/g, '<br/>')}</p>
+            <p style="margin:0;color:#0f172a;line-height:1.7;">${safeMessage.replace(/\n/g, '<br/>')}</p>
           </div>
           <p style="color:#475569;line-height:1.7;font-size:15px;">
             Si tienes alguna pregunta urgente, puedes escribirme directamente en 
