@@ -92,7 +92,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
           { q: '¿Mi equipo puede aprender a usarlo fácilmente?', a: 'Sí. Diseñamos la UX pensando en usuarios no técnicos. Incluimos capacitación y documentación de usuario en la entrega.' },
           { q: '¿Puedo agregar módulos después?', a: 'Sí. Desarrollamos con arquitectura modular. Puedes empezar con el pipeline básico y agregar módulos de marketing, soporte o facturación en fases posteriores.' },
         ]}
-        tech={['React', 'TypeScript', 'Node.js', 'MySQL', 'Firebase', 'REST APIs', 'WhatsApp Business API', 'Tailwind CSS', 'Next.js']}
+        tech={['React', 'TypeScript', 'Node.js', 'MySQL', 'Firebase', 'REST APIs', 'WhatsApp Business API', 'Tailwind CSS', 'Next.js', 'Iconify', 'Simple Icons']}
         ctaText="Diseñar mi CRM ideal — Gratis"
         relatedServices={[
           { name: 'ERP Empresarial', href: '/servicios/erp-empresarial' },
