@@ -31,6 +31,7 @@ const TECH_LOGOS: { name: string; key: keyof typeof TECH_ICON_DATA }[] = [
   { name: 'CSS3',            key: 'css3' },
   { name: 'Sass',            key: 'sass' },
   { name: 'Bootstrap',       key: 'bootstrap' },
+  { name: 'Railway',         key: 'railway' },
   { name: 'Copilot',         key: 'githubcopilot' },
 ];
 
