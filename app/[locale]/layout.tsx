@@ -24,6 +24,13 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     metadataBase: new URL(baseUrl),
+    icons: {
+      icon: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+      apple: '/favicon.svg',
+      shortcut: '/favicon.svg',
+    },
     alternates: {
       canonical: canonicalUrl,
       languages: {

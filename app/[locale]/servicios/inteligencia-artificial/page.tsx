@@ -92,7 +92,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
           { q: '¿Qué tan segura es la IA con datos confidenciales?', a: 'Implementamos las mejores prácticas de seguridad. Los datos sensibles nunca se envían a APIs externas sin encriptación. Podemos usar modelos locales para casos con alta confidencialidad.' },
           { q: '¿Cuánto tiempo tarda implementar IA?', a: 'Chatbots y asistentes simples: 2-3 semanas. Sistemas de análisis predictivo: 4-8 semanas. Machine learning personalizado: 8-16 semanas.' },
         ]}
-        tech={['Google Gemini', 'OpenAI GPT-4', 'AWS SageMaker', 'LangChain', 'Python', 'Node.js', 'Firebase', 'REST APIs', 'TypeScript']}
+        tech={['Google Gemini', 'OpenAI GPT-4', 'AWS SageMaker', 'LangChain', 'Node.js', 'Firebase', 'REST APIs', 'TypeScript']}
         ctaText="Descubrir cómo la IA puede ayudarte"
         relatedServices={[
           { name: 'Automatización Empresarial', href: '/servicios/automatizacion-empresarial' },

@@ -91,7 +91,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
           { q: '¿Qué pasa si el proceso cambia después?', a: 'Los sistemas que desarrollamos son configurables. Cambios menores los hacemos en el soporte post-lanzamiento. Cambios mayores se cotizan por separado.' },
           { q: '¿Pueden automatizar procesos con Excel o Google Sheets?', a: 'Sí. Podemos automatizar la generación, actualización y distribución de reportes en Excel/Sheets, o migrar esos procesos a un sistema más robusto.' },
         ]}
-        tech={['Node.js', 'Python', 'REST APIs', 'Webhooks', 'Firebase', 'MySQL', 'Google Sheets API', 'Office Scripts', 'Zapier', 'n8n']}
+        tech={['Node.js', 'REST APIs', 'Webhooks', 'Firebase', 'MySQL', 'Google Sheets API', 'Office Scripts', 'Zapier', 'n8n']}
         ctaText="Analizar qué automatizar — Gratis"
         relatedServices={[
           { name: 'Software a Medida', href: '/servicios/software-a-medida' },
