@@ -77,7 +77,7 @@ const jsonLd = [
       height: 512,
     },
     image: 'https://nexorate.netlify.app/og-image.jpg',
-    email: 'freelancejuanbvtech4@gmail.com',
+    email: 'contactonexoratech@gmail.com',
     foundingDate: '2023',
     address: {
       '@type': 'PostalAddress',
