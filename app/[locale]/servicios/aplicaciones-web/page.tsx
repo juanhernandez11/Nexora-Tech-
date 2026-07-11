@@ -95,7 +95,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
         tech={['React', 'TypeScript', 'Next.js', 'Firebase', 'Node.js', 'PWA', 'Service Workers', 'MySQL', 'MongoDB', 'Tailwind CSS']}
         ctaText="Solicitar consultoría gratuita"
         relatedServices={[
-          { name: 'Desarrollo de Software', href: '/servicios/desarrollo-software' },
+          { name: 'ERP Empresarial', href: '/servicios/erp-empresarial' },
           { name: 'Software a Medida', href: '/servicios/software-a-medida' },
           { name: 'Inteligencia Artificial', href: '/servicios/inteligencia-artificial' },
           { name: 'CRM Personalizado', href: '/servicios/crm-personalizado' },

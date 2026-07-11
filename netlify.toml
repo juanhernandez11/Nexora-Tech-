@@ -4,3 +4,26 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Cache de assets estáticos
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/og-image.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Forzar HTTPS
+[[redirects]]
+  from = "http://nexorate.netlify.app/*"
+  to = "https://nexorate.netlify.app/:splat"
+  status = 301
+  force = true

@@ -96,7 +96,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
         ctaText="Descubrir cómo la IA puede ayudarte"
         relatedServices={[
           { name: 'Automatización Empresarial', href: '/servicios/automatizacion-empresarial' },
-          { name: 'Desarrollo de Software', href: '/servicios/desarrollo-software' },
+          { name: 'Software a Medida', href: '/servicios/software-a-medida' },
           { name: 'Consultoría Tecnológica', href: '/servicios/consultoria-tecnologica' },
           { name: 'CRM Personalizado', href: '/servicios/crm-personalizado' },
         ]}
