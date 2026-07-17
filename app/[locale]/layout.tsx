@@ -166,6 +166,11 @@ export default async function LocaleLayout({
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" />
         </noscript>
         <meta name="google-site-verification" content="K2Pr9c4pJIz1illvhuu03_TDfK_ggSnMsylbPK7HBds" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1411171033625450"
+          crossOrigin="anonymous"
+        />
         {jsonLd.map((schema, i) => (
           <script
             key={i}
