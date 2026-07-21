@@ -17,7 +17,7 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const baseUrl = 'https://nexorate.netlify.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   const canonicalUrl = locale === 'es' ? baseUrl : `${baseUrl}/${locale}`;
 
   return {
@@ -61,22 +61,24 @@ export async function generateMetadata({
   };
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'LocalBusiness'],
-    '@id': 'https://nexorate.netlify.app/#organization',
+    '@id': `${SITE_URL}/#organization`,
     name: 'Nexora Tech',
     legalName: 'Nexora Tech Solutions',
     description: 'Empresa especializada en desarrollo de software a medida, automatización empresarial e integración de inteligencia artificial para PyMEs y corporativos en México.',
-    url: 'https://nexorate.netlify.app',
+    url: SITE_URL,
     logo: {
       '@type': 'ImageObject',
-      url: 'https://nexorate.netlify.app/favicon.svg',
+      url: `${SITE_URL}/favicon.svg`,
       width: 512,
       height: 512,
     },
-    image: 'https://nexorate.netlify.app/og-image.jpg',
+    image: `${SITE_URL}/og-image.jpg`,
     email: 'contactonexoratech@gmail.com',
     foundingDate: '2023',
     address: {
@@ -120,14 +122,14 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': 'https://nexorate.netlify.app/#founder',
+    '@id': `${SITE_URL}/#founder`,
     name: 'Juan Ramón Moreno Bravo',
     jobTitle: 'Software Architect & Full-Stack Developer',
     description: 'Especialista en desarrollo de software a medida, automatización empresarial e integración de IA con más de 2 años de experiencia y 15+ proyectos entregados en México.',
-    url: 'https://nexorate.netlify.app',
+    url: SITE_URL,
     sameAs: ['https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/'],
     knowsAbout: ['Desarrollo de Software', 'React', 'TypeScript', 'Next.js', 'Node.js', 'Inteligencia Artificial', 'Automatización Empresarial', 'Firebase', 'MySQL', 'Google Gemini'],
-    worksFor: { '@id': 'https://nexorate.netlify.app/#organization' },
+    worksFor: { '@id': `${SITE_URL}/#organization` },
   },
 ];
 

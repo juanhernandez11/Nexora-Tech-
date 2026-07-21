@@ -11,13 +11,15 @@ interface FormData {
   email: string;
   projectType: string;
   message: string;
+  /** Honeypot: debe quedar siempre vacío. Los bots lo llenan automáticamente. */
+  website: string;
 }
 
 const ContactForm = () => {
   const t = useTranslations('contact');
   const locale      = useLocale() as Locale;
   const base        = locale === 'en' ? '/en' : '';
-  const [formData, setFormData] = useState<FormData>({ name: '', email: '', projectType: '', message: '' });
+  const [formData, setFormData] = useState<FormData>({ name: '', email: '', projectType: '', message: '', website: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [ref, inView] = useInView(0.06);
 
@@ -35,7 +37,7 @@ const ContactForm = () => {
       const data = await res.json();
       if (data.success) {
         setStatus('success');
-        setFormData({ name: '', email: '', projectType: '', message: '' });
+        setFormData({ name: '', email: '', projectType: '', message: '', website: '' });
         setTimeout(() => setStatus('idle'), 6000);
       } else {
         setStatus('error');
@@ -141,6 +143,19 @@ const ContactForm = () => {
                   <div>
                     <label htmlFor="message" className="block text-xs font-black text-slate-700 uppercase tracking-widest mb-2">{t('labelMessage')} *</label>
                     <textarea id="message" name="message" value={formData.message} onChange={handleChange} required rows={4} placeholder={t('placeholderMessage')} className="w-full px-4 py-3.5 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-900 font-medium text-sm focus:border-brand-500 focus:outline-none transition-colors resize-none" />
+                  </div>
+                  {/* Honeypot: campo invisible para humanos. Los bots lo llenan → bloqueado en la API */}
+                  <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none', tabIndex: -1 } as React.CSSProperties}>
+                    <label htmlFor="website">Website</label>
+                    <input
+                      id="website"
+                      type="text"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      autoComplete="off"
+                      tabIndex={-1}
+                    />
                   </div>
                   <button type="submit" disabled={status === 'sending'} className="w-full bg-brand-600 text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm hover:bg-brand-700 transition-all shadow-brand hover:shadow-brand-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 group">
                     {status === 'sending' ? (

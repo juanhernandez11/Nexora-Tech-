@@ -1,18 +1,85 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+// ─── Rate Limiting (en memoria) ────────────────────────────────────────────────
+// Máximo 3 envíos por IP cada 15 minutos.
+// En memoria es suficiente para un sitio de portafolio/agencia pequeña.
+// Si escalas a múltiples instancias, reemplaza con Redis.
+
+const RATE_LIMIT_MAX      = 3;           // intentos permitidos
+const RATE_LIMIT_WINDOW   = 15 * 60 * 1000; // 15 minutos en ms
+
+interface RateEntry {
+  count: number;
+  firstRequest: number;
+}
+
+const rateLimitMap = new Map<string, RateEntry>();
+
+function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    req.headers.get('x-real-ip') ??
+    'unknown'
+  );
+}
+
+function isRateLimited(ip: string): boolean {
+  const now   = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry) {
+    rateLimitMap.set(ip, { count: 1, firstRequest: now });
+    return false;
+  }
+
+  // La ventana expiró → resetear contador
+  if (now - entry.firstRequest > RATE_LIMIT_WINDOW) {
+    rateLimitMap.set(ip, { count: 1, firstRequest: now });
+    return false;
+  }
+
+  // Dentro de la ventana → incrementar
+  entry.count += 1;
+  if (entry.count > RATE_LIMIT_MAX) return true;
+
+  return false;
+}
+
+// ─── Tipos ─────────────────────────────────────────────────────────────────────
+
 interface ContactBody {
   name: string;
   email: string;
   projectType: string;
   message: string;
+  /** Campo honeypot: debe llegar vacío siempre. Si tiene valor, es un bot. */
+  website?: string;
 }
+
+// ─── Handler ───────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
-    const body: ContactBody = await req.json();
-    const { name, email, projectType, message } = body;
+    // 1. Rate limiting por IP
+    const ip = getClientIp(req);
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { success: false, message: 'Too many requests. Please wait a few minutes.' },
+        { status: 429 }
+      );
+    }
 
+    const body: ContactBody = await req.json();
+    const { name, email, projectType, message, website } = body;
+
+    // 2. Honeypot: si el campo "website" tiene cualquier valor, es un bot
+    if (website) {
+      // Respondemos 200 para no delatar la trampa al bot
+      return NextResponse.json({ success: true });
+    }
+
+    // 3. Validación de campos obligatorios
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json(
         { success: false, message: 'Missing required fields' },
@@ -20,7 +87,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validar formato de email
+    // 4. Validar formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
@@ -29,7 +96,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Limitar longitud de campos
+    // 5. Limitar longitud de campos
     if (name.length > 100 || email.length > 200 || message.length > 5000) {
       return NextResponse.json(
         { success: false, message: 'Field too long' },
@@ -37,7 +104,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Sanitizar para evitar inyección HTML en el email
+    // 6. Sanitizar para evitar inyección HTML en el email
     const sanitize = (str: string) =>
       str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -49,7 +116,6 @@ export async function POST(req: NextRequest) {
     const emailUser = process.env.EMAIL_USER;
     const emailPass = process.env.EMAIL_PASS;
 
-    // Validar que las credenciales están configuradas
     if (!emailUser || !emailPass) {
       console.error('[Contact API] EMAIL_USER or EMAIL_PASS not set in environment variables');
       return NextResponse.json(
@@ -122,7 +188,7 @@ export async function POST(req: NextRequest) {
             <p style="margin:0;color:#0f172a;line-height:1.7;">${safeMessage.replace(/\n/g, '<br/>')}</p>
           </div>
           <p style="color:#475569;line-height:1.7;font-size:15px;">
-            Si tienes alguna pregunta urgente, puedes escribirme directamente en 
+            Si tienes alguna pregunta urgente, puedes escribirme directamente en
             <a href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/" style="color:#4F46E5;">LinkedIn</a>.
           </p>
           <p style="color:#475569;margin-top:24px;font-size:15px;">
