@@ -2,8 +2,14 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import ServicePageClient from '@/components/sections/ServicePageClient';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
-const BASE = 'https://nexorate.netlify.app';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+
+export async function generateStaticParams() {
+  return [{ locale: 'es' }, { locale: 'en' }];
+}
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   return {
@@ -46,6 +52,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       {schemas.map((s, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />
       ))}
+      <Navbar />
       <div className="pt-20">
         <nav className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 text-xs text-slate-400 flex items-center gap-2">
           <Link href={`${base}/`} className="hover:text-brand-600 transition-colors">Inicio</Link>
@@ -101,6 +108,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
           { name: 'Consultoría Tecnológica', href: '/servicios/consultoria-tecnologica' },
         ]}
       />
+      <Footer />
     </>
   );
 }

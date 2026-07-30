@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { ArrowRight, Code, Zap, Brain, Globe, Smartphone, Database, BarChart3, Settings, Lightbulb } from 'lucide-react';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
 const SERVICES = [
   { icon: Code,        slug: 'desarrollo-software',        name: 'Desarrollo de Software',         desc: 'Aplicaciones empresariales a medida con React, TypeScript y Node.js.',          keyword: 'desarrollo de software méxico' },
@@ -15,8 +17,12 @@ const SERVICES = [
   { icon: Lightbulb,   slug: 'consultoria-tecnologica',     name: 'Consultoría Tecnológica',         desc: 'Toma decisiones tecnológicas con expertos que conocen tu industria.',            keyword: 'consultoría tecnológica empresas méxico' },
 ];
 
+export async function generateStaticParams() {
+  return [{ locale: 'es' }, { locale: 'en' }];
+}
+
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const baseUrl = 'https://nexorate.netlify.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
   return {
     title: 'Servicios de Desarrollo de Software y Automatización | Nexora Tech',
     description: 'Desarrollo de software a medida, automatización empresarial, IA, CRM, ERP y consultoría tecnológica para empresas en México. Consultoría gratuita.',
@@ -35,14 +41,15 @@ export default function ServiciosPage({ params: { locale } }: { params: { locale
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://nexorate.netlify.app' },
-      { '@type': 'ListItem', position: 2, name: 'Servicios', item: 'https://nexorate.netlify.app/servicios' },
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: baseUrl },
+      { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${baseUrl}/servicios` },
     ],
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <Navbar />
       <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
         <section className="relative pt-32 pb-20 overflow-hidden">
           <div className="absolute inset-0 -z-10">
@@ -102,6 +109,7 @@ export default function ServiciosPage({ params: { locale } }: { params: { locale
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 }

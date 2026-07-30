@@ -23,7 +23,7 @@
 
 # Forzar HTTPS
 [[redirects]]
-  from = "http://nexorate.netlify.app/*"
-  to = "https://nexorate.netlify.app/:splat"
+  from = "http://nexoratech.netlify.app/*"
+  to = "https://nexoratech.netlify.app/:splat"
   status = 301
   force = true

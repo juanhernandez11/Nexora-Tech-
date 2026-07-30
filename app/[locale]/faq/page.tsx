@@ -2,6 +2,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import FAQClient from './FAQClient';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
 const faqItems = [
   // Comerciales
@@ -59,12 +61,16 @@ const faqItems = [
   { q: '¿Cómo protegen la propiedad intelectual de mi idea o negocio?', a: 'Firmamos NDA antes de cualquier conversación técnica. El código y todos los activos desarrollados son 100% tuyos al finalizar. No reutilizamos código propietario de un cliente en otro proyecto.' },
 ];
 
+export async function generateStaticParams() {
+  return [{ locale: 'es' }, { locale: 'en' }];
+}
+
 export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const baseUrl = 'https://nexorate.netlify.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
   const isEs = locale === 'es';
   return {
     title: isEs
@@ -101,8 +107,8 @@ export default async function FAQPage({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://nexorate.netlify.app' },
-      { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://nexorate.netlify.app/faq' },
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: baseUrl },
+      { '@type': 'ListItem', position: 2, name: 'FAQ', item: `${baseUrl}/faq` },
     ],
   };
 
@@ -110,6 +116,7 @@ export default async function FAQPage({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <Navbar />
       <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
           <nav className="text-xs text-slate-400 mb-10 flex items-center gap-2">
@@ -154,6 +161,7 @@ export default async function FAQPage({
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

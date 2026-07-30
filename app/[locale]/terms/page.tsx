@@ -1,13 +1,21 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { FileText } from 'lucide-react';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+
+export async function generateStaticParams() {
+  return [{ locale: 'es' }, { locale: 'en' }];
+}
 
 export default async function TermsPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'terms' });
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-[#FDFDFD] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       <div className="max-w-3xl mx-auto px-6 py-20">
         <Link
           href={locale === 'en' ? '/en' : '/'}
@@ -98,6 +106,8 @@ export default async function TermsPage({ params: { locale } }: { params: { loca
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">© {new Date().getFullYear()} NEXORATECH Solutions · Tehuacán, Puebla, México</p>
         </div>
       </div>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }

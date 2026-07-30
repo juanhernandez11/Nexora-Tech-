@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
-const lastMod = new Date('2026-01-01');
+const lastMod = new Date('2025-07-01');
 
 const servicios = [
   'desarrollo-software',
