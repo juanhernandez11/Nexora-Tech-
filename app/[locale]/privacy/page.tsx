@@ -36,63 +36,61 @@ export default async function PrivacyPage({ params: { locale } }: { params: { lo
 
         <div className="space-y-10 text-slate-600 dark:text-slate-300 leading-relaxed">
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">1. Responsable del tratamiento</h2>
-            <p>NEXORATECH Solutions, con sede en Tehuacán, Puebla, México, es el responsable del tratamiento de los datos personales que usted nos proporcione a través de este sitio web.</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s1Title')}</h2>
+            <p>{t('s1Text')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">2. Datos que recopilamos</h2>
-            <p>A través del formulario de contacto recopilamos únicamente:</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s2Title')}</h2>
+            <p>{t('s2Text')}</p>
             <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
-              <li>Nombre completo</li>
-              <li>Correo electrónico</li>
-              <li>Tipo de proyecto o servicio de interés</li>
-              <li>Mensaje o descripción del proyecto</li>
+              {(t.raw('s2Items') as string[]).map((item: string, i: number) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
-            <p className="mt-3">No recopilamos datos sensibles, financieros ni de menores de edad.</p>
+            <p className="mt-3">{t('s2Note')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">3. Finalidad del tratamiento</h2>
-            <p>Los datos recopilados se utilizan exclusivamente para:</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s3Title')}</h2>
+            <p>{t('s3Text')}</p>
             <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
-              <li>Responder a sus consultas y solicitudes de servicio</li>
-              <li>Enviar información relacionada con los servicios solicitados</li>
-              <li>Gestionar la relación comercial entre las partes</li>
+              {(t.raw('s3Items') as string[]).map((item: string, i: number) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">4. Compartición de datos</h2>
-            <p>Sus datos personales <strong>no serán vendidos, cedidos ni compartidos</strong> con terceros, salvo obligación legal o cuando sea estrictamente necesario para prestar el servicio contratado (por ejemplo, plataformas de envío de correo como Nodemailer/SMTP).</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s4Title')}</h2>
+            <p>{t('s4Text')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">5. Conservación de datos</h2>
-            <p>Los datos se conservarán durante el tiempo necesario para atender su solicitud y, posteriormente, durante el plazo legalmente exigido o hasta que usted solicite su eliminación.</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s5Title')}</h2>
+            <p>{t('s5Text')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">6. Sus derechos (ARCO)</h2>
-            <p>De conformidad con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (México), usted tiene derecho a:</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s6Title')}</h2>
+            <p>{t('s6Text')}</p>
             <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
-              <li><strong>Acceso</strong> — conocer qué datos tenemos sobre usted</li>
-              <li><strong>Rectificación</strong> — corregir datos inexactos</li>
-              <li><strong>Cancelación</strong> — solicitar la eliminación de sus datos</li>
-              <li><strong>Oposición</strong> — oponerse al tratamiento de sus datos</li>
+              {(t.raw('s6Items') as string[]).map((item: string, i: number) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
-            <p className="mt-3">Para ejercer estos derechos, contáctenos a través del formulario de contacto del sitio.</p>
+            <p className="mt-3">{t('s6Note')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">7. Cookies y tecnologías de rastreo</h2>
-            <p>Este sitio web no utiliza cookies de rastreo ni herramientas de analítica de terceros. Únicamente se utiliza <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded text-xs">localStorage</code> del navegador para guardar preferencias de accesibilidad y modo oscuro de forma local en su dispositivo.</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s7Title')}</h2>
+            <p>{t('s7Text')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">8. Seguridad</h2>
-            <p>Implementamos medidas técnicas y organizativas razonables para proteger sus datos contra acceso no autorizado, pérdida o alteración.</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s8Title')}</h2>
+            <p>{t('s8Text')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">9. Cambios en esta política</h2>
-            <p>Nos reservamos el derecho de actualizar esta política. Cualquier cambio será publicado en esta misma página con la fecha de actualización correspondiente.</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s9Title')}</h2>
+            <p>{t('s9Text')}</p>
           </section>
           <section>
-            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">10. Contacto</h2>
-            <p>Para cualquier consulta relacionada con esta política, puede contactarnos a través del formulario disponible en la página principal o mediante LinkedIn.</p>
+            <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 mb-3">{t('s10Title')}</h2>
+            <p>{t('s10Text')}</p>
           </section>
         </div>
 

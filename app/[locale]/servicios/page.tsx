@@ -36,6 +36,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 export default function ServiciosPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
   const base = locale === 'en' ? '/en' : '';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
 
   const breadcrumb = {
     '@context': 'https://schema.org',

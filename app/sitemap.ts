@@ -15,7 +15,7 @@ const servicios = [
   'consultoria-tecnologica',
 ];
 
-const staticPages = ['servicios', 'faq', 'privacy', 'terms'];
+const staticPages = ['servicios', 'faq', 'privacy', 'terms', 'cookies'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const servicioUrls: MetadataRoute.Sitemap = servicios.flatMap((slug) => [

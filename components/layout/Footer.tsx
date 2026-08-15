@@ -86,6 +86,8 @@ const Footer = () => {
             <a href={`${base}/privacy`} className="text-[11px] font-medium text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 uppercase tracking-widest transition-colors">{t('privacy')}</a>
             <span className="text-slate-200 dark:text-slate-700">·</span>
             <a href={`${base}/terms`} className="text-[11px] font-medium text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 uppercase tracking-widest transition-colors">{t('terms')}</a>
+            <span className="text-slate-200 dark:text-slate-700">·</span>
+            <a href={`${base}/cookies`} className="text-[11px] font-medium text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 uppercase tracking-widest transition-colors">{t('cookies')}</a>
           </div>
         </div>
       </div>

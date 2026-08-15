@@ -92,6 +92,7 @@ export default async function FAQPage({
   params: { locale: string };
 }) {
   setRequestLocale(locale);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
 
   const faqSchema = {
     '@context': 'https://schema.org',
