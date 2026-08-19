@@ -70,7 +70,7 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   const isEs = locale === 'es';
   return {
     title: isEs
@@ -92,7 +92,7 @@ export default async function FAQPage({
   params: { locale: string };
 }) {
   setRequestLocale(locale);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
 
   const faqSchema = {
     '@context': 'https://schema.org',

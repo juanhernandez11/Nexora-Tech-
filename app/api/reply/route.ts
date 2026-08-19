@@ -156,7 +156,7 @@ export async function POST(req: NextRequest) {
                 <td>
                   <p style="margin:0;font-size:11px;color:#94A3B8;">
                     © ${new Date().getFullYear()} Nexora Tech ·
-                    <a href="${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com'}" style="color:#4F46E5;text-decoration:none;">${(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com').replace('https://', '')}</a>
+                    <a href="${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app'}" style="color:#4F46E5;text-decoration:none;">${(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app').replace('https://', '')}</a>
                   </p>
                 </td>
                 <td align="right">

@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   return {
     title: 'Servicios de Desarrollo de Software y Automatización | Nexora Tech',
     description: 'Desarrollo de software a medida, automatización empresarial, IA, CRM, ERP y consultoría tecnológica para empresas en México. Consultoría gratuita.',
@@ -36,7 +36,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 export default function ServiciosPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
   const base = locale === 'en' ? '/en' : '';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
 
   const breadcrumb = {
     '@context': 'https://schema.org',

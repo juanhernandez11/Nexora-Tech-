@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   const isEs = locale === 'es';
 
   return {
@@ -32,7 +32,7 @@ export default function BlogPage({ params: { locale } }: { params: { locale: str
 
   const posts = getPostsByLocale(locale);
   const base = locale === 'en' ? '/en' : '';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   const isEs = locale === 'es';
 
   const breadcrumb = {

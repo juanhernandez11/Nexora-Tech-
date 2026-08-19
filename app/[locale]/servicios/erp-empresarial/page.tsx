@@ -5,7 +5,7 @@ import ServicePageClient from '@/components/sections/ServicePageClient';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexoratech.com';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
 
 export async function generateStaticParams() {
   return [{ locale: 'es' }, { locale: 'en' }];
