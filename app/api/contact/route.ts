@@ -164,7 +164,7 @@ export async function POST(req: NextRequest) {
             </tr>
           </table>
           <p style="color:#94a3b8;font-size:12px;margin-top:24px;text-align:center;">
-            Enviado desde nexoratech.com · ${new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })}
+            Enviado desde nexorate.netlify.app · ${new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })}
           </p>
         </div>
       `,
