@@ -10,6 +10,7 @@
     "cases": "Success Cases",
     "process": "Process",
     "contact": "Contact",
+    "blog": "Blog",
     "cta": "Free consultation",
     "tagline": "Software Architecture"
   },
@@ -25,10 +26,22 @@
     "trust3": "100% client satisfaction"
   },
   "stats": [
-    { "value": "15",  "label": "Projects delivered" },
-    { "value": "100%", "label": "Client satisfaction" },
-    { "value": "2",    "label": "Years of experience" },
-    { "value": "<2s",  "label": "Average load time" }
+    {
+      "value": "15",
+      "label": "Projects delivered"
+    },
+    {
+      "value": "100%",
+      "label": "Client satisfaction"
+    },
+    {
+      "value": "2",
+      "label": "Years of experience"
+    },
+    {
+      "value": "<2s",
+      "label": "Average load time"
+    }
   ],
   "solutions": {
     "badge": "Services",
@@ -41,19 +54,31 @@
         "type": "Small Business",
         "title": "SMBs & Local Businesses",
         "description": "Your website is your 24/7 salesperson. We build it to load in under 2 seconds, rank on Google and convert visitors into real customers.",
-        "features": ["Advanced Local SEO", "WordPress Optimization", "Ultra-Responsive Design"]
+        "features": [
+          "Advanced Local SEO",
+          "WordPress Optimization",
+          "Ultra-Responsive Design"
+        ]
       },
       {
         "type": "Mid-Market",
         "title": "Mid-Size Companies",
         "description": "Every manual process we automate is time and money you recover. Management systems, dashboards and automated workflows that eliminate repetitive work.",
-        "features": ["Inventory Systems", "Data Dashboards", "Report Automation"]
+        "features": [
+          "Inventory Systems",
+          "Data Dashboards",
+          "Report Automation"
+        ]
       },
       {
         "type": "Enterprise",
         "title": "Large Corporations",
         "description": "Infrastructures that support 10x growth without refactoring. React, TypeScript and generative AI for companies that can't afford slowness.",
-        "features": ["Generative AI Integration", "Cloud Architectures", "Bank-Grade Security"]
+        "features": [
+          "Generative AI Integration",
+          "Cloud Architectures",
+          "Bank-Grade Security"
+        ]
       }
     ]
   },
@@ -81,7 +106,13 @@
         "metricsShort": "Scalable architecture to 10,000+ users",
         "link": "https://estudiogenius.netlify.app/",
         "gradient": "from-indigo-600 to-violet-600",
-        "tech": ["React", "TypeScript", "Gemini AI", "Firebase", "Netlify"]
+        "tech": [
+          "React",
+          "TypeScript",
+          "Gemini AI",
+          "Firebase",
+          "Netlify"
+        ]
       },
       {
         "title": "Corporate WordPress Infrastructure",
@@ -92,7 +123,12 @@
         "description": "Comprehensive technical optimization that turned all Core Web Vitals green and recovered the site's organic ranking.",
         "metricsShort": "LCP reduced from 6.2s to 1.8s",
         "gradient": "from-blue-600 to-indigo-500",
-        "tech": ["WordPress", "WP Rocket", "Yoast SEO", "Core Web Vitals"]
+        "tech": [
+          "WordPress",
+          "WP Rocket",
+          "Yoast SEO",
+          "Core Web Vitals"
+        ]
       },
       {
         "title": "Healthcare Automation",
@@ -103,7 +139,12 @@
         "description": "Complete digitization of the inventory process for a public health institution with full movement traceability.",
         "metricsShort": "20% reduction in management time",
         "gradient": "from-emerald-500 to-teal-600",
-        "tech": ["HTML5", "CSS3", "JavaScript", "Data Management"]
+        "tech": [
+          "HTML5",
+          "CSS3",
+          "JavaScript",
+          "Data Management"
+        ]
       },
       {
         "title": "Parking Management System",
@@ -114,7 +155,11 @@
         "description": "Marketable product ready for sale to parking lots in Mexico with robust billing logic.",
         "metricsShort": "Product ready for commercialization",
         "gradient": "from-slate-700 to-slate-900",
-        "tech": ["MySQL", "Billing Logic", "Space Management"]
+        "tech": [
+          "MySQL",
+          "Billing Logic",
+          "Space Management"
+        ]
       }
     ]
   },
@@ -176,21 +221,62 @@
     "techTitle": "Technology stack",
     "techSubtitle": "We select the right technology for each project, not the one that's trending.",
     "steps": [
-      { "number": "01", "title": "Discovery",   "description": "We analyze your needs, goals and audience. We audit your current infrastructure and identify bottlenecks.", "duration": "1-2 days" },
-      { "number": "02", "title": "Planning",    "description": "We design the architecture, wireframes and define the optimal technology stack for your specific case.", "duration": "2-3 days" },
-      { "number": "03", "title": "Development", "description": "We build your solution with clean, scalable and documented code. Partial deliveries so you can see progress.", "duration": "1-4 weeks" },
-      { "number": "04", "title": "Launch",      "description": "We deploy, optimize and train you. 30 days of technical support included at no additional cost.", "duration": "1-2 days" }
+      {
+        "number": "01",
+        "title": "Discovery",
+        "description": "We analyze your needs, goals and audience. We audit your current infrastructure and identify bottlenecks.",
+        "duration": "1-2 days"
+      },
+      {
+        "number": "02",
+        "title": "Planning",
+        "description": "We design the architecture, wireframes and define the optimal technology stack for your specific case.",
+        "duration": "2-3 days"
+      },
+      {
+        "number": "03",
+        "title": "Development",
+        "description": "We build your solution with clean, scalable and documented code. Partial deliveries so you can see progress.",
+        "duration": "1-4 weeks"
+      },
+      {
+        "number": "04",
+        "title": "Launch",
+        "description": "We deploy, optimize and train you. 30 days of technical support included at no additional cost.",
+        "duration": "1-2 days"
+      }
     ],
     "guarantees": [
-      { "title": "On-time delivery",      "desc": "We meet agreed deadlines or return the proportional amount." },
-      { "title": "30 days of support",    "desc": "Post-launch technical support included at no additional cost." },
-      { "title": "Documented code",       "desc": "Clean, documented code delivered 100% to the client." }
+      {
+        "title": "On-time delivery",
+        "desc": "We meet agreed deadlines or return the proportional amount."
+      },
+      {
+        "title": "30 days of support",
+        "desc": "Post-launch technical support included at no additional cost."
+      },
+      {
+        "title": "Documented code",
+        "desc": "Clean, documented code delivered 100% to the client."
+      }
     ],
     "techStack": [
-      { "title": "Frontend",              "content": "React, TypeScript, Next.js, Tailwind CSS, Angular" },
-      { "title": "Backend & Cloud",       "content": "Node.js, Firebase, MySQL, MongoDB, REST APIs" },
-      { "title": "Optimization",          "content": "Core Web Vitals, On-Page SEO, WordPress Pro, WCAG Accessibility" },
-      { "title": "AI & Automation",       "content": "Google Gemini, AWS SageMaker, Office Scripts, Git/GitHub" }
+      {
+        "title": "Frontend",
+        "content": "React, TypeScript, Next.js, Tailwind CSS, Angular"
+      },
+      {
+        "title": "Backend & Cloud",
+        "content": "Node.js, Firebase, MySQL, MongoDB, REST APIs"
+      },
+      {
+        "title": "Optimization",
+        "content": "Core Web Vitals, On-Page SEO, WordPress Pro, WCAG Accessibility"
+      },
+      {
+        "title": "AI & Automation",
+        "content": "Google Gemini, AWS SageMaker, Office Scripts, Git/GitHub"
+      }
     ]
   },
   "faq": {
@@ -202,13 +288,34 @@
     "ctaSubtitle": "Write to us directly and we'll respond within 24 hours.",
     "ctaButton": "Talk to NEXORATECH",
     "items": [
-      { "q": "How long does it take to develop a project?", "a": "It depends on complexity. An optimized website takes 1-2 weeks. Complex web applications or AI integrations can take 4-8 weeks. In the initial consultation we give you an exact timeline with clear milestones." },
-      { "q": "What is the cost of your services?", "a": "Projects range from $500 USD for websites to $5,000+ USD for enterprise applications. We offer flexible payment plans (50% upfront, 50% on delivery) and personalized quotes." },
-      { "q": "Do you offer maintenance after launch?", "a": "Yes. We include 30 days of free technical support post-launch. Afterwards we offer monthly maintenance plans from $100 USD with updates, backups and priority support." },
-      { "q": "Do you work with clients outside Mexico?", "a": "Absolutely. We work with clients throughout Latin America and the United States. All communication is remote using modern collaborative tools." },
-      { "q": "What technologies do you use?", "a": "React, TypeScript, Next.js, Node.js, Firebase, MySQL, MongoDB, WordPress and Google Gemini for AI. We select the optimal stack for each specific project." },
-      { "q": "What if I'm not satisfied with the result?", "a": "We work with unlimited revisions during development until you are 100% satisfied. If we don't meet what was agreed, we offer a proportional refund guarantee." },
-      { "q": "How does the payment process work?", "a": "50% at the start of the project to reserve the schedule and begin development. The remaining 50% is paid upon approved final delivery. We accept bank transfer and PayPal." }
+      {
+        "q": "How long does it take to develop a project?",
+        "a": "It depends on complexity. An optimized website takes 1-2 weeks. Complex web applications or AI integrations can take 4-8 weeks. In the initial consultation we give you an exact timeline with clear milestones."
+      },
+      {
+        "q": "What is the cost of your services?",
+        "a": "Projects range from $500 USD for websites to $5,000+ USD for enterprise applications. We offer flexible payment plans (50% upfront, 50% on delivery) and personalized quotes."
+      },
+      {
+        "q": "Do you offer maintenance after launch?",
+        "a": "Yes. We include 30 days of free technical support post-launch. Afterwards we offer monthly maintenance plans from $100 USD with updates, backups and priority support."
+      },
+      {
+        "q": "Do you work with clients outside Mexico?",
+        "a": "Absolutely. We work with clients throughout Latin America and the United States. All communication is remote using modern collaborative tools."
+      },
+      {
+        "q": "What technologies do you use?",
+        "a": "React, TypeScript, Next.js, Node.js, Firebase, MySQL, MongoDB, WordPress and Google Gemini for AI. We select the optimal stack for each specific project."
+      },
+      {
+        "q": "What if I'm not satisfied with the result?",
+        "a": "We work with unlimited revisions during development until you are 100% satisfied. If we don't meet what was agreed, we offer a proportional refund guarantee."
+      },
+      {
+        "q": "How does the payment process work?",
+        "a": "50% at the start of the project to reserve the schedule and begin development. The remaining 50% is paid upon approved final delivery. We accept bank transfer and PayPal."
+      }
     ]
   },
   "contact": {
@@ -285,27 +392,41 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "updated": "Last updated: August 2025",
+    "updated": "Last updated: August 2026",
     "back": "Back to home",
     "s1Title": "1. Data Controller",
     "s1Text": "NEXORATECH Solutions, based in Tehuacán, Puebla, Mexico, is the data controller for the personal data you provide through this website.",
     "s2Title": "2. Data We Collect",
     "s2Text": "Through the contact form we only collect:",
-    "s2Items": ["Full name", "Email address", "Project type or service of interest", "Message or project description"],
+    "s2Items": [
+      "Full name",
+      "Email address",
+      "Project type or service of interest",
+      "Message or project description"
+    ],
     "s2Note": "We do not collect sensitive, financial or minors' data.",
     "s3Title": "3. Purpose of Data Processing",
     "s3Text": "The collected data is used exclusively for:",
-    "s3Items": ["Responding to your inquiries and service requests", "Sending information related to the requested services", "Managing the commercial relationship between the parties"],
+    "s3Items": [
+      "Responding to your inquiries and service requests",
+      "Sending information related to the requested services",
+      "Managing the commercial relationship between the parties"
+    ],
     "s4Title": "4. Data Sharing",
-    "s4Text": "Your personal data will not be sold, transferred or shared with third parties, except by legal obligation or when strictly necessary to provide the contracted service (for example, email sending platforms such as Nodemailer/SMTP).",
+    "s4Text": "Your personal data from the contact form will not be sold, transferred or shared with third parties, except by legal obligation or when strictly necessary to provide the contracted service (for example, email sending platforms such as Nodemailer/SMTP). Browsing data collected by Google Analytics and Google AdSense is processed by Google LLC in accordance with their privacy policy. We do not share personal data from the contact form with these analytics or advertising services.",
     "s5Title": "5. Data Retention",
     "s5Text": "Data will be retained for the time necessary to address your request and, subsequently, for the legally required period or until you request its deletion.",
     "s6Title": "6. Your Rights (ARCO)",
     "s6Text": "In accordance with the Federal Law on Protection of Personal Data Held by Private Parties (Mexico), you have the right to:",
-    "s6Items": ["Access — know what data we have about you", "Rectification — correct inaccurate data", "Cancellation — request the deletion of your data", "Opposition — oppose the processing of your data"],
+    "s6Items": [
+      "Access — know what data we have about you",
+      "Rectification — correct inaccurate data",
+      "Cancellation — request the deletion of your data",
+      "Opposition — oppose the processing of your data"
+    ],
     "s6Note": "To exercise these rights, contact us through the site's contact form.",
     "s7Title": "7. Cookies and Tracking Technologies",
-    "s7Text": "This website does not use tracking cookies or third-party analytics tools. Only the browser's localStorage is used to save accessibility preferences and dark mode locally on your device.",
+    "s7Text": "This website uses Google Analytics 4 to analyze traffic and improve user experience, and Google AdSense to display relevant ads. Both services use cookies and similar technologies to collect browsing data (pages visited, time on site, approximate location, device used). This data is processed in aggregate form and does not personally identify you. Additionally, we use the browser's localStorage to save accessibility preferences and dark mode locally on your device. Please refer to our Cookie Policy for more details.",
     "s8Title": "8. Security",
     "s8Text": "We implement reasonable technical and organizational measures to protect your data against unauthorized access, loss or alteration.",
     "s9Title": "9. Changes to This Policy",
@@ -322,9 +443,19 @@
     "s2Title": "2. Description of Services",
     "s2Text": "NEXORATECH Solutions offers software development, web design, SEO optimization, artificial intelligence integration and technology consulting services. Specific services, scope, timelines and costs are defined in an individual proposal or contract agreed upon with each client.",
     "s3Title": "3. Hiring Process",
-    "s3Items": ["The process starts with a free 30-minute consultation.", "A personalized technical and economic proposal is prepared.", "The service begins once the agreement and the agreed initial payment are confirmed.", "Any change in scope during the project must be agreed in writing."],
+    "s3Items": [
+      "The process starts with a free 30-minute consultation.",
+      "A personalized technical and economic proposal is prepared.",
+      "The service begins once the agreement and the agreed initial payment are confirmed.",
+      "Any change in scope during the project must be agreed in writing."
+    ],
     "s4Title": "4. Payments and Billing",
-    "s4Items": ["Prices are quoted in USD according to a personalized proposal.", "A 50% advance payment is required to start the project.", "The remaining balance is settled at the time of final delivery.", "Payments are non-refundable once development has started, except in case of breach by NEXORATECH Solutions."],
+    "s4Items": [
+      "Prices are quoted in USD according to a personalized proposal.",
+      "A 50% advance payment is required to start the project.",
+      "The remaining balance is settled at the time of final delivery.",
+      "Payments are non-refundable once development has started, except in case of breach by NEXORATECH Solutions."
+    ],
     "s5Title": "5. Intellectual Property",
     "s5Text": "Once full payment is settled, the client acquires the usage rights of the delivered product. NEXORATECH Solutions reserves the right to mention the project in its portfolio, unless an express confidentiality agreement exists. Third-party tools, libraries and frameworks used are subject to their own licenses.",
     "s6Title": "6. Revisions and Changes",
@@ -336,7 +467,10 @@
     "s9Title": "9. Confidentiality",
     "s9Text": "Both parties commit to maintaining the confidentiality of sensitive information shared during the project. This includes business data, strategies, credentials and any information marked as confidential.",
     "s10Title": "10. Service Cancellation",
-    "s10Items": ["By the client: may cancel with 5 business days notice. The advance payment is non-refundable.", "By NEXORATECH: in case of cancellation, the proportional amount of work not performed will be refunded."],
+    "s10Items": [
+      "By the client: may cancel with 5 business days notice. The advance payment is non-refundable.",
+      "By NEXORATECH: in case of cancellation, the proportional amount of work not performed will be refunded."
+    ],
     "s11Title": "11. Applicable Law",
     "s11Text": "These terms are governed by the laws of the United Mexican States. Any dispute will preferably be resolved amicably; otherwise, it will be submitted to the jurisdiction of the competent courts of Tehuacán, Puebla, Mexico.",
     "s12Title": "12. Modifications",
@@ -346,21 +480,36 @@
   },
   "cookies": {
     "title": "Cookie Policy",
-    "updated": "Last updated: August 2025",
+    "updated": "Last updated: August 2026",
     "back": "Back to home",
     "s1Title": "1. What are cookies?",
     "s1Text": "Cookies are small text files that websites store on your device to remember information about your visit. There are different types: essential cookies, analytics cookies, advertising cookies, among others.",
     "s2Title": "2. Do we use cookies?",
-    "s2Text": "No. This website does NOT use cookies of any kind. We do not use first-party or third-party cookies, nor tracking tools such as Google Analytics, Facebook Pixel or similar.",
-    "s3Title": "3. Technologies we do use",
-    "s3Text": "Instead of cookies, we only use the browser's localStorage to store:",
-    "s3Items": ["Dark/light mode preference", "Accessibility preferences (text size, contrast, etc.)", "Language preference"],
-    "s3Note": "This data is stored exclusively on your device, is not transmitted to any server and is not shared with third parties. You can delete it at any time from your browser settings.",
-    "s4Title": "4. Third-party services",
-    "s4Text": "This site is hosted on Netlify. Netlify may collect minimal technical data (such as IP address) for the hosting service operation, in accordance with their own privacy policy.",
-    "s5Title": "5. Changes to this policy",
-    "s5Text": "If in the future we incorporate cookies or analytics tools, we will update this policy and implement a prior consent mechanism in accordance with applicable regulations.",
-    "s6Title": "6. Contact",
-    "s6Text": "If you have any questions about our cookie policy, contact us through the contact form on the main page or via LinkedIn."
+    "s2Text": "Yes. This website uses third-party cookies through Google Analytics 4 (web analytics) and Google AdSense (advertising). These cookies allow us to understand how users interact with our site and display relevant ads to fund the free content we offer.",
+    "s3Title": "3. Types of cookies we use",
+    "s3Text": "The cookies present on this site are classified as:",
+    "s3Items": [
+      "Analytics cookies (Google Analytics 4): Collect anonymous data about pages visited, time spent, traffic source, and device used. They help us improve the site.",
+      "Advertising cookies (Google AdSense): Allow displaying personalized ads based on your browsing interests. Google may use this information according to their own privacy policy.",
+      "Local storage (localStorage): We save dark/light mode, accessibility, and language preferences. This data is NOT cookies and remains only on your device."
+    ],
+    "s3Note": "Google Analytics and AdSense cookies are managed by Google LLC. You can review Google's privacy policy at https://policies.google.com/privacy",
+    "s4Title": "4. How to manage cookies",
+    "s4Text": "You can configure your browser to reject cookies or delete existing ones at any time. Please note that blocking cookies may affect the functionality of some site elements (such as ads). You can also opt out of Google ad personalization by visiting https://adssettings.google.com",
+    "s5Title": "5. Third-party services",
+    "s5Text": "This site is hosted on Netlify and uses Google services (Analytics and AdSense). Each provider has their own privacy policy: Netlify (https://www.netlify.com/privacy), Google (https://policies.google.com/privacy).",
+    "s6Title": "6. Changes to this policy",
+    "s6Text": "If we incorporate new cookies or tracking tools, we will update this policy and inform users. For any questions, contact us through the contact form on the main page."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articles about software development, automation and business technology",
+    "readMore": "Read article",
+    "readTime": "min read",
+    "backToBlog": "Back to blog",
+    "relatedPosts": "Related articles",
+    "shareArticle": "Share article",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!"
   }
 }

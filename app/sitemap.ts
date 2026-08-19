@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { getPostsByLocale, getAllSlugs, getPostBySlug } from '../lib/blog-data';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
 const lastMod = new Date('2025-07-01');
@@ -16,6 +17,16 @@ const servicios = [
 ];
 
 const staticPages = ['servicios', 'faq', 'privacy', 'terms', 'cookies'];
+
+// Mapeo de slugs entre idiomas (ES <-> EN)
+const slugMapping: Record<string, string> = {
+  'que-es-software-a-medida': 'what-is-custom-software',
+  'what-is-custom-software': 'que-es-software-a-medida',
+  'crm-vs-erp-diferencias': 'crm-vs-erp-differences',
+  'crm-vs-erp-differences': 'crm-vs-erp-diferencias',
+  'automatizacion-empresarial-reducir-costos': 'business-automation-reduce-costs',
+  'business-automation-reduce-costs': 'automatizacion-empresarial-reducir-costos',
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const servicioUrls: MetadataRoute.Sitemap = servicios.flatMap((slug) => [
@@ -76,6 +87,75 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]);
 
+  // Blog index pages
+  const blogIndexUrls: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/blog`,
+          en: `${baseUrl}/en/blog`,
+          'x-default': `${baseUrl}/blog`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/en/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/blog`,
+          en: `${baseUrl}/en/blog`,
+          'x-default': `${baseUrl}/blog`,
+        },
+      },
+    },
+  ];
+
+  // Blog article pages
+  const esPosts = getPostsByLocale('es');
+  const enPosts = getPostsByLocale('en');
+
+  const blogArticleUrls: MetadataRoute.Sitemap = [
+    ...esPosts.map((post) => {
+      const enSlug = slugMapping[post.slug] || post.slug;
+      return {
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+        alternates: {
+          languages: {
+            es: `${baseUrl}/blog/${post.slug}`,
+            en: `${baseUrl}/en/blog/${enSlug}`,
+            'x-default': `${baseUrl}/blog/${post.slug}`,
+          },
+        },
+      };
+    }),
+    ...enPosts.map((post) => {
+      const esSlug = slugMapping[post.slug] || post.slug;
+      return {
+        url: `${baseUrl}/en/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+        alternates: {
+          languages: {
+            es: `${baseUrl}/blog/${esSlug}`,
+            en: `${baseUrl}/en/blog/${post.slug}`,
+            'x-default': `${baseUrl}/blog/${esSlug}`,
+          },
+        },
+      };
+    }),
+  ];
+
   return [
     {
       url: baseUrl,
@@ -105,5 +185,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...staticUrls,
     ...servicioUrls,
+    ...blogIndexUrls,
+    ...blogArticleUrls,
   ];
 }

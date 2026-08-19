@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppProvider } from '@/context/AppContext';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 import '../globals.css';
 
 const locales = ['es', 'en'];
@@ -171,6 +172,7 @@ export default async function LocaleLayout({
         ))}
       </head>
       <body>
+        <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>
           <AppProvider>
             {children}

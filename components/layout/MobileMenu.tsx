@@ -1,6 +1,7 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
 import { X, ArrowRight } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import { useApp } from '@/context/AppContext';
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
 
 const MobileMenu = () => {
   const t = useTranslations('nav');
+  const locale = useLocale();
   const { mobileMenuOpen, setMobileMenuOpen } = useApp();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -58,6 +60,13 @@ const MobileMenu = () => {
               {t(key)}
             </a>
           ))}
+          <Link
+            href={`/${locale}/blog`}
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-lg font-black text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 px-3 py-3 rounded-xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-all tracking-tight"
+          >
+            {t('blog')}
+          </Link>
         </nav>
 
         <div className="px-4 pb-8 pt-4 border-t border-slate-100 dark:border-slate-800">

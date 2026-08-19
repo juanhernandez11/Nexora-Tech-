@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
 import { Menu, Moon, Sun } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
@@ -16,6 +17,7 @@ const NAV_ITEMS = [
 
 const Navbar = () => {
   const t = useTranslations('nav');
+  const locale = useLocale();
   const { darkMode, setDarkMode, setMobileMenuOpen } = useApp();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -86,6 +88,13 @@ const Navbar = () => {
               {t(key)}
             </a>
           ))}
+
+          <Link
+            href={`/${locale}/blog`}
+            className="text-[11px] font-black uppercase tracking-widest transition-colors text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+          >
+            {t('blog')}
+          </Link>
 
           <a
             href="#contacto-form"
