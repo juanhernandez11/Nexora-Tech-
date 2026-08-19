@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { key: 'cases',    href: '#casos-de-exito' },
   { key: 'process',  href: '#proceso' },
   { key: 'contact',  href: '#contacto-form' },
+  { key: 'blog',     href: '/blog' },
 ] as const;
 
 const Footer = () => {
