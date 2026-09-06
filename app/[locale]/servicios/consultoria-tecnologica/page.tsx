@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  if (locale === 'en') return { title: 'Technology Consulting for Businesses | Nexora Tech', description: 'Independent technology assessments, architecture guidance and practical digital roadmaps for businesses in Mexico and Latin America.', alternates: { canonical: `${BASE}/en/servicios/consultoria-tecnologica`, languages: { es: `${BASE}/servicios/consultoria-tecnologica`, en: `${BASE}/en/servicios/consultoria-tecnologica` } } };
   return {
     title: 'Consultoría Tecnológica para Empresas en México | Nexora Tech',
     description: 'Toma decisiones tecnológicas con expertos. Auditorías de sistemas, arquitectura de software, roadmap digital y selección de tecnologías. Primera sesión gratuita.',
@@ -43,7 +44,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       description: 'Consultoría tecnológica para empresas en México. Auditorías de sistemas, arquitectura de software y roadmap de transformación digital.',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'Country', name: 'México' },
-      offers: { '@type': 'Offer', priceCurrency: 'USD', priceRange: '0-2000' },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', priceSpecification: { '@type': 'PriceSpecification', minPrice: 0, maxPrice: 2000, priceCurrency: 'USD' } },
     },
   ];
 

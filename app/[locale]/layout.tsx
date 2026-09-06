@@ -64,6 +64,23 @@ export async function generateMetadata({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
 
+// Schema WebSite con SearchAction — habilita Sitelinks Search Box en Google
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  name: 'Nexora Tech',
+  url: SITE_URL,
+  description: 'Desarrollo de software a medida, automatización empresarial e integración de IA para empresas en México.',
+  inLanguage: ['es-MX', 'en-US'],
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/blog?q={search_term_string}` },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -82,6 +99,8 @@ const jsonLd = [
     image: `${SITE_URL}/og-image.jpg`,
     email: 'contactonexoratech@gmail.com',
     foundingDate: '2023',
+    numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 5 },
+    knowsLanguage: ['es', 'en'],
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Tehuacán',
@@ -151,19 +170,16 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        {/* DNS preconnect primero — reduce latencia de fuentes */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* display=swap evita FOIT y no bloquea el render — mejora LCP */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap"
         />
         <meta name="google-site-verification" content="K2Pr9c4pJIz1illvhuu03_TDfK_ggSnMsylbPK7HBds" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1411171033625450"
-          crossOrigin="anonymous"
-        />
-        {jsonLd.map((schema, i) => (
+        {[...jsonLd, websiteSchema].map((schema, i) => (
           <script
             key={i}
             type="application/ld+json"

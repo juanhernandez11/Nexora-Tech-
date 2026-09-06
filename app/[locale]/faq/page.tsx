@@ -93,6 +93,7 @@ export default async function FAQPage({
 }) {
   setRequestLocale(locale);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
+  const base = locale === 'en' ? '/en' : '';
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -121,7 +122,7 @@ export default async function FAQPage({
       <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
           <nav className="text-xs text-slate-400 mb-10 flex items-center gap-2">
-            <Link href="/" className="hover:text-brand-600 transition-colors">Inicio</Link>
+              <Link href={`${base}/`} className="hover:text-brand-600 transition-colors">{locale === 'es' ? 'Inicio' : 'Home'}</Link>
             <span>/</span>
             <span className="text-slate-600 dark:text-slate-300">FAQ</span>
           </nav>
@@ -154,7 +155,7 @@ export default async function FAQPage({
                 : 'Write to us directly and we will respond within 24 hours.'}
             </p>
             <Link
-              href="/#contacto-form"
+              href={`${base}/#contacto-form`}
               className="inline-block bg-white text-brand-600 px-8 py-3.5 rounded-xl font-black uppercase tracking-widest text-sm hover:bg-brand-50 transition-all shadow-xl"
             >
               {locale === 'es' ? 'Hacer mi pregunta' : 'Ask my question'}

@@ -26,6 +26,8 @@ const MobileMenu = () => {
       if (el) {
         const top = el.getBoundingClientRect().top + window.pageYOffset - 80;
         window.scrollTo({ top, behavior: 'smooth' });
+      } else {
+        window.location.href = locale === 'en' ? `/en/${href}` : `/${href}`;
       }
     }, 300);
   };

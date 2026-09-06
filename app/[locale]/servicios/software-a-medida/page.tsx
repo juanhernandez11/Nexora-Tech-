@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  if (locale === 'en') return { title: 'Custom Software for Businesses | Nexora Tech', description: 'Replace rigid tools and disconnected spreadsheets with custom software designed around your process and built to evolve with your company.', alternates: { canonical: `${BASE}/en/servicios/software-a-medida`, languages: { es: `${BASE}/servicios/software-a-medida`, en: `${BASE}/en/servicios/software-a-medida` } } };
   return {
     title: 'Software a Medida para Empresas en México | Nexora Tech',
     description: 'Software empresarial personalizado 100% adaptado a tus procesos. Sin licencias mensuales, sin funciones innecesarias. Desde $500 USD. Entrega garantizada.',
@@ -43,7 +44,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       description: 'Software empresarial personalizado 100% adaptado a los procesos específicos de cada empresa en México.',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'Country', name: 'México' },
-      offers: { '@type': 'Offer', priceCurrency: 'USD', priceRange: '500-5000' },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', priceSpecification: { '@type': 'PriceSpecification', minPrice: 500, maxPrice: 5000, priceCurrency: 'USD' } },
     },
   ];
 

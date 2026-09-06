@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  if (locale === 'en') return { title: 'Business Automation Services in Mexico | Nexora Tech', description: 'Automate repetitive workflows, connect your systems and reduce avoidable operational errors with measurable business automation.', alternates: { canonical: `${BASE}/en/servicios/automatizacion-empresarial`, languages: { es: `${BASE}/servicios/automatizacion-empresarial`, en: `${BASE}/en/servicios/automatizacion-empresarial` } } };
   return {
     title: 'Automatización Empresarial en México | Nexora Tech',
     description: 'Automatizamos los procesos repetitivos de tu empresa. Reduce costos operativos hasta un 40%, elimina errores humanos y libera tiempo de tu equipo. Consultoría gratuita.',
@@ -43,7 +44,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       description: 'Automatización de procesos empresariales repetitivos para reducir costos operativos y eliminar errores humanos en empresas mexicanas.',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'Country', name: 'México' },
-      offers: { '@type': 'Offer', priceCurrency: 'USD', priceRange: '800-4000' },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', priceSpecification: { '@type': 'PriceSpecification', minPrice: 800, maxPrice: 4000, priceCurrency: 'USD' } },
     },
   ];
 

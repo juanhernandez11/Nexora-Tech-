@@ -1,4 +1,5 @@
 import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
 import { Linkedin, MapPin, Mail } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 
@@ -46,9 +47,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {NAV_ITEMS.map(({ key, href }) => (
                 <li key={key}>
-                  <a href={href} className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                  <Link href={href.startsWith('#') ? `${base}/${href}` : `${base}${href}`} className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                     {tn(key)}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -66,7 +67,7 @@ const Footer = () => {
                 <Linkedin size={15} className="flex-shrink-0" /> {t('linkedinLabel')}
               </a>
               <a
-                href="#contacto-form"
+                href={`${base}/#contacto-form`}
                 className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
                 <Mail size={15} className="flex-shrink-0" /> {t('formLabel')}

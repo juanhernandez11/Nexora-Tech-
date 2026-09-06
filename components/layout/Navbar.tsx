@@ -19,6 +19,7 @@ const Navbar = () => {
   const t = useTranslations('nav');
   const locale = useLocale();
   const { darkMode, setDarkMode, setMobileMenuOpen } = useApp();
+  const homeHref = locale === 'en' ? '/en' : '/';
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
@@ -44,6 +45,8 @@ const Navbar = () => {
     if (el) {
       const top = el.getBoundingClientRect().top + window.pageYOffset - 80;
       window.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      window.location.href = locale === 'en' ? `/en/${href}` : `/${href}`;
     }
   };
 
@@ -56,9 +59,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
 
         {/* Logo */}
-        <a
-          href="/"
-          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+        <Link
+          href={homeHref}
           className="flex items-center gap-3 cursor-pointer"
           aria-label="Ir al inicio"
         >
@@ -69,7 +71,7 @@ const Navbar = () => {
             </span>
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-0.5">{t('tagline')}</span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-7">

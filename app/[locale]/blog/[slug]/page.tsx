@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import BlogAdBanner from '@/components/BlogAdBanner';
 import ShareButton from '@/components/ShareButton';
 import { getPostBySlug, getPostsByLocale, getAllSlugs } from '@/lib/blog-data';
 
@@ -38,11 +37,13 @@ export async function generateMetadata({ params: { locale, slug } }: { params: {
     title: `${post.title} | Nexora Tech`,
     description: post.description,
     keywords: post.keywords,
+    authors: [{ name: post.author }],
     alternates: {
       canonical: `${baseUrl}${base}/blog/${slug}`,
       languages: {
         es: `${baseUrl}/blog/${slug}`,
         en: `${baseUrl}/en/blog/${slug}`,
+        'x-default': `${baseUrl}/blog/${slug}`,
       },
     },
     openGraph: {
@@ -54,6 +55,15 @@ export async function generateMetadata({ params: { locale, slug } }: { params: {
       tags: post.tags,
       url: `${baseUrl}${base}/blog/${slug}`,
       siteName: 'Nexora Tech',
+      // Imagen OG — requerida para rich snippets de artículos en Google
+      images: [{ url: `${baseUrl}/og-image.jpg`, width: 1200, height: 630, alt: post.title }],
+      locale: locale === 'es' ? 'es_MX' : 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [`${baseUrl}/og-image.jpg`],
     },
   };
 }
@@ -67,7 +77,15 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
   }
 
   const allPosts = getPostsByLocale(locale);
-  const relatedPosts = allPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== post.slug)
+    .sort((a, b) => {
+      const score = (candidate: typeof post) =>
+        (candidate.category === post.category ? 2 : 0) +
+        candidate.tags.filter((tag) => post.tags.includes(tag)).length;
+      return score(b) - score(a);
+    })
+    .slice(0, 3);
   const base = locale === 'en' ? '/en' : '';
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   const isEs = locale === 'es';
@@ -92,21 +110,36 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
     '@type': 'Article',
     headline: post.title,
     description: post.description,
+    // image requerida para Google Discover y rich snippets de artículos
+    image: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}/og-image.jpg`,
+      width: 1200,
+      height: 630,
+    },
     author: {
       '@type': 'Person',
       name: post.author,
+      url: 'https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/',
     },
     datePublished: post.date,
+    dateModified: post.date,
     publisher: {
       '@type': 'Organization',
       name: 'Nexora Tech',
       url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/favicon.svg`,
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': articleUrl,
     },
     keywords: post.tags.join(', '),
+    inLanguage: locale === 'es' ? 'es-MX' : 'en-US',
+    articleSection: post.category,
   };
 
   const breadcrumb = {
@@ -173,6 +206,21 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
             <p className="text-slate-500 dark:text-slate-400 text-sm">
               {isEs ? 'Por' : 'By'} <span className="font-semibold text-slate-700 dark:text-slate-300">{post.author}</span>
             </p>
+            <div className="mt-5 max-w-2xl border-l-2 border-brand-600 pl-4 text-sm text-slate-500 dark:text-slate-400">
+              <p>
+                {isEs
+                  ? 'Juan Ramón Moreno Bravo es arquitecto de software y fundador de Nexora Tech. Revisa estos contenidos desde la experiencia de proyectos web, automatización e IA para empresas en México.'
+                  : 'Juan Ramón Moreno Bravo is a software architect and founder of Nexora Tech. He reviews these articles through hands-on experience with web, automation, and AI projects for businesses in Mexico.'}
+              </p>
+              <a
+                href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/"
+                target="_blank"
+                rel="author noopener noreferrer"
+                className="mt-2 inline-block font-semibold text-brand-600 hover:underline"
+              >
+                {isEs ? 'Ver perfil profesional' : 'View professional profile'}
+              </a>
+            </div>
           </div>
         </section>
 
@@ -187,9 +235,6 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
                   className="prose prose-lg prose-slate dark:prose-invert max-w-none prose-headings:font-heading prose-headings:font-black prose-headings:tracking-tight prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline"
                   dangerouslySetInnerHTML={{ __html: firstHalf }}
                 />
-
-                {/* Ad Banner between sections */}
-                {secondHalf && <BlogAdBanner className="my-10" />}
 
                 {/* Second half of content */}
                 {secondHalf && (
@@ -261,9 +306,6 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
                       </Link>
                     ))}
                   </div>
-
-                  {/* Sidebar Ad */}
-                  <BlogAdBanner format="rectangle" className="mt-8" />
 
                   {/* CTA */}
                   <div className="mt-8 p-6 bg-brand-600 rounded-2xl text-white text-center">

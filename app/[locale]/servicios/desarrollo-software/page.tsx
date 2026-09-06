@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  if (locale === 'en') return { title: 'Custom Software Development in Mexico | Nexora Tech', description: 'Custom business software with clear milestones, maintainable code and integrations for companies that need a solution built around their workflow.', alternates: { canonical: `${BASE}/en/servicios/desarrollo-software`, languages: { es: `${BASE}/servicios/desarrollo-software`, en: `${BASE}/en/servicios/desarrollo-software` } } };
   return {
     title: 'Desarrollo de Software a Medida en México | Nexora Tech',
     description: 'Desarrollamos software empresarial personalizado con React, TypeScript y Node.js. Entrega garantizada, revisiones ilimitadas. Desde $500 USD. Consultoría gratuita.',
@@ -43,7 +44,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       description: 'Desarrollo de aplicaciones web y sistemas empresariales personalizados con React, TypeScript y Node.js para PyMEs y corporativos en México.',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'Country', name: 'México' },
-      offers: { '@type': 'Offer', priceCurrency: 'USD', priceRange: '500-5000' },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', priceSpecification: { '@type': 'PriceSpecification', minPrice: 500, maxPrice: 5000, priceCurrency: 'USD' } },
     },
   ];
 

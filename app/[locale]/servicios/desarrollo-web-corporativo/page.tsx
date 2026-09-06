@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  if (locale === 'en') return { title: 'Corporate Web Development in Mexico | Nexora Tech', description: 'Fast, accessible corporate websites with clear positioning, technical SEO foundations and conversion-focused content for businesses.', alternates: { canonical: `${BASE}/en/servicios/desarrollo-web-corporativo`, languages: { es: `${BASE}/servicios/desarrollo-web-corporativo`, en: `${BASE}/en/servicios/desarrollo-web-corporativo` } } };
   return {
     title: 'Desarrollo Web Corporativo en México | Nexora Tech',
     description: 'Sitios web corporativos que cargan en menos de 2 segundos, posicionan en Google y convierten visitantes en clientes. Core Web Vitals en verde. Desde $800 USD.',
@@ -43,7 +44,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       description: 'Desarrollo de sitios web corporativos de alto rendimiento con Core Web Vitals en verde y SEO optimizado para empresas en México.',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'Country', name: 'México' },
-      offers: { '@type': 'Offer', priceCurrency: 'USD', priceRange: '800-3000' },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', priceSpecification: { '@type': 'PriceSpecification', minPrice: 800, maxPrice: 3000, priceCurrency: 'USD' } },
     },
   ];
 

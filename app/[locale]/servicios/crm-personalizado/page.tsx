@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  if (locale === 'en') return { title: 'Custom CRM Development for Businesses | Nexora Tech', description: 'A custom CRM built around your sales process, pipeline, customer history and reporting needs. Integrate the tools your team already uses.', alternates: { canonical: `${BASE}/en/servicios/crm-personalizado`, languages: { es: `${BASE}/servicios/crm-personalizado`, en: `${BASE}/en/servicios/crm-personalizado` } } };
   return {
     title: 'CRM Personalizado para Empresas en México | Nexora Tech',
     description: 'Desarrollamos CRM a medida adaptado a tu proceso de ventas. Sin licencias mensuales, 100% tuyo, con las funciones exactas que necesitas. Desde $2,000 USD.',
@@ -43,7 +44,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       description: 'Desarrollo de CRM a medida adaptado al proceso de ventas específico de cada empresa en México. Sin licencias mensuales.',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'Country', name: 'México' },
-      offers: { '@type': 'Offer', priceCurrency: 'USD', priceRange: '2000-5000' },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', priceSpecification: { '@type': 'PriceSpecification', minPrice: 2000, maxPrice: 5000, priceCurrency: 'USD' } },
     },
   ];
 

@@ -4,6 +4,10 @@ import { Cookie } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
+export const metadata = {
+  robots: { index: false, follow: true },
+};
+
 export async function generateStaticParams() {
   return [{ locale: 'es' }, { locale: 'en' }];
 }

@@ -12,6 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  if (locale === 'en') return { title: 'Web Application Development for Businesses | Nexora Tech', description: 'Responsive web applications for business workflows, portals, dashboards and operational systems. Fast, accessible and built to scale.', alternates: { canonical: `${BASE}/en/servicios/aplicaciones-web`, languages: { es: `${BASE}/servicios/aplicaciones-web`, en: `${BASE}/en/servicios/aplicaciones-web` } } };
   return {
     title: 'Desarrollo de Aplicaciones Web Empresariales en México | Nexora Tech',
     description: 'Desarrollamos aplicaciones web progresivas (PWA) y plataformas empresariales que escalan. React, TypeScript, Firebase. Funcionan en cualquier dispositivo. Desde $1,000 USD.',
@@ -43,7 +44,7 @@ export default function Page({ params: { locale } }: { params: { locale: string 
       description: 'Desarrollo de aplicaciones web progresivas y plataformas empresariales escalables con React y TypeScript para empresas en México.',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'Country', name: 'México' },
-      offers: { '@type': 'Offer', priceCurrency: 'USD', priceRange: '1000-5000' },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', priceSpecification: { '@type': 'PriceSpecification', minPrice: 1000, maxPrice: 5000, priceCurrency: 'USD' } },
     },
   ];
 

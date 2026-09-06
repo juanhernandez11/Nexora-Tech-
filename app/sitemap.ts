@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next';
-import { getPostsByLocale, getAllSlugs, getPostBySlug } from '../lib/blog-data';
+import { getPostsByLocale } from '../lib/blog-data';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
-const lastMod = new Date('2025-07-01');
+const lastMod = new Date('2026-08-12');
 
+// Slugs de servicios — mismos en ambos idiomas (URL en español para ambos locales)
+// Nota: el locale EN usa el mismo slug porque el contenido es el mismo servicio
 const servicios = [
   'desarrollo-software',
   'software-a-medida',
@@ -16,7 +18,14 @@ const servicios = [
   'consultoria-tecnologica',
 ];
 
-const staticPages = ['servicios', 'faq', 'privacy', 'terms', 'cookies'];
+// Solo se incluyen páginas que pueden satisfacer una intención de búsqueda.
+// Las páginas legales siguen siendo accesibles desde el footer, pero no necesitan
+// consumir señales de descubrimiento ni crawl budget orgánico.
+const staticPages = [
+  { slug: 'servicios', priority: 0.9, freq: 'monthly' as const },
+  { slug: 'faq',       priority: 0.8, freq: 'monthly' as const },
+  { slug: 'blog',      priority: 0.8, freq: 'weekly'  as const },
+];
 
 // Mapeo de slugs entre idiomas (ES <-> EN)
 const slugMapping: Record<string, string> = {
@@ -29,11 +38,42 @@ const slugMapping: Record<string, string> = {
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Home
+  const homeUrls: MetadataRoute.Sitemap = [
+    {
+      url: baseUrl,
+      lastModified: lastMod,
+      changeFrequency: 'monthly',
+      priority: 1,
+      alternates: {
+        languages: {
+          es: baseUrl,
+          en: `${baseUrl}/en`,
+          'x-default': baseUrl,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/en`,
+      lastModified: lastMod,
+      changeFrequency: 'monthly',
+      priority: 1,
+      alternates: {
+        languages: {
+          es: baseUrl,
+          en: `${baseUrl}/en`,
+          'x-default': baseUrl,
+        },
+      },
+    },
+  ];
+
+  // Servicios: páginas transaccionales principales del sitio.
   const servicioUrls: MetadataRoute.Sitemap = servicios.flatMap((slug) => [
     {
       url: `${baseUrl}/servicios/${slug}`,
       lastModified: lastMod,
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.9,
       alternates: {
         languages: {
@@ -46,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/en/servicios/${slug}`,
       lastModified: lastMod,
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.9,
       alternates: {
         languages: {
@@ -58,66 +98,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]);
 
-  const staticUrls: MetadataRoute.Sitemap = staticPages.flatMap((page) => [
+  // Páginas estáticas
+  const staticUrls: MetadataRoute.Sitemap = staticPages.flatMap(({ slug, priority, freq }) => [
     {
-      url: `${baseUrl}/${page}`,
+      url: `${baseUrl}/${slug}`,
       lastModified: lastMod,
-      changeFrequency: page === 'faq' || page === 'servicios' ? 'monthly' : 'yearly',
-      priority: page === 'servicios' ? 0.9 : page === 'faq' ? 0.8 : 0.3,
+      changeFrequency: freq,
+      priority,
       alternates: {
         languages: {
-          es: `${baseUrl}/${page}`,
-          en: `${baseUrl}/en/${page}`,
-          'x-default': `${baseUrl}/${page}`,
+          es: `${baseUrl}/${slug}`,
+          en: `${baseUrl}/en/${slug}`,
+          'x-default': `${baseUrl}/${slug}`,
         },
       },
     },
     {
-      url: `${baseUrl}/en/${page}`,
+      url: `${baseUrl}/en/${slug}`,
       lastModified: lastMod,
-      changeFrequency: page === 'faq' || page === 'servicios' ? 'monthly' : 'yearly',
-      priority: page === 'servicios' ? 0.9 : page === 'faq' ? 0.8 : 0.3,
+      changeFrequency: freq,
+      priority,
       alternates: {
         languages: {
-          es: `${baseUrl}/${page}`,
-          en: `${baseUrl}/en/${page}`,
-          'x-default': `${baseUrl}/${page}`,
+          es: `${baseUrl}/${slug}`,
+          en: `${baseUrl}/en/${slug}`,
+          'x-default': `${baseUrl}/${slug}`,
         },
       },
     },
   ]);
 
-  // Blog index pages
-  const blogIndexUrls: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-      alternates: {
-        languages: {
-          es: `${baseUrl}/blog`,
-          en: `${baseUrl}/en/blog`,
-          'x-default': `${baseUrl}/blog`,
-        },
-      },
-    },
-    {
-      url: `${baseUrl}/en/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-      alternates: {
-        languages: {
-          es: `${baseUrl}/blog`,
-          en: `${baseUrl}/en/blog`,
-          'x-default': `${baseUrl}/blog`,
-        },
-      },
-    },
-  ];
-
-  // Blog article pages
+  // Blog articles
   const esPosts = getPostsByLocale('es');
   const enPosts = getPostsByLocale('en');
 
@@ -157,35 +168,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
-    {
-      url: baseUrl,
-      lastModified: lastMod,
-      changeFrequency: 'monthly',
-      priority: 1,
-      alternates: {
-        languages: {
-          es: baseUrl,
-          en: `${baseUrl}/en`,
-          'x-default': baseUrl,
-        },
-      },
-    },
-    {
-      url: `${baseUrl}/en`,
-      lastModified: lastMod,
-      changeFrequency: 'monthly',
-      priority: 1,
-      alternates: {
-        languages: {
-          es: baseUrl,
-          en: `${baseUrl}/en`,
-          'x-default': baseUrl,
-        },
-      },
-    },
+    ...homeUrls,
     ...staticUrls,
     ...servicioUrls,
-    ...blogIndexUrls,
     ...blogArticleUrls,
   ];
 }
