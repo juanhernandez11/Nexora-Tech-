@@ -7,7 +7,7 @@ import Logo from '@/components/ui/Logo';
 import { useApp } from '@/context/AppContext';
 
 const NAV_ITEMS = [
-  { key: 'services', href: '#soluciones' },
+  { key: 'services', href: '/servicios' },
   { key: 'cases',    href: '#casos-de-exito' },
   { key: 'process',  href: '#proceso' },
   { key: 'contact',  href: '#contacto-form' },
@@ -19,6 +19,10 @@ const MobileMenu = () => {
   const { mobileMenuOpen, setMobileMenuOpen } = useApp();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith('#')) {
+      setMobileMenuOpen(false);
+      return;
+    }
     e.preventDefault();
     setMobileMenuOpen(false);
     setTimeout(() => {
@@ -52,7 +56,7 @@ const MobileMenu = () => {
         </div>
 
         <nav className="flex flex-col gap-1 px-4 py-6 flex-grow">
-          {NAV_ITEMS.map(({ key, href }) => (
+          {NAV_ITEMS.map(({ key, href }) => href.startsWith('#') ? (
             <a
               key={key}
               href={href}
@@ -61,9 +65,18 @@ const MobileMenu = () => {
             >
               {t(key)}
             </a>
+          ) : (
+            <Link
+              key={key}
+              href={`${locale === 'en' ? '/en' : ''}${href}`}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-lg font-black text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 px-3 py-3 rounded-xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-all tracking-tight"
+            >
+              {t(key)}
+            </Link>
           ))}
           <Link
-            href={`/${locale}/blog`}
+            href={locale === 'en' ? '/en/blog' : '/blog'}
             onClick={() => setMobileMenuOpen(false)}
             className="text-lg font-black text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 px-3 py-3 rounded-xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-all tracking-tight"
           >

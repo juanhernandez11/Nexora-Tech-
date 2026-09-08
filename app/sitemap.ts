@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getPostsByLocale } from '../lib/blog-data';
+import { getLocalizedSlug, getPostsByLocale } from '../lib/blog-data';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
 const lastMod = new Date('2026-08-12');
@@ -28,15 +28,6 @@ const staticPages = [
 ];
 
 // Mapeo de slugs entre idiomas (ES <-> EN)
-const slugMapping: Record<string, string> = {
-  'que-es-software-a-medida': 'what-is-custom-software',
-  'what-is-custom-software': 'que-es-software-a-medida',
-  'crm-vs-erp-diferencias': 'crm-vs-erp-differences',
-  'crm-vs-erp-differences': 'crm-vs-erp-diferencias',
-  'automatizacion-empresarial-reducir-costos': 'business-automation-reduce-costs',
-  'business-automation-reduce-costs': 'automatizacion-empresarial-reducir-costos',
-};
-
 export default function sitemap(): MetadataRoute.Sitemap {
   // Home
   const homeUrls: MetadataRoute.Sitemap = [
@@ -134,7 +125,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogArticleUrls: MetadataRoute.Sitemap = [
     ...esPosts.map((post) => {
-      const enSlug = slugMapping[post.slug] || post.slug;
+      const enSlug = getLocalizedSlug(post.slug);
       return {
         url: `${baseUrl}/blog/${post.slug}`,
         lastModified: new Date(post.date),
@@ -150,7 +141,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       };
     }),
     ...enPosts.map((post) => {
-      const esSlug = slugMapping[post.slug] || post.slug;
+      const esSlug = getLocalizedSlug(post.slug);
       return {
         url: `${baseUrl}/en/blog/${post.slug}`,
         lastModified: new Date(post.date),

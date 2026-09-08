@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ShareButton from '@/components/ShareButton';
-import { getPostBySlug, getPostsByLocale, getAllSlugs } from '@/lib/blog-data';
+import { getLocalizedSlug, getPostBySlug, getPostsByLocale, getAllSlugs } from '@/lib/blog-data';
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs();
@@ -28,6 +28,7 @@ export async function generateMetadata({ params: { locale, slug } }: { params: {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   const post = getPostBySlug(slug, locale);
   const base = locale === 'en' ? '/en' : '';
+  const alternateSlug = getLocalizedSlug(slug);
 
   if (!post) {
     return { title: 'Article Not Found' };
@@ -42,8 +43,8 @@ export async function generateMetadata({ params: { locale, slug } }: { params: {
       canonical: `${baseUrl}${base}/blog/${slug}`,
       languages: {
         es: `${baseUrl}/blog/${slug}`,
-        en: `${baseUrl}/en/blog/${slug}`,
-        'x-default': `${baseUrl}/blog/${slug}`,
+        en: `${baseUrl}/en/blog/${locale === 'en' ? slug : alternateSlug}`,
+        'x-default': `${baseUrl}/blog/${locale === 'en' ? alternateSlug : slug}`,
       },
     },
     openGraph: {

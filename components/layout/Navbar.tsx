@@ -9,7 +9,7 @@ import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { useApp } from '@/context/AppContext';
 
 const NAV_ITEMS = [
-  { key: 'services', href: '#soluciones' },
+  { key: 'services', href: '/servicios' },
   { key: 'cases',    href: '#casos-de-exito' },
   { key: 'process',  href: '#proceso' },
   { key: 'contact',  href: '#contacto-form' },
@@ -39,6 +39,7 @@ const Navbar = () => {
   }, []);
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith('#')) return;
     e.preventDefault();
     const id = href.replace('#', '');
     const el = document.getElementById(id);
@@ -76,7 +77,7 @@ const Navbar = () => {
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-7">
           {NAV_ITEMS.map(({ key, href }) => (
-            <a
+            href.startsWith('#') ? <a
               key={key}
               href={href}
               onClick={(e) => scrollTo(e, href)}
@@ -88,11 +89,17 @@ const Navbar = () => {
               }`}
             >
               {t(key)}
-            </a>
+            </a> : <Link
+              key={key}
+              href={`${locale === 'en' ? '/en' : ''}${href}`}
+              className="text-[11px] font-black uppercase tracking-widest transition-colors text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              {t(key)}
+            </Link>
           ))}
 
           <Link
-            href={`/${locale}/blog`}
+            href={locale === 'en' ? '/en/blog' : '/blog'}
             className="text-[11px] font-black uppercase tracking-widest transition-colors text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
           >
             {t('blog')}

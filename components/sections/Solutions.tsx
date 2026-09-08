@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
 import { Users, Building2, Factory, ArrowRight } from 'lucide-react';
 import useInView from '@/hooks/useInView';
 import { solutionsData, type Locale } from '@/i18n/data';
@@ -24,6 +25,9 @@ const Solutions = () => {
           </div>
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-5">{t('title')}</h2>
           <p className="text-slate-400 text-base sm:text-lg font-medium max-w-2xl mx-auto">{t('subtitle')}</p>
+          <Link href={locale === 'en' ? '/en/servicios' : '/servicios'} className="inline-flex items-center gap-2 mt-6 text-sm font-black text-brand-400 hover:text-white uppercase tracking-widest transition-colors">
+            {locale === 'en' ? 'Explore all services' : 'Explorar todos los servicios'} <ArrowRight size={14} />
+          </Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {items.map((sol, i) => {

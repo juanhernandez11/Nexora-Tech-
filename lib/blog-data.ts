@@ -12,6 +12,19 @@ export type BlogPost = {
   keywords: string;
 };
 
+const localizedSlugMap: Record<string, string> = {
+  'que-es-software-a-medida': 'what-is-custom-software',
+  'what-is-custom-software': 'que-es-software-a-medida',
+  'crm-vs-erp-diferencias': 'crm-vs-erp-differences',
+  'crm-vs-erp-differences': 'crm-vs-erp-diferencias',
+  'automatizacion-empresarial-reducir-costos': 'business-automation-reduce-costs',
+  'business-automation-reduce-costs': 'automatizacion-empresarial-reducir-costos',
+};
+
+export function getLocalizedSlug(slug: string): string {
+  return localizedSlugMap[slug] || slug;
+}
+
 const blogPosts: BlogPost[] = [
   // ============================================================
   // ARTÍCULO 1 - ESPAÑOL: Software a Medida

@@ -4,7 +4,8 @@ import { Linkedin, MapPin, Mail } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 
 const NAV_ITEMS = [
-  { key: 'services', href: '#soluciones' },
+  { key: 'services', href: '/servicios' },
+  { key: 'faq',      href: '/faq' },
   { key: 'cases',    href: '#casos-de-exito' },
   { key: 'process',  href: '#proceso' },
   { key: 'contact',  href: '#contacto-form' },
