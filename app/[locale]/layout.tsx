@@ -143,7 +143,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': `${SITE_URL}/#founder`,
-    name: 'Juan Bv. Moreno Bravo',
+    name: 'Juan Bv.',
     jobTitle: 'Software Architect & Full-Stack Developer',
     description: 'Especialista en desarrollo de software a medida, automatización empresarial e integración de IA con más de 2 años de experiencia y 15+ proyectos entregados en México.',
     url: SITE_URL,
