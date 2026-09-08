@@ -210,8 +210,8 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
             <div className="mt-5 max-w-2xl border-l-2 border-brand-600 pl-4 text-sm text-slate-500 dark:text-slate-400">
               <p>
                 {isEs
-                  ? 'Juan Ramón Moreno Bravo es arquitecto de software y fundador de Nexora Tech. Revisa estos contenidos desde la experiencia de proyectos web, automatización e IA para empresas en México.'
-                  : 'Juan Ramón Moreno Bravo is a software architect and founder of Nexora Tech. He reviews these articles through hands-on experience with web, automation, and AI projects for businesses in Mexico.'}
+                  ? 'Juan Bv. Moreno Bravo es un desarrollador de softwarey fundador de Nexora Tech. Revisa estos contenidos desde la experiencia de proyectos web, automatización e IA para empresas en México.'
+                  : 'Juan Bv. Moreno Bravo is a software developer and founder of Nexora Tech. He reviews these articles through hands-on experience with web, automation, and AI projects for businesses in Mexico.'}
               </p>
               <a
                 href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/"
