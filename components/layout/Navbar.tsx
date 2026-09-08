@@ -41,7 +41,7 @@ const Navbar = () => {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/60'
+          ? 'bg-[#f4f1e9]/95 dark:bg-[#11150f]/95 backdrop-blur-md border-b border-[#d8d8ca] dark:border-[#273022]'
           : 'bg-transparent'
       }`}
     >
@@ -50,8 +50,8 @@ const Navbar = () => {
         {/* Logo */}
         <Link href={homeHref} className="flex items-center gap-2.5" aria-label="Inicio">
           <Logo className="w-7 h-7 text-slate-900 dark:text-white" />
-          <span className="font-heading font-black text-base tracking-tight text-slate-900 dark:text-white">
-            NEXORA<span className="text-brand-600">TECH</span>
+          <span className="font-heading font-bold text-base tracking-tight text-slate-900 dark:text-white">
+            NEXORA<span className="text-brand-600">/TECH</span>
           </span>
         </Link>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
                 key={key}
                 href={href}
                 onClick={(e) => scrollTo(e, href)}
-                className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
               >
                 {t(key)}
               </a>
@@ -71,7 +71,7 @@ const Navbar = () => {
               <Link
                 key={key}
                 href={`${locale === 'en' ? '/en' : ''}${href}`}
-                className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
               >
                 {t(key)}
               </Link>
@@ -81,7 +81,7 @@ const Navbar = () => {
           <a
             href="#contacto-form"
             onClick={(e) => scrollTo(e, '#contacto-form')}
-            className="text-sm font-semibold bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors"
+            className="text-xs font-bold uppercase tracking-[0.12em] bg-slate-900 dark:bg-brand-500 text-white dark:text-slate-950 px-4 py-2.5 rounded-none hover:bg-brand-600 dark:hover:bg-brand-400 transition-colors"
           >
             {t('cta')}
           </a>

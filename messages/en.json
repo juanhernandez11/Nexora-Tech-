@@ -3,7 +3,7 @@
     "title": "Nexora Tech | Software Development & Business Automation",
     "description": "We develop custom software, automations, web applications and digital infrastructure for companies looking to grow and optimize their processes. Free consultation.",
     "ogTitle": "Nexora Tech | Software Development & Business Automation",
-    "ogDescription": "Custom software, automation and AI for companies that need results, not promises."
+    "ogDescription": "Custom software, automation and AI for companies that want to work better."
   },
   "nav": {
     "services": "Services",
@@ -13,15 +13,15 @@
     "faq": "FAQ",
     "blog": "Blog",
     "cta": "Free consultation",
-    "tagline": "Software Architecture"
+    "tagline": "Software & Full-Stack Developer"
   },
   "hero": {
     "badge": "Available for new projects",
-    "title": "We build the software that grows your business.",
+    "title": "Software shaped around the way you work.",
     "titleHighlight": "that grows",
-    "subtitle": "Process automation, high-performance web development and AI integration for SMBs and enterprises that need results, not promises.",
-    "ctaPrimary": "Request free consultation",
-    "ctaSecondary": "View success cases",
+    "subtitle": "We design and develop websites, systems and automations around the specific problems your team needs to solve.",
+    "ctaPrimary": "Tell us about your project",
+    "ctaSecondary": "See our work",
     "trust1": "Guaranteed delivery or refund",
     "trust2": "Response within 24 hours",
     "trust3": "100% client satisfaction"
@@ -320,21 +320,21 @@
     ]
   },
   "contact": {
-    "badge": "Available for projects",
-    "title": "Start your project",
-    "titleHighlight": "today.",
-    "subtitle": "Free 30-minute consultation. No commitment. We contact you within 24 hours with a personalized proposal.",
-    "benefit1Title": "Response within 24 hours",
-    "benefit1Desc": "We review your case and contact you quickly.",
-    "benefit2Title": "100% free consultation",
-    "benefit2Desc": "No cost, no commitment, no fine print.",
-    "benefit3Title": "Personalized proposal",
-    "benefit3Desc": "Custom solution according to your budget and goals.",
+    "badge": "Contact",
+    "title": "Tell me what you are",
+    "titleHighlight": "trying to solve.",
+    "subtitle": "Tell me what is failing, what you want to improve, or what you need to build. From there we can work out the next step together.",
+    "benefit1Title": "A direct conversation",
+    "benefit1Desc": "I personally review every request.",
+    "benefit2Title": "We understand the problem first",
+    "benefit2Desc": "Technology comes after the goal is clear.",
+    "benefit3Title": "A concrete proposal",
+    "benefit3Desc": "Scope, timing and priorities explained plainly.",
     "directContact": "Prefer direct contact?",
     "linkedinBtn": "Message on LinkedIn",
     "whatsappBtn": "WhatsApp",
-    "formTitle": "Request your free consultation",
-    "formSubtitle": "Fill out the form and we'll respond within 24 hours.",
+    "formTitle": "Tell me about your project",
+    "formSubtitle": "You do not need every detail. Start with the problem.",
     "labelName": "Name",
     "labelEmail": "Email",
     "labelProjectType": "What do you need?",
@@ -343,7 +343,7 @@
     "placeholderEmail": "john@company.com",
     "placeholderSelect": "Select an option...",
     "placeholderMessage": "Briefly describe your project or the problem you want to solve...",
-    "submitBtn": "Request free consultation",
+    "submitBtn": "Send message",
     "sending": "Sending...",
     "successTitle": "Message sent!",
     "successDesc": "We'll contact you within the next 24 hours.",
@@ -361,7 +361,7 @@
     ]
   },
   "footer": {
-    "tagline": "Software Architecture",
+    "tagline": "Software & Full-Stack Developer",
     "description": "Custom software development, automation and AI integration for companies that want to grow without technological limits.",
     "location": "Tehuacán, Puebla, Mexico",
     "navTitle": "Navigation",

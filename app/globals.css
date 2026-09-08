@@ -14,14 +14,16 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Manrope', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f4f1e9;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, .font-heading {
-  font-family: 'Sora', system-ui, sans-serif;
-  letter-spacing: -0.03em;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  letter-spacing: -0.04em;
 }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -30,13 +32,32 @@ h1, h2, h3, h4, .font-heading {
 .dark ::-webkit-scrollbar-thumb { background: #1E293B; }
 
 :focus-visible {
-  outline: 2px solid #4F46E5;
+  outline: 2px solid #b9e95b;
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-::selection { background-color: #E0E7FF; color: #3730A3; }
+::selection { background-color: #d7f59b; color: #10140f; }
 .dark ::selection { background-color: #3730A3; color: #E0E7FF; }
+
+.signal-grid {
+  background-image: linear-gradient(rgba(16, 20, 15, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 20, 15, 0.055) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.dark .signal-grid {
+  background-image: linear-gradient(rgba(244, 241, 233, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(244, 241, 233, 0.06) 1px, transparent 1px);
+}
+
+.eyebrow {
+  color: #697064;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.dark .eyebrow { color: #a8b0a0; }
 
 /* Línea divisora sutil */
 .divider {

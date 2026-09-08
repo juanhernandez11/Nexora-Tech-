@@ -9,19 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Sora', 'system-ui', 'sans-serif'],
+        sans:    ['Manrope', 'system-ui', 'sans-serif'],
+        heading: ['Space Grotesk', 'system-ui', 'sans-serif'],
       },
       colors: {
         brand: {
-          50:  '#EEF2FF',
-          100: '#E0E7FF',
-          400: '#818CF8',
-          500: '#6366F1',
-          600: '#4F46E5',
-          700: '#4338CA',
-          800: '#3730A3',
-          900: '#312E81',
+          50:  '#F0F8D9',
+          100: '#DDF4A8',
+          400: '#D7F59B',
+          500: '#B9E95B',
+          600: '#91C83E',
+          700: '#6E9E2D',
+          800: '#4A7022',
+          900: '#2D471A',
         },
         accent: {
           400: '#22D3EE',
@@ -30,8 +30,8 @@ const config: Config = {
         },
       },
       boxShadow: {
-        brand:    '0 8px 30px rgba(79,70,229,0.25)',
-        'brand-lg': '0 20px 60px rgba(79,70,229,0.30)',
+        brand:    '0 8px 30px rgba(145,200,62,0.22)',
+        'brand-lg': '0 20px 60px rgba(145,200,62,0.24)',
       },
     },
   },

@@ -52,7 +52,7 @@ const Testimonials = () => {
 
               {/* Texto */}
               <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-6">
-                "{item.text}"
+                &quot;{item.text}&quot;
               </p>
 
               {/* Autor */}

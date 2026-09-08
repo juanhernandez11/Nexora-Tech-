@@ -59,8 +59,8 @@ const SuccessCases = () => {
                     </h3>
                   </div>
 
-                  {/* Métrica */}
-                  <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
+                  {/* Resultado principal */}
+                  <span className="hidden md:block text-xs text-slate-500 dark:text-slate-400 max-w-[190px] text-right shrink-0">
                     {project.metricsShort}
                   </span>
 

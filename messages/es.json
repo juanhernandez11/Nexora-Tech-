@@ -3,7 +3,7 @@
     "title": "Nexora Tech | Desarrollo de Software y Automatización Empresarial",
     "description": "Desarrollamos software a medida, automatizaciones, aplicaciones web e infraestructura digital para empresas que buscan crecer y optimizar sus procesos. Consultoría gratuita.",
     "ogTitle": "Nexora Tech | Desarrollo de Software y Automatización Empresarial",
-    "ogDescription": "Software a medida, automatización e IA para empresas que necesitan resultados, no promesas."
+    "ogDescription": "Software a medida, automatización e IA para empresas que quieren trabajar mejor."
   },
   "nav": {
     "services": "Servicios",
@@ -13,15 +13,15 @@
     "faq": "Preguntas frecuentes",
     "blog": "Blog",
     "cta": "Consultoría gratuita",
-    "tagline": "Software Architecture"
+    "tagline": "Software & Full-Stack Developer"
   },
   "hero": {
     "badge": "Disponible para nuevos proyectos",
-    "title": "Construimos el software que hace crecer tu empresa.",
+    "title": "Software pensado para la forma en que trabajas.",
     "titleHighlight": "que hace crecer",
-    "subtitle": "Automatización de procesos, desarrollo web de alto rendimiento e integración de IA para PyMEs y corporativos que necesitan resultados, no promesas.",
-    "ctaPrimary": "Solicitar consultoría gratuita",
-    "ctaSecondary": "Ver casos de éxito",
+    "subtitle": "Diseñamos y desarrollamos sitios, sistemas y automatizaciones a partir de los problemas concretos de tu equipo.",
+    "ctaPrimary": "Cuéntanos tu proyecto",
+    "ctaSecondary": "Ver nuestro trabajo",
     "trust1": "Entrega garantizada o devolución",
     "trust2": "Respuesta en menos de 24 horas",
     "trust3": "100% de clientes satisfechos"
@@ -320,21 +320,21 @@
     ]
   },
   "contact": {
-    "badge": "Disponible para proyectos",
-    "title": "Inicia tu proyecto",
-    "titleHighlight": "hoy mismo.",
-    "subtitle": "Consultoría gratuita de 30 minutos. Sin compromiso. Te contactamos en menos de 24 horas con una propuesta personalizada.",
-    "benefit1Title": "Respuesta en menos de 24 horas",
-    "benefit1Desc": "Revisamos tu caso y te contactamos rápidamente.",
-    "benefit2Title": "Consultoría 100% gratuita",
-    "benefit2Desc": "Sin costo, sin compromiso, sin letra pequeña.",
-    "benefit3Title": "Propuesta personalizada",
-    "benefit3Desc": "Solución a medida según tu presupuesto y objetivos.",
+    "badge": "Contacto",
+    "title": "Hablemos de lo que estás",
+    "titleHighlight": "intentando resolver.",
+    "subtitle": "Cuéntame qué está fallando, qué quieres mejorar o qué necesitas construir. Con esa información vemos juntos cuál es el siguiente paso.",
+    "benefit1Title": "Conversación directa",
+    "benefit1Desc": "Reviso personalmente cada solicitud.",
+    "benefit2Title": "Primero entendemos el problema",
+    "benefit2Desc": "La tecnología viene después de tener claro el objetivo.",
+    "benefit3Title": "Una propuesta concreta",
+    "benefit3Desc": "Alcance, tiempos y prioridades explicados sin rodeos.",
     "directContact": "¿Prefieres contacto directo?",
     "linkedinBtn": "Escribir en LinkedIn",
     "whatsappBtn": "WhatsApp",
-    "formTitle": "Solicita tu consultoría gratuita",
-    "formSubtitle": "Completa el formulario y te respondemos en menos de 24 horas.",
+    "formTitle": "Cuéntame tu proyecto",
+    "formSubtitle": "No hace falta tener todos los detalles. Empieza por el problema.",
     "labelName": "Nombre",
     "labelEmail": "Email",
     "labelProjectType": "¿Qué necesitas?",
@@ -343,7 +343,7 @@
     "placeholderEmail": "juan@empresa.com",
     "placeholderSelect": "Selecciona una opción...",
     "placeholderMessage": "Describe brevemente tu proyecto o el problema que quieres resolver...",
-    "submitBtn": "Solicitar consultoría gratuita",
+    "submitBtn": "Enviar mensaje",
     "sending": "Enviando...",
     "successTitle": "¡Mensaje enviado!",
     "successDesc": "Te contactamos en las próximas 24 horas.",
@@ -361,7 +361,7 @@
     ]
   },
   "footer": {
-    "tagline": "Software Architecture",
+    "tagline": "Software & Full-Stack Developer",
     "description": "Desarrollo de software a medida, automatización e integración de IA para empresas que quieren crecer sin límites tecnológicos.",
     "location": "Tehuacán, Puebla, México",
     "navTitle": "Navegación",

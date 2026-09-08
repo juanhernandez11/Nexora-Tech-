@@ -144,7 +144,7 @@ const jsonLd = [
     '@type': 'Person',
     '@id': `${SITE_URL}/#founder`,
     name: 'Juan Bv.',
-    jobTitle: 'Software Architect & Full-Stack Developer',
+    jobTitle: 'Software & Full-Stack Developer',
     description: 'Especialista en desarrollo de software a medida, automatización empresarial e integración de IA con más de 2 años de experiencia y 15+ proyectos entregados en México.',
     url: SITE_URL,
     sameAs: ['https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/'],
@@ -176,7 +176,7 @@ export default async function LocaleLayout({
         {/* display=swap evita FOIT y no bloquea el render — mejora LCP */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
         />
         <meta name="google-site-verification" content="K2Pr9c4pJIz1illvhuu03_TDfK_ggSnMsylbPK7HBds" />
         {[...jsonLd, websiteSchema].map((schema, i) => (

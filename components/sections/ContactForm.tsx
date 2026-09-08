@@ -59,15 +59,18 @@ const ContactForm = () => {
 
           {/* Columna izquierda */}
           <div className="lg:pt-2">
-            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
-              {t('badge')}
-            </p>
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
               {t('title')} <span className="text-brand-600">{t('titleHighlight')}</span>
             </h2>
             <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-10 max-w-md">
               {t('subtitle')}
             </p>
+
+            <div className="border-l-2 border-brand-500 pl-4 mb-10 max-w-md">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">Juan Ramón Moreno Bravo</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Desarrollador de software · Tehuacán, Puebla</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{locale === 'en' ? 'I work directly on each project, from the first conversation to the final handoff.' : 'Trabajo directamente en cada proyecto, desde la primera conversación hasta la entrega final.'}</p>
+            </div>
 
             {/* Beneficios */}
             <div className="space-y-4 mb-10">
