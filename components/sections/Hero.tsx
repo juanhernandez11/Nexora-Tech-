@@ -1,11 +1,11 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { ArrowRight, Clock, ShieldCheck, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import useInView from '@/hooks/useInView';
 
 const Hero = () => {
-  const t = useTranslations('hero');
+  const t  = useTranslations('hero');
   const ts = useTranslations('stats');
   const [ref, inView] = useInView(0.05);
 
@@ -17,56 +17,68 @@ const Hero = () => {
   ];
 
   return (
-    <section ref={ref} className="relative pt-28 pb-16 sm:pt-40 sm:pb-20 lg:pt-52 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-600/5 dark:bg-brand-600/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/4" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-500/5 rounded-full blur-3xl -translate-x-1/3 translate-y-1/4" />
-      </div>
-
+    <section
+      ref={ref}
+      className="relative pt-32 pb-20 sm:pt-44 sm:pb-28 min-h-[88vh] flex flex-col justify-center"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-        <div className={`max-w-4xl transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm rounded-full mb-8">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse flex-shrink-0" />
-            <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest">{t('badge')}</span>
-          </div>
 
-          <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-slate-900 dark:text-white leading-[0.92] tracking-tighter mb-6">
-            {t('title')}
-          </h1>
+        {/* Indicador disponible — pequeño, sin pill */}
+        <div
+          className={`flex items-center gap-2 mb-8 transition-all duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}
+        >
+          <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+          <span className="text-xs font-medium text-slate-400 dark:text-slate-500">
+            {t('badge')}
+          </span>
+        </div>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed font-medium max-w-2xl">
+        {/* Headline principal */}
+        <h1
+          className={`font-heading text-[clamp(2.8rem,8vw,6.5rem)] font-black text-slate-900 dark:text-white leading-[0.9] tracking-tight mb-8 max-w-5xl transition-all duration-700 delay-75 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          {t('title')}
+        </h1>
+
+        {/* Subtítulo + CTAs en grid */}
+        <div
+          className={`grid sm:grid-cols-2 gap-8 items-end mb-16 transition-all duration-700 delay-150 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 leading-relaxed max-w-md">
             {t('subtitle')}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-14">
-            <a href="#contacto-form" className="inline-flex items-center justify-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-brand-700 transition-all shadow-brand hover:shadow-brand-lg group active:scale-95">
-              {t('ctaPrimary')} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
+            <a
+              href="#contacto-form"
+              className="inline-flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-lg text-sm font-semibold hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors group"
+            >
+              {t('ctaPrimary')}
+              <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
             </a>
-            <a href="#casos-de-exito" className="inline-flex items-center justify-center gap-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-bold text-base border-2 border-slate-200 dark:border-slate-700 hover:border-brand-600 dark:hover:border-brand-500 transition-all">
+            <a
+              href="#casos-de-exito"
+              className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors px-6 py-3"
+            >
               {t('ctaSecondary')}
             </a>
           </div>
-
-          <div className="flex flex-wrap gap-x-8 gap-y-4 pt-8 border-t border-slate-100 dark:border-slate-800">
-            {stats.map((s, i) => (
-              <div key={i} className="flex flex-col">
-                <span className="font-heading text-2xl font-black text-slate-900 dark:text-white leading-none">{s.value}</span>
-                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-widest">{s.label}</span>
-              </div>
-            ))}
-          </div>
         </div>
 
-        <div className={`mt-12 flex flex-wrap gap-4 transition-all duration-700 delay-200 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-            <ShieldCheck size={14} className="text-emerald-500" /> {t('trust1')}
-          </div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-            <Clock size={14} className="text-brand-600" /> {t('trust2')}
-          </div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-            <Star size={14} className="text-yellow-500 fill-yellow-500" /> {t('trust3')}
-          </div>
+        {/* Stats — línea horizontal, sin cards */}
+        <div
+          className={`border-t border-slate-100 dark:border-slate-800 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 transition-all duration-700 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}
+        >
+          {stats.map((s, i) => (
+            <div key={i}>
+              <p className="font-heading text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+                {s.value}
+              </p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 leading-snug">
+                {s.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
