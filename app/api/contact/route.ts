@@ -194,7 +194,7 @@ export async function POST(req: NextRequest) {
           <p style="color:#475569;margin-top:24px;font-size:15px;">
             Saludos,<br/>
             <strong style="color:#0f172a;">Ing. Juan R.</strong><br/>
-            <span style="color:#94a3b8;font-size:13px;">Software Architect · Nexora Tech</span>
+            <span style="color:#94a3b8;font-size:13px;">Software & Full-Stack Developer · Nexora Tech</span>
           </p>
         </div>
       `,

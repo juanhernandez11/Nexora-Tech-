@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>
-                  <p style="margin:0 0 4px 0;font-size:11px;font-weight:900;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.2em;">Nexora Tech · Software Architecture</p>
+                  <p style="margin:0 0 4px 0;font-size:11px;font-weight:900;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.2em;">Nexora Tech · Software & Full-Stack Developer</p>
                   <h1 style="margin:0;font-size:26px;font-weight:900;color:#ffffff;line-height:1.2;">Hola, ${safeName} 👋</h1>
                   <p style="margin:8px 0 0 0;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5;">Revisé tu solicitud y tengo una respuesta para ti.</p>
                 </td>
@@ -140,7 +140,7 @@ export async function POST(req: NextRequest) {
                 </td>
                 <td>
                   <p style="margin:0;font-size:15px;font-weight:900;color:#0F172A;">Ing. Juan R. Moreno</p>
-                  <p style="margin:2px 0 0 0;font-size:12px;color:#64748B;">Software Architect · Nexora Tech</p>
+                  <p style="margin:2px 0 0 0;font-size:12px;color:#64748B;">Software & Full-Stack Developer · Nexora Tech</p>
                   <p style="margin:2px 0 0 0;font-size:12px;color:#94A3B8;">Tehuacán, Puebla, México</p>
                 </td>
               </tr>
