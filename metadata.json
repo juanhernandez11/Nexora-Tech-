@@ -1,0 +1,8 @@
+{
+  "name": "Nexora Tech",
+  "description": "Desarrollo de software a medida, automatización empresarial, aplicaciones web e infraestructura digital para empresas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

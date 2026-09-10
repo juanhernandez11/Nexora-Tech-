@@ -115,11 +115,11 @@ export default async function FAQPage({
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-between">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
-      <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <main className="flex-grow">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20">
           <nav className="text-xs text-slate-400 mb-10 flex items-center gap-2">
               <Link href={`${base}/`} className="hover:text-brand-600 transition-colors">{locale === 'es' ? 'Inicio' : 'Home'}</Link>
@@ -162,8 +162,8 @@ export default async function FAQPage({
             </Link>
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }

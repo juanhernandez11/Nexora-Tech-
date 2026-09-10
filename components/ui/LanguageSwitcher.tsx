@@ -18,10 +18,10 @@ const LanguageSwitcher = () => {
     <button
       onClick={switchLocale}
       aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
-      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-[#1d1d1f]/80 dark:text-slate-300 hover:text-[#0071e3] dark:hover:text-[#2997ff] hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-colors"
     >
       <Globe size={13} />
-      {locale === 'es' ? 'EN' : 'ES'}
+      <span>{locale === 'es' ? 'EN' : 'ES'}</span>
     </button>
   );
 };

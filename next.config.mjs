@@ -4,8 +4,15 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
     formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   experimental: {
     serverComponentsExternalPackages: ['nodemailer'],
@@ -15,7 +22,6 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
-          { key: 'X-Frame-Options',        value: 'DENY' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection',       value: '1; mode=block' },
           { key: 'Referrer-Policy',         value: 'strict-origin-when-cross-origin' },
@@ -31,7 +37,6 @@ const nextConfig = {
               "img-src 'self' data: https:",
               "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://region1.google-analytics.com",
               "frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com",
-              "frame-ancestors 'none'",
             ].join('; '),
           },
         ],

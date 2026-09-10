@@ -48,10 +48,10 @@ export default function ServiciosPage({ params: { locale } }: { params: { locale
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-between">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <Navbar />
-      <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <main className="flex-grow">
         <section className="relative pt-32 pb-20 overflow-hidden">
           <div className="absolute inset-0 -z-10">
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-600/5 dark:bg-brand-600/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/4" />
@@ -109,8 +109,8 @@ export default function ServiciosPage({ params: { locale } }: { params: { locale
             </Link>
           </div>
         </section>
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }

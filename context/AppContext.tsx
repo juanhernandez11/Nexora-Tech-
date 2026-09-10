@@ -1,5 +1,6 @@
 'use client';
 
+import '@/lib/client-guard';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface AppContextType {
@@ -27,7 +28,7 @@ const getLS = (key: string, fallback: string) => {
 };
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const [darkMode,       setDarkMode]       = useState(false);
+  const [darkMode,       setDarkMode]       = useState(true);
   const [fontSize,       setFontSize]       = useState(100);
   const [highContrast,   setHighContrast]   = useState(false);
   const [screenReader,   setScreenReader]   = useState(false);
@@ -37,7 +38,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Hidratación desde localStorage solo en cliente
   useEffect(() => {
-    setDarkMode(getLS('darkMode', 'false') === 'true');
+    setDarkMode(getLS('darkMode', 'true') === 'true');
     setFontSize(Number(getLS('fontSize', '100')));
     setHighContrast(getLS('highContrast', 'false') === 'true');
     setScreenReader(getLS('screenReader', 'false') === 'true');

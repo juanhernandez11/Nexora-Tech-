@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppProvider } from '@/context/AppContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import ClientGuard from '@/lib/client-guard';
 import '../globals.css';
 
 const locales = ['es', 'en'];
@@ -13,10 +14,11 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: { locale?: string };
 }): Promise<Metadata> {
+  const locale = params?.locale && locales.includes(params.locale) ? params.locale : 'es';
   const t = await getTranslations({ locale, namespace: 'meta' });
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
   const canonicalUrl = locale === 'es' ? baseUrl : `${baseUrl}/${locale}`;
@@ -155,21 +157,39 @@ const jsonLd = [
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: { locale?: string };
 }) {
-  if (!locales.includes(locale)) notFound();
+  const locale = params?.locale && locales.includes(params.locale) ? params.locale : 'es';
 
   // Habilita static rendering para next-intl
   setRequestLocale(locale);
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} className="dark" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('darkMode');
+                  if (saved === 'false') {
+                    document.documentElement.classList.remove('dark');
+                  } else if (saved === 'true') {
+                    document.documentElement.classList.add('dark');
+                  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         {/* DNS preconnect primero — reduce latencia de fuentes */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -188,6 +208,7 @@ export default async function LocaleLayout({
         ))}
       </head>
       <body>
+        <ClientGuard />
         <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>
           <AppProvider>

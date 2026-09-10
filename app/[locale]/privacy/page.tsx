@@ -17,10 +17,9 @@ export default async function PrivacyPage({ params: { locale } }: { params: { lo
   const t = await getTranslations({ locale, namespace: 'privacy' });
 
   return (
-    <>
+    <div className="min-h-screen bg-[#FDFDFD] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-between">
       <Navbar />
-      <div className="min-h-screen bg-[#FDFDFD] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
-      <div className="max-w-3xl mx-auto px-6 py-20">
+      <main className="flex-grow max-w-3xl mx-auto px-6 py-20 w-full">
         <Link
           href={locale === 'en' ? '/en' : '/'}
           className="flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-12 transition-colors"
@@ -101,9 +100,8 @@ export default async function PrivacyPage({ params: { locale } }: { params: { lo
         <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">© {new Date().getFullYear()} NEXORATECH Solutions · Tehuacán, Puebla, México</p>
         </div>
-      </div>
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
