@@ -16,7 +16,7 @@ const WorkProcess = () => {
   const guaranteeIcons = [Clock, ShieldCheck, FileCheck];
 
   return (
-    <section id="proceso" className="py-24 sm:py-32 bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] relative overflow-hidden transition-colors">
+    <section id="proceso" className="scroll-mt-20 py-24 sm:py-32 bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] relative overflow-hidden transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Encabezado estilo Apple */}
         <div

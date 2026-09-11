@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import Lenis from 'lenis';
 
 export default function SmoothScroll() {
   useEffect(() => {
@@ -9,25 +8,70 @@ export default function SmoothScroll() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      touchMultiplier: 2,
+    let destroyed = false;
+    let lenisInstance: any = null;
+    let rafId: number | null = null;
+
+    import('lenis').then(({ default: Lenis }) => {
+      if (destroyed) return;
+
+      lenisInstance = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        touchMultiplier: 2,
+      });
+
+      function raf(time: number) {
+        if (lenisInstance) {
+          lenisInstance.raf(time);
+          rafId = requestAnimationFrame(raf);
+        }
+      }
+
+      rafId = requestAnimationFrame(raf);
+
+      // Handle initial hash in URL if arriving from another page
+      if (typeof window !== 'undefined' && window.location.hash) {
+        const targetId = window.location.hash.replace(/^#/, '');
+        const el = document.getElementById(targetId);
+        if (el) {
+          setTimeout(() => {
+            if (!destroyed && lenisInstance) {
+              lenisInstance.scrollTo(el, { offset: -80, duration: 1 });
+            }
+          }, 300);
+        }
+      }
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    const handleHashChange = () => {
+      if (typeof window === 'undefined' || !window.location.hash) return;
+      const targetId = window.location.hash.replace(/^#/, '');
+      const el = document.getElementById(targetId);
+      if (el) {
+        if (lenisInstance) {
+          lenisInstance.scrollTo(el, { offset: -80, duration: 1 });
+        } else {
+          const top = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
+    };
 
-    const rafId = requestAnimationFrame(raf);
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
+      destroyed = true;
+      window.removeEventListener('hashchange', handleHashChange);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+      if (lenisInstance) {
+        lenisInstance.destroy();
+      }
     };
   }, []);
 

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, Moon, Sun } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
@@ -19,22 +20,32 @@ const NAV_ITEMS = [
 const Navbar = () => {
   const t = useTranslations('nav');
   const locale = useLocale();
+  const pathname = usePathname();
   const { darkMode, setDarkMode, setMobileMenuOpen } = useApp();
   const homeHref = locale === 'en' ? '/en' : '/';
+  const isHomePage = pathname === '/' || pathname === '/en' || pathname === '/es';
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.startsWith('#')) return;
-    e.preventDefault();
-    const el = document.getElementById(href.replace('#', ''));
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.includes('#')) return;
+    const targetId = href.replace(/^.*#/, '');
+    const el = document.getElementById(targetId);
     if (el) {
-      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      e.preventDefault();
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+      window.history.pushState(null, '', `#${targetId}`);
+    } else {
+      e.preventDefault();
+      window.location.href = `${homeHref}#${targetId}`;
     }
   };
 
@@ -65,8 +76,8 @@ const Navbar = () => {
               href.startsWith('#') ? (
                 <a
                   key={key}
-                  href={href}
-                  onClick={(e) => scrollTo(e, href)}
+                  href={isHomePage ? href : `${homeHref}${href}`}
+                  onClick={(e) => handleAnchorClick(e, href)}
                   className="text-xs font-semibold tracking-wider uppercase text-[#1d1d1f]/75 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.08] px-3.5 py-1.5 rounded-full transition-all"
                 >
                   {t(key)}
@@ -85,8 +96,8 @@ const Navbar = () => {
 
           <GsapMagnetic strength={0.25}>
             <a
-              href="#contacto-form"
-              onClick={(e) => scrollTo(e, '#contacto-form')}
+              href={isHomePage ? '#contacto-form' : `${homeHref}#contacto-form`}
+              onClick={(e) => handleAnchorClick(e, '#contacto-form')}
               className="text-xs font-medium bg-[#0071e3] hover:bg-[#0077ed] text-white px-5 py-2.5 rounded-full transition-all shadow-sm shadow-[#0071e3]/20"
             >
               {t('cta')}
@@ -97,12 +108,17 @@ const Navbar = () => {
             <LanguageSwitcher />
 
             <button
+              suppressHydrationWarning
               onClick={() => setDarkMode(v => !v)}
-              aria-label={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-              title={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              aria-label={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
+              title={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
               className="p-2 rounded-full text-[#1d1d1f]/70 dark:text-slate-400 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.06] dark:hover:bg-white/[0.08] transition-all"
             >
-              {darkMode ? <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" /> : <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />}
+              {mounted && !darkMode ? (
+                <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+              ) : (
+                <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+              )}
             </button>
           </div>
         </div>
@@ -111,11 +127,16 @@ const Navbar = () => {
         <div className="flex items-center gap-1.5 lg:hidden">
           <LanguageSwitcher />
           <button
+            suppressHydrationWarning
             onClick={() => setDarkMode(v => !v)}
-            aria-label={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            aria-label={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
             className="p-2 rounded-full text-[#1d1d1f]/80 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white transition-colors"
           >
-            {darkMode ? <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" /> : <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />}
+            {mounted && !darkMode ? (
+              <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+            ) : (
+              <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+            )}
           </button>
           <button
             onClick={() => setMobileMenuOpen(true)}

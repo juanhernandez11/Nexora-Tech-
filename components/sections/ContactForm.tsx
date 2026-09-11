@@ -50,7 +50,7 @@ const ContactForm = () => {
   const inputClass = "w-full px-4 py-3 bg-white dark:bg-[#121214] border border-black/[0.1] dark:border-white/[0.12] rounded-2xl text-[#1d1d1f] dark:text-white text-sm focus:border-[#0071e3] dark:focus:border-[#2997ff] focus:outline-none transition-colors placeholder:text-[#86868b] dark:placeholder:text-slate-500 shadow-xs";
 
   return (
-    <section id="contacto-form" className="py-24 sm:py-32 bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] relative overflow-hidden transition-colors">
+    <section id="contacto-form" className="scroll-mt-20 py-24 sm:py-32 bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] relative overflow-hidden transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div
           ref={ref}

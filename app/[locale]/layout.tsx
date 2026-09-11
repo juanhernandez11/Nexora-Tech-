@@ -202,12 +202,13 @@ export default async function LocaleLayout({
         {[...jsonLd, websiteSchema].map((schema, i) => (
           <script
             key={i}
+            id={`root-schema-${i}`}
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
         ))}
       </head>
-      <body>
+      <body suppressHydrationWarning className="bg-white dark:bg-black text-[#1d1d1f] dark:text-white antialiased">
         <ClientGuard />
         <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>

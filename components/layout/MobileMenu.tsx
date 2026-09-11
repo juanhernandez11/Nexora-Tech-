@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { X, ArrowRight, Sun, Moon } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import { useApp } from '@/context/AppContext';
@@ -17,24 +18,29 @@ const NAV_ITEMS = [
 const MobileMenu = () => {
   const t = useTranslations('nav');
   const locale = useLocale();
+  const pathname = usePathname();
   const { mobileMenuOpen, setMobileMenuOpen, darkMode, setDarkMode } = useApp();
+  const homeHref = locale === 'en' ? '/en' : '/';
+  const isHomePage = pathname === '/' || pathname === '/en' || pathname === '/es';
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.startsWith('#')) {
+    if (!href.includes('#')) {
       setMobileMenuOpen(false);
       return;
     }
     e.preventDefault();
     setMobileMenuOpen(false);
+    const targetId = href.replace(/^.*#/, '');
     setTimeout(() => {
-      const el = document.getElementById(href.replace('#', ''));
+      const el = document.getElementById(targetId);
       if (el) {
-        const top = el.getBoundingClientRect().top + window.pageYOffset - 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - 80;
         window.scrollTo({ top, behavior: 'smooth' });
+        window.history.pushState(null, '', `#${targetId}`);
       } else {
-        window.location.href = locale === 'en' ? `/en/${href}` : `/${href}`;
+        window.location.href = `${homeHref}#${targetId}`;
       }
-    }, 300);
+    }, 250);
   };
 
   return (
@@ -62,7 +68,7 @@ const MobileMenu = () => {
           {NAV_ITEMS.map(({ key, href }) => href.startsWith('#') ? (
             <a
               key={key}
-              href={href}
+              href={isHomePage ? href : `${homeHref}${href}`}
               onClick={(e) => handleClick(e, href)}
               className="text-lg font-bold text-[#1d1d1f] dark:text-white hover:text-[#0071e3] dark:hover:text-[#2997ff] px-3 py-3 rounded-2xl hover:bg-black/[0.03] dark:hover:bg-white/[0.05] transition-all tracking-tight"
             >
@@ -103,7 +109,7 @@ const MobileMenu = () => {
           </div>
 
           <a
-            href="#contacto-form"
+            href={isHomePage ? '#contacto-form' : `${homeHref}#contacto-form`}
             onClick={(e) => handleClick(e, '#contacto-form')}
             className="w-full bg-[#0071e3] hover:bg-[#0077ed] text-white py-3.5 rounded-full font-medium text-sm flex items-center justify-center gap-2 shadow-sm shadow-[#0071e3]/20 transition-all group"
           >
