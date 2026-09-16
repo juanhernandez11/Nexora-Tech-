@@ -160,7 +160,7 @@ export async function POST(req: NextRequest) {
                   </p>
                 </td>
                 <td align="right">
-                  <a href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/"
+                  <a href="https://www.linkedin.com/company/nexoratech-tehuacan"
                      style="display:inline-block;background:#0A66C2;color:#fff;text-decoration:none;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:900;">LinkedIn</a>
                 </td>
               </tr>

@@ -62,7 +62,7 @@ const Footer = () => {
             <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-4">{t('contactTitle')}</p>
             <div className="space-y-2.5">
               <a
-                href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/"
+                href="https://www.linkedin.com/company/nexoratech-tehuacan"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"

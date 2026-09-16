@@ -189,7 +189,7 @@ export async function POST(req: NextRequest) {
           </div>
           <p style="color:#475569;line-height:1.7;font-size:15px;">
             Si tienes alguna pregunta urgente, puedes escribirme directamente en
-            <a href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/" style="color:#4F46E5;">LinkedIn</a>.
+            <a href="https://www.linkedin.com/company/nexoratech-tehuacan" style="color:#4F46E5;">LinkedIn</a>.
           </p>
           <p style="color:#475569;margin-top:24px;font-size:15px;">
             Saludos,<br/>

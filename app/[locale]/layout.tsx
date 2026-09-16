@@ -118,7 +118,7 @@ const jsonLd = [
       { '@type': 'Country', name: 'Estados Unidos' },
       { '@type': 'Place', name: 'Latinoamérica' },
     ],
-    sameAs: ['https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/'],
+    sameAs: ['https://www.linkedin.com/company/nexoratech-tehuacan'],
     priceRange: '$$',
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
@@ -147,7 +147,7 @@ const jsonLd = [
     jobTitle: 'Software & Full-Stack Developer',
     description: 'Especialista en desarrollo de software a medida, automatización empresarial e integración de IA con más de 2 años de experiencia y 15+ proyectos entregados en México.',
     url: SITE_URL,
-    sameAs: ['https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/'],
+    sameAs: ['https://www.linkedin.com/company/nexoratech-tehuacan'],
     knowsAbout: ['Desarrollo de Software', 'React', 'TypeScript', 'Next.js', 'Node.js', 'Inteligencia Artificial', 'Automatización Empresarial', 'Firebase', 'MySQL', 'Google Gemini'],
     worksFor: { '@id': `${SITE_URL}/#organization` },
   },

@@ -94,7 +94,7 @@ const ContactForm = () => {
               <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">{t('directContact')}</p>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/"
+                  href="https://www.linkedin.com/company/nexoratech-tehuacan"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"

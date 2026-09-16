@@ -121,7 +121,7 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
     author: {
       '@type': 'Person',
       name: post.author,
-      url: 'https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/',
+      url: 'https://www.linkedin.com/company/nexoratech-tehuacan',
     },
     datePublished: post.date,
     dateModified: post.date,
@@ -214,7 +214,7 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
                   : 'Juan Bv. is a software developer and founder of Nexora Tech. He reviews these articles through hands-on experience with web, automation, and AI projects for businesses in Mexico.'}
               </p>
               <a
-                href="https://www.linkedin.com/in/juan-ramon-moreno-bravo-0830b1271/"
+                href="https://www.linkedin.com/company/nexoratech-tehuacan"
                 target="_blank"
                 rel="author noopener noreferrer"
                 className="mt-2 inline-block font-semibold text-brand-600 hover:underline"
