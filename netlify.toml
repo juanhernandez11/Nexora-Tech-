@@ -5,7 +5,7 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Cache de assets estáticos
+# ─── Cache de assets estáticos ────────────────────────────────────────────────
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
@@ -21,9 +21,37 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Forzar HTTPS
+# ─── Canonical: Forzar HTTPS en nexorate.netlify.app ─────────────────────────
+# Nota: el dominio canónico es nexorate.netlify.app
+# Este redirect evita que Google indexe la versión HTTP como duplicado
+
 [[redirects]]
-  from = "http://nexoratech.netlify.app/*"
-  to = "https://nexoratech.netlify.app/:splat"
+  from = "http://nexorate.netlify.app/*"
+  to = "https://nexorate.netlify.app/:splat"
+  status = 301
+  force = true
+
+# ─── Prevención de contenido duplicado ───────────────────────────────────────
+# Si alguna vez usas un dominio personalizado (ej. nexoratech.com),
+# redirige aquí hacia el canónico. Por ahora apunta al mismo Netlify.
+# Descomenta y ajusta cuando tengas dominio propio:
+# [[redirects]]
+#   from = "https://www.nexoratech.com/*"
+#   to = "https://nexorate.netlify.app/:splat"
+#   status = 301
+#   force = true
+
+# ─── Prevención de /es/ duplicado ────────────────────────────────────────────
+# next-intl con localePrefix: as-needed sirve español sin prefijo /es/.
+# Si alguien llega a /es/*, lo redirigimos a /* para evitar contenido duplicado.
+[[redirects]]
+  from = "/es/*"
+  to = "/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es"
+  to = "/"
   status = 301
   force = true

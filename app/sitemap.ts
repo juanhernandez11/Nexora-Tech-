@@ -1,11 +1,12 @@
 import { MetadataRoute } from 'next';
 import { getLocalizedSlug, getPostsByLocale } from '../lib/blog-data';
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
-const lastMod = new Date('2026-08-12');
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
 
-// Slugs de servicios — mismos en ambos idiomas (URL en español para ambos locales)
-// Nota: el locale EN usa el mismo slug porque el contenido es el mismo servicio
+// Fecha de última modificación — actualizar en cada deploy significativo
+const lastMod = new Date('2026-09-15');
+
+// Slugs de servicios (URLs en español para ambos idiomas — mismo slug, distinto locale prefix)
 const servicios = [
   'desarrollo-software',
   'software-a-medida',
@@ -18,108 +19,109 @@ const servicios = [
   'consultoria-tecnologica',
 ];
 
-// Solo se incluyen páginas que pueden satisfacer una intención de búsqueda.
-// Las páginas legales siguen siendo accesibles desde el footer, pero no necesitan
-// consumir señales de descubrimiento ni crawl budget orgánico.
+// Páginas estáticas con señal SEO relevante (excluye páginas legales para no desperdiciar crawl budget)
 const staticPages = [
   { slug: 'servicios', priority: 0.9, freq: 'monthly' as const },
   { slug: 'faq',       priority: 0.8, freq: 'monthly' as const },
   { slug: 'blog',      priority: 0.8, freq: 'weekly'  as const },
 ];
 
-// Mapeo de slugs entre idiomas (ES <-> EN)
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Home
+  // ─── HOME ──────────────────────────────────────────────────────────────────
+  // ES: / (sin prefijo, localePrefix: as-needed)
+  // EN: /en
   const homeUrls: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: BASE,
       lastModified: lastMod,
       changeFrequency: 'monthly',
       priority: 1,
       alternates: {
         languages: {
-          es: baseUrl,
-          en: `${baseUrl}/en`,
-          'x-default': baseUrl,
+          es: BASE,
+          en: `${BASE}/en`,
+          'x-default': BASE,
         },
       },
     },
     {
-      url: `${baseUrl}/en`,
+      url: `${BASE}/en`,
       lastModified: lastMod,
       changeFrequency: 'monthly',
       priority: 1,
       alternates: {
         languages: {
-          es: baseUrl,
-          en: `${baseUrl}/en`,
-          'x-default': baseUrl,
+          es: BASE,
+          en: `${BASE}/en`,
+          'x-default': BASE,
         },
       },
     },
   ];
 
-  // Servicios: páginas transaccionales principales del sitio.
+  // ─── SERVICIOS ─────────────────────────────────────────────────────────────
+  // ES: /servicios/slug (sin prefijo)
+  // EN: /en/servicios/slug
   const servicioUrls: MetadataRoute.Sitemap = servicios.flatMap((slug) => [
     {
-      url: `${baseUrl}/servicios/${slug}`,
+      url: `${BASE}/servicios/${slug}`,
       lastModified: lastMod,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
       alternates: {
         languages: {
-          es: `${baseUrl}/servicios/${slug}`,
-          en: `${baseUrl}/en/servicios/${slug}`,
-          'x-default': `${baseUrl}/servicios/${slug}`,
+          es: `${BASE}/servicios/${slug}`,
+          en: `${BASE}/en/servicios/${slug}`,
+          'x-default': `${BASE}/servicios/${slug}`,
         },
       },
     },
     {
-      url: `${baseUrl}/en/servicios/${slug}`,
+      url: `${BASE}/en/servicios/${slug}`,
       lastModified: lastMod,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
       alternates: {
         languages: {
-          es: `${baseUrl}/servicios/${slug}`,
-          en: `${baseUrl}/en/servicios/${slug}`,
-          'x-default': `${baseUrl}/servicios/${slug}`,
+          es: `${BASE}/servicios/${slug}`,
+          en: `${BASE}/en/servicios/${slug}`,
+          'x-default': `${BASE}/servicios/${slug}`,
         },
       },
     },
   ]);
 
-  // Páginas estáticas
+  // ─── PÁGINAS ESTÁTICAS ─────────────────────────────────────────────────────
   const staticUrls: MetadataRoute.Sitemap = staticPages.flatMap(({ slug, priority, freq }) => [
     {
-      url: `${baseUrl}/${slug}`,
+      url: `${BASE}/${slug}`,
       lastModified: lastMod,
       changeFrequency: freq,
       priority,
       alternates: {
         languages: {
-          es: `${baseUrl}/${slug}`,
-          en: `${baseUrl}/en/${slug}`,
-          'x-default': `${baseUrl}/${slug}`,
+          es: `${BASE}/${slug}`,
+          en: `${BASE}/en/${slug}`,
+          'x-default': `${BASE}/${slug}`,
         },
       },
     },
     {
-      url: `${baseUrl}/en/${slug}`,
+      url: `${BASE}/en/${slug}`,
       lastModified: lastMod,
       changeFrequency: freq,
       priority,
       alternates: {
         languages: {
-          es: `${baseUrl}/${slug}`,
-          en: `${baseUrl}/en/${slug}`,
-          'x-default': `${baseUrl}/${slug}`,
+          es: `${BASE}/${slug}`,
+          en: `${BASE}/en/${slug}`,
+          'x-default': `${BASE}/${slug}`,
         },
       },
     },
   ]);
 
-  // Blog articles
+  // ─── BLOG ──────────────────────────────────────────────────────────────────
   const esPosts = getPostsByLocale('es');
   const enPosts = getPostsByLocale('en');
 
@@ -127,15 +129,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...esPosts.map((post) => {
       const enSlug = getLocalizedSlug(post.slug);
       return {
-        url: `${baseUrl}/blog/${post.slug}`,
+        url: `${BASE}/blog/${post.slug}`,
         lastModified: new Date(post.date),
         changeFrequency: 'monthly' as const,
         priority: 0.7,
         alternates: {
           languages: {
-            es: `${baseUrl}/blog/${post.slug}`,
-            en: `${baseUrl}/en/blog/${enSlug}`,
-            'x-default': `${baseUrl}/blog/${post.slug}`,
+            es: `${BASE}/blog/${post.slug}`,
+            en: `${BASE}/en/blog/${enSlug ?? post.slug}`,
+            'x-default': `${BASE}/blog/${post.slug}`,
           },
         },
       };
@@ -143,15 +145,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...enPosts.map((post) => {
       const esSlug = getLocalizedSlug(post.slug);
       return {
-        url: `${baseUrl}/en/blog/${post.slug}`,
+        url: `${BASE}/en/blog/${post.slug}`,
         lastModified: new Date(post.date),
         changeFrequency: 'monthly' as const,
         priority: 0.7,
         alternates: {
           languages: {
-            es: `${baseUrl}/blog/${esSlug}`,
-            en: `${baseUrl}/en/blog/${post.slug}`,
-            'x-default': `${baseUrl}/blog/${esSlug}`,
+            es: `${BASE}/blog/${esSlug ?? post.slug}`,
+            en: `${BASE}/en/blog/${post.slug}`,
+            'x-default': `${BASE}/blog/${esSlug ?? post.slug}`,
           },
         },
       };
