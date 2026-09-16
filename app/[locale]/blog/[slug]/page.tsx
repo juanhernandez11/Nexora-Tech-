@@ -154,11 +154,11 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white flex flex-col justify-between">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <Navbar />
-      <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+      <main className="flex-grow">
         {/* Header */}
         <section className="relative pt-32 pb-12 overflow-hidden">
           <div className="absolute inset-0 -z-10">
@@ -330,8 +330,8 @@ export default function BlogArticlePage({ params: { locale, slug } }: { params: 
             </div>
           </div>
         </section>
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }

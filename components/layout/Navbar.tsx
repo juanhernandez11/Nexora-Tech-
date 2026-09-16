@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, Moon, Sun } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { useApp } from '@/context/AppContext';
+import GsapMagnetic from '@/components/ui/GsapMagnetic';
 
 const NAV_ITEMS = [
   { key: 'services', href: '/servicios' },
@@ -18,22 +20,32 @@ const NAV_ITEMS = [
 const Navbar = () => {
   const t = useTranslations('nav');
   const locale = useLocale();
+  const pathname = usePathname();
   const { darkMode, setDarkMode, setMobileMenuOpen } = useApp();
   const homeHref = locale === 'en' ? '/en' : '/';
+  const isHomePage = pathname === '/' || pathname === '/en' || pathname === '/es';
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.startsWith('#')) return;
-    e.preventDefault();
-    const el = document.getElementById(href.replace('#', ''));
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.includes('#')) return;
+    const targetId = href.replace(/^.*#/, '');
+    const el = document.getElementById(targetId);
     if (el) {
-      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+      e.preventDefault();
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+      window.history.pushState(null, '', `#${targetId}`);
+    } else {
+      e.preventDefault();
+      window.location.href = `${homeHref}#${targetId}`;
     }
   };
 
@@ -41,76 +53,95 @@ const Navbar = () => {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#f4f1e9]/95 dark:bg-[#11150f]/95 backdrop-blur-md border-b border-[#d8d8ca] dark:border-[#273022]'
-          : 'bg-transparent'
+          ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-black/[0.08] dark:border-white/[0.08] shadow-sm dark:shadow-2xl dark:shadow-black/60'
+          : 'bg-white/40 dark:bg-black/30 backdrop-blur-md border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href={homeHref} className="flex items-center gap-2.5" aria-label="Inicio">
-          <Logo className="w-7 h-7 text-slate-900 dark:text-white" />
-          <span className="font-heading font-bold text-base tracking-tight text-slate-900 dark:text-white">
-            NEXORA<span className="text-brand-600">/TECH</span>
+        <Link href={homeHref} className="flex items-center gap-2.5 group" aria-label="Inicio">
+          <div className="p-1.5 rounded-xl bg-[#0071e3]/10 dark:bg-white/10 border border-[#0071e3]/20 dark:border-white/15 group-hover:border-[#0071e3]/40 dark:group-hover:border-white/30 transition-all">
+            <Logo className="w-5 h-5 text-[#0071e3] dark:text-[#2997ff] group-hover:scale-105 transition-transform" />
+          </div>
+          <span className="font-heading font-black text-base tracking-tight text-[#1d1d1f] dark:text-white">
+            NEXORA<span className="text-[#0071e3] dark:text-[#2997ff]">/TECH</span>
           </span>
         </Link>
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-6">
-          {NAV_ITEMS.map(({ key, href }) =>
-            href.startsWith('#') ? (
-              <a
-                key={key}
-                href={href}
-                onClick={(e) => scrollTo(e, href)}
-                className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-              >
-                {t(key)}
-              </a>
-            ) : (
-              <Link
-                key={key}
-                href={`${locale === 'en' ? '/en' : ''}${href}`}
-                className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-              >
-                {t(key)}
-              </Link>
-            )
-          )}
+          <div className="flex items-center gap-1 bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08] rounded-full px-4 py-1.5 backdrop-blur-md">
+            {NAV_ITEMS.map(({ key, href }) =>
+              href.startsWith('#') ? (
+                <a
+                  key={key}
+                  href={isHomePage ? href : `${homeHref}${href}`}
+                  onClick={(e) => handleAnchorClick(e, href)}
+                  className="text-xs font-semibold tracking-wider uppercase text-[#1d1d1f]/75 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.08] px-3.5 py-1.5 rounded-full transition-all"
+                >
+                  {t(key)}
+                </a>
+              ) : (
+                <Link
+                  key={key}
+                  href={`${locale === 'en' ? '/en' : ''}${href}`}
+                  className="text-xs font-semibold tracking-wider uppercase text-[#1d1d1f]/75 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.08] px-3.5 py-1.5 rounded-full transition-all"
+                >
+                  {t(key)}
+                </Link>
+              )
+            )}
+          </div>
 
-          <a
-            href="#contacto-form"
-            onClick={(e) => scrollTo(e, '#contacto-form')}
-            className="text-xs font-bold uppercase tracking-[0.12em] bg-slate-900 dark:bg-brand-500 text-white dark:text-slate-950 px-4 py-2.5 rounded-none hover:bg-brand-600 dark:hover:bg-brand-400 transition-colors"
-          >
-            {t('cta')}
-          </a>
+          <GsapMagnetic strength={0.25}>
+            <a
+              href={isHomePage ? '#contacto-form' : `${homeHref}#contacto-form`}
+              onClick={(e) => handleAnchorClick(e, '#contacto-form')}
+              className="text-xs font-medium bg-[#0071e3] hover:bg-[#0077ed] text-white px-5 py-2.5 rounded-full transition-all shadow-sm shadow-[#0071e3]/20"
+            >
+              {t('cta')}
+            </a>
+          </GsapMagnetic>
 
-          <LanguageSwitcher />
+          <div className="flex items-center gap-2 pl-2 border-l border-black/[0.1] dark:border-white/[0.1]">
+            <LanguageSwitcher />
 
-          <button
-            onClick={() => setDarkMode(v => !v)}
-            aria-label={darkMode ? 'Modo claro' : 'Modo oscuro'}
-            className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
-          >
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+            <button
+              suppressHydrationWarning
+              onClick={() => setDarkMode(v => !v)}
+              aria-label={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
+              title={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
+              className="p-2 rounded-full text-[#1d1d1f]/70 dark:text-slate-400 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.06] dark:hover:bg-white/[0.08] transition-all"
+            >
+              {mounted && !darkMode ? (
+                <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+              ) : (
+                <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-1.5 lg:hidden">
           <LanguageSwitcher />
           <button
+            suppressHydrationWarning
             onClick={() => setDarkMode(v => !v)}
-            aria-label={darkMode ? 'Modo claro' : 'Modo oscuro'}
-            className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+            aria-label={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
+            className="p-2 rounded-full text-[#1d1d1f]/80 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white transition-colors"
           >
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+            {mounted && !darkMode ? (
+              <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+            ) : (
+              <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
+            )}
           </button>
           <button
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Abrir menú"
-            className="p-1.5 text-slate-700 dark:text-slate-200"
+            className="p-2 text-[#1d1d1f] dark:text-[#f5f5f7]"
           >
             <Menu size={22} />
           </button>

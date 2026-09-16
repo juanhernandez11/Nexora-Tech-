@@ -15,11 +15,16 @@ const speak = (text: string) => {
 };
 
 const AccessibilityWidget = () => {
+  const [mounted, setMounted] = useState(false);
   const t = useTranslations('accessibility');
   const [open, setOpen] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const { fontSize, setFontSize, highContrast, setHighContrast, screenReader, setScreenReader, reduceMotion, setReduceMotion, dyslexiaFont, setDyslexiaFont } = useApp();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const reset = () => {
     setFontSize(100); setHighContrast(false); setScreenReader(false);
@@ -53,6 +58,8 @@ const AccessibilityWidget = () => {
 
   const hasSpeech = typeof window !== 'undefined' && !!window.speechSynthesis;
 
+  if (!mounted) return null;
+
   return (
     <div className="fixed bottom-6 left-6 z-[100]">
       {open && (
@@ -67,39 +74,39 @@ const AccessibilityWidget = () => {
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{t('textSize')}</p>
               <div className="flex items-center gap-2">
-                <button onClick={() => setFontSize(f => Math.max(80, f - 10))} aria-label={t('decrease')} className="flex-1 flex items-center justify-center gap-1 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-brand-100 dark:hover:bg-brand-900 rounded-xl text-xs font-bold transition-colors"><ZoomOut size={13} /> A-</button>
-                <span aria-live="polite" className="text-xs font-black text-slate-600 dark:text-slate-300 w-10 text-center">{fontSize}%</span>
-                <button onClick={() => setFontSize(f => Math.min(150, f + 10))} aria-label={t('increase')} className="flex-1 flex items-center justify-center gap-1 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-brand-100 dark:hover:bg-brand-900 rounded-xl text-xs font-bold transition-colors"><ZoomIn size={13} /> A+</button>
+                <button onClick={() => setFontSize(f => Math.max(80, f - 10))} aria-label={t('decrease')} className="flex-1 flex items-center justify-center gap-1 py-2 bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-[#1d1d1f] dark:text-white rounded-xl text-xs font-semibold transition-colors"><ZoomOut size={13} /> A-</button>
+                <span aria-live="polite" className="text-xs font-semibold text-[#1d1d1f] dark:text-slate-200 w-10 text-center">{fontSize}%</span>
+                <button onClick={() => setFontSize(f => Math.min(150, f + 10))} aria-label={t('increase')} className="flex-1 flex items-center justify-center gap-1 py-2 bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-[#1d1d1f] dark:text-white rounded-xl text-xs font-semibold transition-colors"><ZoomIn size={13} /> A+</button>
               </div>
             </div>
             {([
-              { state: highContrast, set: setHighContrast, icon: Contrast,  label: t('highContrast'),  active: 'bg-yellow-400 text-black' },
-              { state: dyslexiaFont, set: setDyslexiaFont, icon: Type,      label: t('dyslexiaFont'),  active: 'bg-emerald-500 text-white' },
-              { state: reduceMotion, set: setReduceMotion, icon: Zap,       label: t('reduceMotion'),  active: 'bg-orange-400 text-white' },
-              { state: screenReader, set: setScreenReader, icon: Volume2,   label: t('clickReader'),   active: 'bg-brand-600 text-white' },
-            ] as const).map(({ state, set, icon: Icon, label, active }) => (
+              { state: highContrast, set: setHighContrast, icon: Contrast,  label: t('highContrast') },
+              { state: dyslexiaFont, set: setDyslexiaFont, icon: Type,      label: t('dyslexiaFont') },
+              { state: reduceMotion, set: setReduceMotion, icon: Zap,       label: t('reduceMotion') },
+              { state: screenReader, set: setScreenReader, icon: Volume2,   label: t('clickReader') },
+            ] as const).map(({ state, set, icon: Icon, label }) => (
               <button key={label} onClick={() => set((v: boolean) => !v)} aria-pressed={state}
-                className={`w-full flex items-center gap-3 py-2.5 px-3 rounded-xl text-xs font-bold transition-colors ${state ? active : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600'}`}>
-                <Icon size={14} /><span>{label}</span>{state && <span className="ml-auto text-[10px] font-black">{t('active')}</span>}
+                className={`w-full flex items-center gap-3 py-2.5 px-3 rounded-xl text-xs font-medium transition-colors ${state ? 'bg-[#0071e3] text-white' : 'bg-black/[0.04] dark:bg-white/[0.06] text-[#1d1d1f] dark:text-slate-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.1]'}`}>
+                <Icon size={14} /><span>{label}</span>{state && <span className="ml-auto text-[10px] font-semibold">{t('active')}</span>}
               </button>
             ))}
             {hasSpeech && (
               <button onClick={handleReadPage} aria-label={speaking ? t('stopReading') : t('readPage')}
-                className={`w-full flex items-center gap-3 py-2.5 px-3 rounded-xl text-xs font-bold transition-colors ${speaking ? 'bg-red-500 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-red-100 dark:hover:bg-red-900/30'}`}>
+                className={`w-full flex items-center gap-3 py-2.5 px-3 rounded-xl text-xs font-medium transition-colors ${speaking ? 'bg-[#0071e3] text-white' : 'bg-black/[0.04] dark:bg-white/[0.06] text-[#1d1d1f] dark:text-slate-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.1]'}`}>
                 {speaking ? <VolumeX size={14} /> : <Volume2 size={14} />}
                 <span>{speaking ? t('stopReading') : t('readPage')}</span>
-                {speaking && <span className="ml-auto text-[10px] font-black animate-pulse">●</span>}
+                {speaking && <span className="ml-auto text-[10px] font-semibold animate-pulse">●</span>}
               </button>
             )}
-            <button onClick={reset} aria-label={t('reset')} className="w-full flex items-center gap-3 py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400 transition-colors">
+            <button onClick={reset} aria-label={t('reset')} className="w-full flex items-center gap-3 py-2.5 px-3 rounded-xl text-xs font-medium bg-black/[0.04] dark:bg-white/[0.06] text-[#86868b] dark:text-slate-400 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">
               <RotateCcw size={14} /> {t('reset')}
             </button>
           </div>
         </div>
       )}
       <button ref={triggerRef} onClick={() => setOpen(v => !v)} aria-label={open ? t('close') : t('open')} aria-expanded={open} aria-haspopup="dialog"
-        className="w-14 h-14 bg-brand-600 hover:bg-brand-700 text-white rounded-full shadow-brand flex items-center justify-center transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-brand-300">
-        <Accessibility size={24} />
+        className="w-12 h-12 bg-[#0071e3] hover:bg-[#0077ed] text-white rounded-full shadow-lg shadow-[#0071e3]/20 flex items-center justify-center transition-all hover:scale-105 active:scale-95 focus:outline-none">
+        <Accessibility size={20} />
       </button>
     </div>
   );

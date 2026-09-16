@@ -2,71 +2,82 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 import useInView from '@/hooks/useInView';
 import { faqData, type Locale } from '@/i18n/data';
 
 const FAQ = () => {
-  const t          = useTranslations('faq');
-  const locale     = useLocale() as Locale;
+  const t = useTranslations('faq');
+  const locale = useLocale() as Locale;
   const [open, setOpen] = useState(0);
-  const [ref, inView]   = useInView(0.06);
-  const items      = faqData[locale] ?? faqData.es;
+  const [ref, inView] = useInView(0.06);
+  const items = faqData[locale] ?? faqData.es;
 
   return (
-    <section className="py-20 sm:py-28 bg-slate-50 dark:bg-slate-900/30">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-
-        {/* Encabezado */}
+    <section className="py-24 sm:py-32 bg-[#fbfbfd] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] relative overflow-hidden transition-colors">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+        {/* Encabezado estilo Apple */}
         <div
           ref={ref}
-          className={`mb-10 transition-all duration-600 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          className={`mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
-            {t('badge')}
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
-            {t('title')} <span className="text-brand-600">{t('titleHighlight')}</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1d1d1f] dark:text-white font-heading leading-tight">
+            {t('title')}{' '}
+            <span className="text-[#0071e3] dark:text-[#2997ff]">
+              {t('titleHighlight')}
+            </span>
           </h2>
         </div>
 
         {/* Acordeón */}
-        <div className="divide-y divide-slate-200 dark:divide-slate-800">
-          {items.map((faq, index) => (
-            <div key={index}>
-              <button
-                onClick={() => setOpen(open === index ? -1 : index)}
-                aria-expanded={open === index}
-                className="w-full flex items-start justify-between gap-4 py-5 text-left group"
+        <div className="space-y-4">
+          {items.map((faq, index) => {
+            const isOpen = open === index;
+            return (
+              <div
+                key={index}
+                className={`rounded-3xl border transition-all duration-300 ${
+                  isOpen
+                    ? 'border-[#0071e3]/40 dark:border-[#2997ff]/40 bg-white dark:bg-[#161617] shadow-md'
+                    : 'border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#161617] hover:border-black/[0.12] dark:hover:border-white/[0.16]'
+                }`}
               >
-                <span className={`text-sm sm:text-base font-semibold transition-colors ${open === index ? 'text-brand-600' : 'text-slate-900 dark:text-white group-hover:text-brand-600'}`}>
-                  {faq.q}
-                </span>
-                <ChevronDown
-                  size={16}
-                  className={`text-slate-400 shrink-0 mt-0.5 transition-transform duration-200 ${open === index ? 'rotate-180 text-brand-600' : ''}`}
-                />
-              </button>
-              <div className={`overflow-hidden transition-all duration-300 ${open === index ? 'max-h-96 pb-5' : 'max-h-0'}`}>
-                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                  {faq.a}
-                </p>
+                <button
+                  onClick={() => setOpen(isOpen ? -1 : index)}
+                  aria-expanded={isOpen}
+                  className="w-full flex items-start justify-between gap-4 p-6 sm:p-7 text-left group"
+                >
+                  <span className="text-base sm:text-lg font-bold text-[#1d1d1f] dark:text-white font-heading group-hover:text-[#0071e3] dark:group-hover:text-[#2997ff] transition-colors">
+                    {faq.q}
+                  </span>
+                  <div className={`p-2 rounded-full bg-black/[0.04] dark:bg-white/[0.06] text-[#1d1d1f] dark:text-white shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#0071e3] dark:text-[#2997ff]' : ''}`}>
+                    <ChevronDown size={16} />
+                  </div>
+                </button>
+                {isOpen && (
+                  <div className="px-6 sm:px-7 pb-6 sm:pb-7">
+                    <p className="text-sm text-[#86868b] dark:text-slate-300 leading-relaxed pt-3 border-t border-black/[0.05] dark:border-white/[0.08] font-normal">
+                      {faq.a}
+                    </p>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* CTA simple */}
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        {/* CTA simple estilo Apple */}
+        <div className="mt-14 pt-8 border-t border-black/[0.06] dark:border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-slate-900 dark:text-white">{t('ctaTitle')}</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t('ctaSubtitle')}</p>
+            <p className="text-base font-bold text-[#1d1d1f] dark:text-white font-heading">{t('ctaTitle')}</p>
+            <p className="text-xs text-[#86868b] dark:text-slate-400 mt-0.5">{t('ctaSubtitle')}</p>
           </div>
           <a
             href="#contacto-form"
-            className="shrink-0 inline-flex items-center gap-2 text-sm font-semibold bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-lg hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors"
+            className="shrink-0 inline-flex items-center gap-2 text-xs font-medium bg-[#0071e3] hover:bg-[#0077ed] text-white px-6 py-3 rounded-full transition-all shadow-sm shadow-[#0071e3]/20"
           >
-            {t('ctaButton')}
+            <span>{t('ctaButton')}</span>
+            <ArrowRight size={14} />
           </a>
         </div>
       </div>

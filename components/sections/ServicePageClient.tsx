@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import ServiceFaqAccordion from './ServiceFaqAccordion';
 import { englishServiceContent } from './service-en-content';
+import TechCarousel from '@/components/ui/TechCarousel';
 
 interface ServicePageProps {
   badge: string;
@@ -43,6 +44,7 @@ export default function ServicePageClient({
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       {/* FAQ Schema inyectado en cada página de servicio */}
       <script
+        id="service-faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
@@ -118,14 +120,27 @@ export default function ServicePageClient({
       </section>
 
       {/* Tech */}
-      <section className="py-16 bg-white dark:bg-slate-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <h2 className="font-heading text-2xl font-black text-slate-900 dark:text-white mb-8 text-center">{labels.technology}</h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {tech.map((t) => (
-              <span key={t} className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-bold border border-slate-200 dark:border-slate-700">{t}</span>
-            ))}
-          </div>
+      <section className="py-16 bg-white dark:bg-[#111113] border-y border-black/[0.06] dark:border-white/[0.08] overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-6 text-center">
+          <h2 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-white mb-2">
+            {labels.technology}
+          </h2>
+          <p className="text-xs sm:text-sm text-[#86868b] dark:text-slate-400 max-w-lg mx-auto">
+            {locale === 'en'
+              ? 'Modern, robust, and scalable stack selected according to each project\'s exact operational needs.'
+              : 'Stack moderno, robusto y escalable seleccionado según las necesidades operativas de cada proyecto.'}
+          </p>
+        </div>
+        
+        {/* Semantic accessibility & SEO container for search indexability */}
+        <div className="sr-only">
+          {tech.map((t) => (
+            <span key={t}>{t}</span>
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
+          <TechCarousel techNames={tech} />
         </div>
       </section>
 

@@ -1,71 +1,61 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
-import { Star } from 'lucide-react';
 import useInView from '@/hooks/useInView';
 import { testimonialsData, type Locale } from '@/i18n/data';
 
-const AVATAR_COLORS: Record<string, string> = {
-  'bg-indigo-500':  '#6366F1',
-  'bg-emerald-500': '#10B981',
-  'bg-blue-500':    '#3B82F6',
-  'bg-violet-500':  '#8B5CF6',
-};
-
 const Testimonials = () => {
-  const t      = useTranslations('testimonials');
+  const t = useTranslations('testimonials');
   const locale = useLocale() as Locale;
   const [ref, inView] = useInView(0.06);
-  const items  = testimonialsData[locale] ?? testimonialsData.es;
+  const items = testimonialsData[locale] ?? testimonialsData.es;
 
   return (
-    <section className="py-20 sm:py-28 bg-white dark:bg-slate-950">
+    <section className="py-24 sm:py-32 bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-
-        {/* Encabezado */}
+        {/* Encabezado estilo Apple */}
         <div
           ref={ref}
-          className={`mb-14 transition-all duration-600 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          className={`mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
-          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
-            {t('badge')}
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white max-w-xl">
-            {t('title')} <span className="text-brand-600">{t('titleHighlight')}</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1d1d1f] dark:text-white max-w-xl font-heading leading-tight">
+            {t('title')}{' '}
+            <span className="text-[#0071e3] dark:text-[#2997ff]">{t('titleHighlight')}</span>
           </h2>
+          <p className="text-[#86868b] dark:text-slate-400 text-sm sm:text-base mt-3 max-w-lg leading-relaxed">
+            {t('subtitle')}
+          </p>
         </div>
 
-        {/* Grid de testimonios */}
-        <div className="grid sm:grid-cols-2 gap-5">
+        {/* Grid de testimonios estilo Apple */}
+        <div className="grid sm:grid-cols-2 gap-6">
           {items.map((item, index) => (
             <div
               key={index}
-              className={`p-6 sm:p-7 border border-slate-100 dark:border-slate-800 rounded-xl transition-all duration-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-              style={{ transitionDelay: `${index * 80}ms` }}
+              className="p-8 sm:p-9 rounded-3xl border border-black/[0.05] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#161617] flex flex-col justify-between hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all"
             >
-              {/* Estrellas */}
-              <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: item.rating }).map((_, i) => (
-                  <Star key={i} size={12} className="fill-yellow-400 text-yellow-400" />
-                ))}
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.08] text-[#1d1d1f]/75 dark:text-slate-300">
+                    {item.project}
+                  </span>
+                  <span className="text-xs font-semibold text-[#0071e3] dark:text-[#2997ff]">
+                    Caso verificado
+                  </span>
+                </div>
+
+                <p className="text-[#1d1d1f] dark:text-slate-200 text-base sm:text-lg leading-relaxed mb-6 font-normal">
+                  &ldquo;{item.text}&rdquo;
+                </p>
               </div>
 
-              {/* Texto */}
-              <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-6">
-                &quot;{item.text}&quot;
-              </p>
-
-              {/* Autor */}
-              <div className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-                  style={{ backgroundColor: AVATAR_COLORS[item.avatarColor] ?? '#6366F1' }}
-                >
+              <div className="flex items-center gap-3 pt-5 border-t border-black/[0.06] dark:border-white/[0.08]">
+                <div className="w-10 h-10 rounded-full bg-black/[0.06] dark:bg-white/[0.1] text-[#1d1d1f] dark:text-white flex items-center justify-center text-xs font-bold">
                   {item.avatar}
                 </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{item.name}</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 truncate">
+                <div>
+                  <p className="text-sm font-bold text-[#1d1d1f] dark:text-white">{item.name}</p>
+                  <p className="text-xs text-[#86868b] dark:text-slate-400">
                     {item.role} · {item.company}
                   </p>
                 </div>

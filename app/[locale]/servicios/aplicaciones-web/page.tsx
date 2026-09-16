@@ -49,9 +49,14 @@ export default function Page({ params: { locale } }: { params: { locale: string 
   ];
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950">
       {schemas.map((s, i) => (
-        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />
+        <script
+          key={i}
+          id={`web-schema-${i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
+        />
       ))}
       <Navbar />
       <div className="pt-20">
@@ -110,6 +115,6 @@ export default function Page({ params: { locale } }: { params: { locale: string 
         ]}
       />
       <Footer />
-    </>
+    </div>
   );
 }
