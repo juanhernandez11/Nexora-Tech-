@@ -12,13 +12,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  if (locale === 'en') return { title: 'Technology Consulting for Businesses | Nexora Tech', description: 'Independent technology assessments, architecture guidance and practical digital roadmaps for businesses in Mexico and Latin America.', alternates: { canonical: `${BASE}/en/servicios/consultoria-tecnologica`, languages: { es: `${BASE}/servicios/consultoria-tecnologica`, en: `${BASE}/en/servicios/consultoria-tecnologica` } } };
+  if (locale === 'en') return { title: 'Technology Consulting for Businesses | Nexora Tech', description: 'Independent technology assessments, architecture guidance and practical digital roadmaps for businesses in Mexico and Latin America.', alternates: { canonical: `${BASE}/en/servicios/consultoria-tecnologica`, languages: { es: `${BASE}/servicios/consultoria-tecnologica`, en: `${BASE}/en/servicios/consultoria-tecnologica`, 'x-default': `${BASE}/servicios/consultoria-tecnologica` } } };
   return {
     title: 'Consultoría Tecnológica para Empresas en México | Nexora Tech',
     description: 'Toma decisiones tecnológicas con expertos. Auditorías de sistemas, arquitectura de software, roadmap digital y selección de tecnologías. Primera sesión gratuita.',
     alternates: {
       canonical: locale === 'es' ? `${BASE}/servicios/consultoria-tecnologica` : `${BASE}/en/servicios/consultoria-tecnologica`,
-      languages: { es: `${BASE}/servicios/consultoria-tecnologica`, en: `${BASE}/en/servicios/consultoria-tecnologica` },
+      languages: { es: `${BASE}/servicios/consultoria-tecnologica`, en: `${BASE}/en/servicios/consultoria-tecnologica`, 'x-default': `${BASE}/servicios/consultoria-tecnologica` },
     },
   };
 }

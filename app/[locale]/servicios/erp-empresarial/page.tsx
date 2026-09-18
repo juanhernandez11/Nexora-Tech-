@@ -12,13 +12,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  if (locale === 'en') return { title: 'Business ERP Development | Nexora Tech', description: 'Connect inventory, purchasing, sales and operational data with a phased ERP roadmap designed around your business processes.', alternates: { canonical: `${BASE}/en/servicios/erp-empresarial`, languages: { es: `${BASE}/servicios/erp-empresarial`, en: `${BASE}/en/servicios/erp-empresarial` } } };
+  if (locale === 'en') return { title: 'Business ERP Development | Nexora Tech', description: 'Connect inventory, purchasing, sales and operational data with a phased ERP roadmap designed around your business processes.', alternates: { canonical: `${BASE}/en/servicios/erp-empresarial`, languages: { es: `${BASE}/servicios/erp-empresarial`, en: `${BASE}/en/servicios/erp-empresarial`, 'x-default': `${BASE}/servicios/erp-empresarial` } } };
   return {
     title: 'ERP Personalizado para PyMEs en México | Nexora Tech',
     description: 'Desarrollamos ERP a medida que integra todas las áreas de tu empresa. Sin las complejidades de SAP. Desde $2,500 USD. Consultoría gratuita.',
     alternates: {
       canonical: locale === 'es' ? `${BASE}/servicios/erp-empresarial` : `${BASE}/en/servicios/erp-empresarial`,
-      languages: { es: `${BASE}/servicios/erp-empresarial`, en: `${BASE}/en/servicios/erp-empresarial` },
+      languages: { es: `${BASE}/servicios/erp-empresarial`, en: `${BASE}/en/servicios/erp-empresarial`, 'x-default': `${BASE}/servicios/erp-empresarial` },
     },
   };
 }

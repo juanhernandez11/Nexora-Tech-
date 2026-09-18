@@ -81,7 +81,7 @@ export async function generateMetadata({
       : '50 answers to the most common questions about software development, automation, AI and hiring. Costs, timelines, technologies and guarantees.',
     alternates: {
       canonical: isEs ? `${baseUrl}/faq` : `${baseUrl}/en/faq`,
-      languages: { es: `${baseUrl}/faq`, en: `${baseUrl}/en/faq` },
+      languages: { es: `${baseUrl}/faq`, en: `${baseUrl}/en/faq`, 'x-default': `${baseUrl}/faq` },
     },
   };
 }

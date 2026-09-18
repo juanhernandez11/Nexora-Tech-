@@ -46,7 +46,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       : 'Desarrollo de software a medida, automatización empresarial, IA, CRM, ERP y consultoría tecnológica para empresas en México. Consultoría gratuita.',
     alternates: {
       canonical: locale === 'es' ? `${baseUrl}/servicios` : `${baseUrl}/en/servicios`,
-      languages: { es: `${baseUrl}/servicios`, en: `${baseUrl}/en/servicios` },
+      languages: { es: `${baseUrl}/servicios`, en: `${baseUrl}/en/servicios`, 'x-default': `${baseUrl}/servicios` },
     },
   };
 }

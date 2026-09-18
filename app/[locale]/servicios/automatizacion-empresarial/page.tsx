@@ -12,13 +12,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  if (locale === 'en') return { title: 'Business Automation Services in Mexico | Nexora Tech', description: 'Automate repetitive workflows, connect your systems and reduce avoidable operational errors with measurable business automation.', alternates: { canonical: `${BASE}/en/servicios/automatizacion-empresarial`, languages: { es: `${BASE}/servicios/automatizacion-empresarial`, en: `${BASE}/en/servicios/automatizacion-empresarial` } } };
+  if (locale === 'en') return { title: 'Business Automation Services in Mexico | Nexora Tech', description: 'Automate repetitive workflows, connect your systems and reduce avoidable operational errors with measurable business automation.', alternates: { canonical: `${BASE}/en/servicios/automatizacion-empresarial`, languages: { es: `${BASE}/servicios/automatizacion-empresarial`, en: `${BASE}/en/servicios/automatizacion-empresarial`, 'x-default': `${BASE}/servicios/automatizacion-empresarial` } } };
   return {
     title: 'Automatización Empresarial en México | Nexora Tech',
     description: 'Automatizamos los procesos repetitivos de tu empresa. Reduce costos operativos hasta un 40%, elimina errores humanos y libera tiempo de tu equipo. Consultoría gratuita.',
     alternates: {
       canonical: locale === 'es' ? `${BASE}/servicios/automatizacion-empresarial` : `${BASE}/en/servicios/automatizacion-empresarial`,
-      languages: { es: `${BASE}/servicios/automatizacion-empresarial`, en: `${BASE}/en/servicios/automatizacion-empresarial` },
+      languages: { es: `${BASE}/servicios/automatizacion-empresarial`, en: `${BASE}/en/servicios/automatizacion-empresarial`, 'x-default': `${BASE}/servicios/automatizacion-empresarial` },
     },
   };
 }

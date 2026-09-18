@@ -22,7 +22,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       : 'Articles about custom software development, business automation, CRM, ERP, and digital transformation. Practical expert advice for businesses.',
     alternates: {
       canonical: isEs ? `${baseUrl}/blog` : `${baseUrl}/en/blog`,
-      languages: { es: `${baseUrl}/blog`, en: `${baseUrl}/en/blog` },
+      languages: { es: `${baseUrl}/blog`, en: `${baseUrl}/en/blog`, 'x-default': `${baseUrl}/blog` },
     },
   };
 }

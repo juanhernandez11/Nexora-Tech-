@@ -12,13 +12,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  if (locale === 'en') return { title: 'AI Integration for Businesses in Mexico | Nexora Tech', description: 'Integrate practical AI into existing systems for document analysis, assistants, classification and measurable business automation.', alternates: { canonical: `${BASE}/en/servicios/inteligencia-artificial`, languages: { es: `${BASE}/servicios/inteligencia-artificial`, en: `${BASE}/en/servicios/inteligencia-artificial` } } };
+  if (locale === 'en') return { title: 'AI Integration for Businesses in Mexico | Nexora Tech', description: 'Integrate practical AI into existing systems for document analysis, assistants, classification and measurable business automation.', alternates: { canonical: `${BASE}/en/servicios/inteligencia-artificial`, languages: { es: `${BASE}/servicios/inteligencia-artificial`, en: `${BASE}/en/servicios/inteligencia-artificial`, 'x-default': `${BASE}/servicios/inteligencia-artificial` } } };
   return {
     title: 'Inteligencia Artificial para Empresas en México | Nexora Tech',
     description: 'Integramos IA en tus sistemas empresariales. Chatbots, análisis predictivo, automatización inteligente con Google Gemini y OpenAI. Resultados reales desde $1,500 USD.',
     alternates: {
       canonical: locale === 'es' ? `${BASE}/servicios/inteligencia-artificial` : `${BASE}/en/servicios/inteligencia-artificial`,
-      languages: { es: `${BASE}/servicios/inteligencia-artificial`, en: `${BASE}/en/servicios/inteligencia-artificial` },
+      languages: { es: `${BASE}/servicios/inteligencia-artificial`, en: `${BASE}/en/servicios/inteligencia-artificial`, 'x-default': `${BASE}/servicios/inteligencia-artificial` },
     },
   };
 }

@@ -1,43 +1,22 @@
 'use client';
 
 import { useLocale } from 'next-intl';
+import { useRouter, usePathname } from '@/i18n/navigation';
 import { Globe } from 'lucide-react';
-
-const getCleanPath = (pathname: string): string => {
-  if (!pathname) return '/';
-  // Strip leading /es or /en (optionally followed by / or end of string)
-  let clean = pathname.replace(/^\/(?:es|en)(?=\/|$)/, '');
-  if (!clean || !clean.startsWith('/')) clean = '/' + clean;
-  return clean;
-};
-
-const getTargetLocaleUrl = (currentPathname: string, nextLocale: 'es' | 'en'): string => {
-  const clean = getCleanPath(currentPathname);
-  if (nextLocale === 'en') {
-    return clean === '/' ? '/en' : `/en${clean}`;
-  }
-  return clean;
-};
 
 const LanguageSwitcher = () => {
   const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname(); // next-intl devuelve el pathname sin prefijo de locale
 
-  const switchLocale = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
+  const switchLocale = () => {
     const nextLocale = locale === 'es' ? 'en' : 'es';
-    const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
-    const targetUrl = getTargetLocaleUrl(currentPath, nextLocale);
-    const search = typeof window !== 'undefined' ? window.location.search : '';
-    const hash = typeof window !== 'undefined' ? window.location.hash : '';
 
-    // Synchronize NEXT_LOCALE cookie so server components and middleware align
-    if (typeof document !== 'undefined') {
-      document.cookie = `NEXT_LOCALE=${nextLocale};path=/;max-age=31536000;SameSite=Lax`;
-    }
+    // Sincronizar cookie para que middleware y server components estén alineados
+    document.cookie = `NEXT_LOCALE=${nextLocale};path=/;max-age=31536000;SameSite=Lax`;
 
-    if (typeof window !== 'undefined') {
-      window.location.assign(`${targetUrl}${search}${hash}`);
-    }
+    // router.replace de next-intl: transición client-side sin recarga, sin parpadeo
+    router.replace(pathname, { locale: nextLocale });
   };
 
   return (
