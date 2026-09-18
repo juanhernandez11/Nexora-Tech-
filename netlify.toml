@@ -1,11 +1,15 @@
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command   = "npm run build"
+  publish   = ".next"
 
+# El plugin oficial de Netlify para Next.js (Essential Next.js).
+# Netlify lo instala automáticamente, pero declararlo aquí fuerza la versión
+# más reciente compatible y evita builds con la versión antigua.
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
 # ─── Cache de assets estáticos ────────────────────────────────────────────────
+# Los chunks de Next.js son inmutables (hash en el nombre) — se pueden cachear 1 año.
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
@@ -14,19 +18,32 @@
 [[headers]]
   for = "/favicon.svg"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
 
 [[headers]]
   for = "/og-image.jpg"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+# ─── Sitemap y robots — sin cache agresivo ────────────────────────────────────
+# Googlebot debe obtener el sitemap actualizado en cada rastreo.
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
 
 # ─── Forzar HTTPS ─────────────────────────────────────────────────────────────
 # Evita que Google indexe la versión HTTP como contenido duplicado.
-# El routing de locales (/es/, /en/) lo maneja exclusivamente el middleware
-# de next-intl — NO agregar redirects de Netlify para esas rutas.
+# IMPORTANTE: Este redirect debe ir ANTES del catch-all de next-intl.
+# El routing de locales (/en/, sin prefijo para ES) lo maneja exclusivamente
+# el middleware de next-intl — NO agregar redirects de Netlify para esas rutas.
 [[redirects]]
-  from = "http://nexorate.netlify.app/*"
-  to = "https://nexorate.netlify.app/:splat"
+  from   = "http://nexorate.netlify.app/*"
+  to     = "https://nexorate.netlify.app/:splat"
   status = 301
-  force = true
+  force  = true

@@ -34,6 +34,12 @@ export async function generateMetadata({ params: { locale, slug } }: { params: {
     return { title: 'Article Not Found' };
   }
 
+  // Determinar slugs correctos para cada idioma:
+  // - Si estamos en ES: slug actual es ES, alternateSlug es EN
+  // - Si estamos en EN: slug actual es EN, alternateSlug es ES
+  const esSlug = locale === 'es' ? slug : (alternateSlug ?? slug);
+  const enSlug = locale === 'en' ? slug : (alternateSlug ?? slug);
+
   return {
     title: `${post.title} | Nexora Tech`,
     description: post.description,
@@ -42,9 +48,9 @@ export async function generateMetadata({ params: { locale, slug } }: { params: {
     alternates: {
       canonical: `${baseUrl}${base}/blog/${slug}`,
       languages: {
-        es: `${baseUrl}/blog/${slug}`,
-        en: `${baseUrl}/en/blog/${locale === 'en' ? slug : alternateSlug}`,
-        'x-default': `${baseUrl}/blog/${locale === 'en' ? alternateSlug : slug}`,
+        es: `${baseUrl}/blog/${esSlug}`,
+        en: `${baseUrl}/en/blog/${enSlug}`,
+        'x-default': `${baseUrl}/blog/${esSlug}`,
       },
     },
     openGraph: {

@@ -21,11 +21,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = params?.locale && locales.includes(params.locale) ? params.locale : 'es';
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const canonicalUrl = locale === 'es' ? SITE_URL : `${SITE_URL}/${locale}`;
 
   return {
-    title: t('title'),
-    description: t('description'),
+    // metadataBase es el único campo que va aquí — cada page.tsx declara su propio canonical.
+    // Sin metadataBase Next.js no puede resolver URLs relativas en las imágenes OG.
     metadataBase: new URL(SITE_URL),
     icons: {
       icon: [
@@ -34,17 +33,14 @@ export async function generateMetadata({
       apple: '/favicon.svg',
       shortcut: '/favicon.svg',
     },
-    alternates: {
-      canonical: canonicalUrl,
-      languages: {
-        'es': SITE_URL,
-        'en': `${SITE_URL}/en`,
-        'x-default': SITE_URL,
-      },
+    // El título y descripción son fallback — cada page.tsx los sobreescribe
+    title: {
+      default: t('title'),
+      template: `%s | Nexora Tech`,
     },
+    description: t('description'),
     openGraph: {
       type: 'website',
-      url: canonicalUrl,
       title: t('ogTitle'),
       description: t('ogDescription'),
       images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: t('ogTitle') }],
@@ -251,10 +247,6 @@ export default async function LocaleLayout({
 
   const messages = await getMessages({ locale });
 
-  // URLs canónicas para hreflang explícito en <head>
-  const canonicalEs = SITE_URL;
-  const canonicalEn = `${SITE_URL}/en`;
-
   return (
     <html lang={locale} className="dark" suppressHydrationWarning>
       <head>
@@ -272,13 +264,6 @@ export default async function LocaleLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
         />
-
-        {/* ── Hreflang explícito en <head> — crítico para evitar duplicados ──
-            next-intl con localePrefix:as-needed sirve ES sin prefijo /es/.
-            Sin estos tags, Google puede interpretar / y /en como duplicados. */}
-        <link rel="alternate" hrefLang="es" href={canonicalEs} />
-        <link rel="alternate" hrefLang="en" href={canonicalEn} />
-        <link rel="alternate" hrefLang="x-default" href={canonicalEs} />
 
         {/* ── Google Search Console verification ── */}
         <meta name="google-site-verification" content="K2Pr9c4pJIz1illvhuu03_TDfK_ggSnMsylbPK7HBds" />

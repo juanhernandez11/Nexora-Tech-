@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import Navbar from '@/components/layout/Navbar';
 import MobileMenu from '@/components/layout/MobileMenu';
@@ -11,6 +12,27 @@ import ContactForm from '@/components/sections/ContactForm';
 import Footer from '@/components/layout/Footer';
 import SmoothScroll from '@/components/ui/SmoothScroll';
 import AccessibilityWidget from '@/components/layout/AccessibilityWidget';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
+
+export async function generateMetadata({ params }: { params: { locale?: string } }): Promise<Metadata> {
+  const locale = params?.locale || 'es';
+  const canonicalUrl = locale === 'es' ? SITE_URL : `${SITE_URL}/en`;
+
+  return {
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        es: SITE_URL,
+        en: `${SITE_URL}/en`,
+        'x-default': SITE_URL,
+      },
+    },
+    openGraph: {
+      url: canonicalUrl,
+    },
+  };
+}
 
 export default function HomePage({ params }: { params: { locale?: string } }) {
   const locale = params?.locale || 'es';
