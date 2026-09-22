@@ -113,3 +113,12 @@ h1, h2, h3, h4, .font-heading {
   outline-offset: 4px;
   border-radius: 4px;
 }
+
+/* ─── Hero Intro Reveal ───────────────────────────────────────────────────── */
+/* While the intro animation runs, hide the fixed site Navbar so it doesn't
+   overlap the intro words and the floating pill nav inside the hero. */
+html.hero-intro-running nav[class*="fixed"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: none !important;
+}

@@ -1,0 +1,36 @@
+/* HeroIntroReveal.css */
+
+/* Overflow-hidden wrapper that acts as the line mask (replaces SplitText mask) */
+.hir-line-mask {
+  overflow: hidden;
+  display: block;
+}
+
+/* Background image div */
+.hir-bg {
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Floating pill navbar */
+.hir-nav {
+  max-width: calc(100vw - 2rem);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hir-nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide the TextLoop band while the intro animation is running */
+html.hero-intro-running .hir-textloop {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Fade in the band once the intro class is removed */
+.hir-textloop {
+  opacity: 1;
+  transition: opacity 0.8s ease 0.2s;
+}

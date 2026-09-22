@@ -24,7 +24,9 @@
     "ctaSecondary": "Ver nuestro trabajo",
     "trust1": "Entrega garantizada o devolución",
     "trust2": "Respuesta en menos de 24 horas",
-    "trust3": "100% de clientes satisfechos"
+    "trust3": "100% de clientes satisfechos",
+    "loopText": "Software a medida · Automatización · Inteligencia artificial · Desarrollo web",
+    "loopAriaLabel": "Servicios de Nexora Tech"
   },
   "stats": [
     {

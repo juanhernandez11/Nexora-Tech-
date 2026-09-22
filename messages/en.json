@@ -24,7 +24,9 @@
     "ctaSecondary": "See our work",
     "trust1": "Guaranteed delivery or refund",
     "trust2": "Response within 24 hours",
-    "trust3": "100% client satisfaction"
+    "trust3": "100% client satisfaction",
+    "loopText": "Custom software · Automation · Artificial intelligence · Web development",
+    "loopAriaLabel": "Nexora Tech services"
   },
   "stats": [
     {

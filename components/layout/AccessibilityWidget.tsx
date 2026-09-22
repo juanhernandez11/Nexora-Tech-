@@ -19,11 +19,41 @@ const AccessibilityWidget = () => {
   const t = useTranslations('accessibility');
   const [open, setOpen] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  // Start as false (visible). We'll hide it only if the intro class is actually
+  // present at mount time. This prevents a permanent invisible state.
+  const [introRunning, setIntroRunning] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const { fontSize, setFontSize, highContrast, setHighContrast, screenReader, setScreenReader, reduceMotion, setReduceMotion, dyslexiaFont, setDyslexiaFont } = useApp();
 
   useEffect(() => {
     setMounted(true);
+
+    // Only hide the widget if the intro animation is actually running right now.
+    const isRunning = document.documentElement.classList.contains('hero-intro-running');
+    if (!isRunning) return;
+
+    setIntroRunning(true);
+
+    // Watch for HeroIntroReveal to remove the class when the intro completes.
+    const observer = new MutationObserver(() => {
+      if (!document.documentElement.classList.contains('hero-intro-running')) {
+        setIntroRunning(false);
+        observer.disconnect();
+        clearTimeout(fallbackTimer);
+      }
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    // Hard fallback: always show the widget after 10 s no matter what.
+    const fallbackTimer = window.setTimeout(() => {
+      setIntroRunning(false);
+      observer.disconnect();
+    }, 10_000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   const reset = () => {
@@ -61,7 +91,10 @@ const AccessibilityWidget = () => {
   if (!mounted) return null;
 
   return (
-    <div className="fixed bottom-6 left-6 z-[100]">
+    <div
+      className="fixed bottom-6 left-6 z-[100] transition-opacity duration-700"
+      style={{ opacity: introRunning ? 0 : 1, pointerEvents: introRunning ? 'none' : 'auto' }}
+    >
       {open && (
         <div role="dialog" aria-modal="true" aria-label={t('title')} className="mb-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl p-4 w-64">
           <div className="flex justify-between items-center mb-4">

@@ -6,6 +6,7 @@ import useInView from '@/hooks/useInView';
 import { casesData, type Locale } from '@/i18n/data';
 import GsapMagnetic from '@/components/ui/GsapMagnetic';
 import { Button } from '@/components/ui/button';
+import TextLoop from '@/components/ui/TextLoop';
 
 const Hero = () => {
   const t = useTranslations('hero');
@@ -80,6 +81,24 @@ const Hero = () => {
                   <span className="text-xs font-medium text-[#1d1d1f]/80 dark:text-slate-300 leading-snug">{item}</span>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-14 -mx-4 sm:-mx-6 lg:mt-20" aria-label={t('loopAriaLabel')}>
+              <TextLoop
+                text={t('loopText')}
+                shape="wave"
+                speed={65}
+                separator="✦"
+                curviness={45}
+                fontSize={30}
+                fontWeight={700}
+                letterSpacing={2}
+                color="#ffffff"
+                ribbon
+                ribbonColor="#0071e3"
+                ribbonWidth={64}
+                pauseOnHover
+              />
             </div>
           </div>
 

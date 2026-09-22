@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import Navbar from '@/components/layout/Navbar';
 import MobileMenu from '@/components/layout/MobileMenu';
-import Hero from '@/components/sections/Hero';
+import HeroIntroReveal from '@/components/HeroIntroReveal';
 import Solutions from '@/components/sections/Solutions';
 import SuccessCases from '@/components/sections/SuccessCases';
 import Testimonials from '@/components/sections/Testimonials';
@@ -48,7 +48,7 @@ export default function HomePage({ params }: { params: { locale?: string } }) {
       <SmoothScroll />
       <AccessibilityWidget />
       <main id="main-content">
-        <Hero />
+        <HeroIntroReveal />
         <Solutions />
         <SuccessCases />
         <Testimonials />
