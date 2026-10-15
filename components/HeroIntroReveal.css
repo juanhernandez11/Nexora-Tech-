@@ -34,3 +34,19 @@ html.hero-intro-running .hir-textloop {
   opacity: 1;
   transition: opacity 0.8s ease 0.2s;
 }
+
+/* Server-rendered start state: keeps the hero content hidden until the GSAP
+   intro takes over, so the final layout never flashes under "NEXORA TECH".
+   The class is removed from the section once JS sets the inline start state. */
+.hir-pending .hir-hide,
+.hir-pending .hir-hide-children > * {
+  opacity: 0;
+}
+
+.hir-pending .hir-line-inner {
+  transform: translateY(110%) rotate(2deg);
+}
+
+.hir-pending .hir-textloop {
+  opacity: 0;
+}
