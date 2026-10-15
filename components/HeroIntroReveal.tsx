@@ -17,7 +17,6 @@ export type HeroIntroRevealProps = {
   ctaPrimary?: { label: string; href: string };
   ctaSecondary?: { label: string; href: string };
   bgImage?: string;
-  navItems?: { label: string; href: string }[];
   className?: string;
 };
 
@@ -29,12 +28,6 @@ export default function HeroIntroReveal({
   ctaPrimary = { label: 'Cuéntanos tu proyecto', href: '#contacto-form' },
   ctaSecondary = { label: 'Ver nuestro trabajo', href: '#casos-de-exito' },
   bgImage = '/hero-bg.svg',
-  navItems = [
-    { label: 'Servicios', href: '/servicios' },
-    { label: 'Casos de Éxito', href: '#casos-de-exito' },
-    { label: 'Proceso', href: '#proceso' },
-    { label: 'Blog', href: '/blog' },
-  ],
   className = '',
 }: HeroIntroRevealProps) {
   const rootRef = useRef<HTMLElement>(null);
@@ -50,7 +43,6 @@ export default function HeroIntroReveal({
   const headlineLineRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const subcopyRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
@@ -71,6 +63,7 @@ export default function HeroIntroReveal({
         }
         // Reveal the site Navbar after the intro completes
         document.documentElement.classList.remove('hero-intro-running');
+        rootRef.current?.classList.remove('hir-pending');
       };
 
       const startDrift = () => {
@@ -88,12 +81,7 @@ export default function HeroIntroReveal({
         finish();
         // Show everything immediately without animation
         gsap.set(
-          [
-            badgeRef.current,
-            subcopyRef.current,
-            ctaRef.current,
-            navRef.current,
-          ],
+          [badgeRef.current, subcopyRef.current, ...ctaChildren()],
           { clearProps: 'all', opacity: 1 },
         );
         // Show the inner spans (the text) inside headline line masks
@@ -102,6 +90,8 @@ export default function HeroIntroReveal({
         });
         startDrift();
       };
+
+      const ctaChildren = () => Array.from(ctaRef.current?.children ?? []);
 
       // Timeout fallback so the page isn't stuck if fonts never load
       const fontsReady = Promise.race([
@@ -147,14 +137,15 @@ export default function HeroIntroReveal({
             measureWords(true);
             gsap.set(bgImage, { scale: 1.35, willChange: 'transform' });
 
-            // Hide content until intro runs
-            gsap.set(
-              [badgeRef.current, subcopyRef.current, ctaRef.current, navRef.current],
-              { opacity: 0 },
-            );
+            // Set the intro start state inline, then drop the SSR `hir-pending`
+            // class that kept this content hidden before hydration.
+            gsap.set(badgeRef.current, { opacity: 0, y: 14, scale: 0.94 });
+            gsap.set(subcopyRef.current, { opacity: 0, yPercent: 100 });
+            gsap.set(ctaChildren(), { opacity: 0, y: 16 });
             headlineLineRefs.current.forEach((lineRef) => {
               if (lineRef) gsap.set(lineRef, { yPercent: 110, rotate: 2 });
             });
+            rootRef.current?.classList.remove('hir-pending');
 
             const leftRect = left.getBoundingClientRect();
             const rightRect = right.getBoundingClientRect();
@@ -195,9 +186,11 @@ export default function HeroIntroReveal({
               .to(bgImage, { scale: 1, duration: 2.0, ease: 'expo.out' }, '<')
               .to(hazeRef.current, { opacity: 1, duration: 1.4, ease: 'power2.out' }, '<+=0.3')
               // Badge pop-in
-              .from(
+              // (.to, not .from: the start state is already set above, so a
+              // .from would animate opacity 0 → 0 and leave it invisible)
+              .to(
                 badgeRef.current,
-                { opacity: 0, y: 14, scale: 0.94, duration: 0.7, ease: 'back.out(1.8)' },
+                { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.8)' },
                 '-=0.9',
               )
               // Headline lines rise out of their CSS masks (overflow:hidden on the outer span)
@@ -213,26 +206,15 @@ export default function HeroIntroReveal({
                 '-=0.5',
               )
               // Subcopy
-              .from(
+              .to(
                 subcopyRef.current,
-                { opacity: 0, yPercent: 100, duration: 0.8, ease: 'power3.out' },
+                { opacity: 1, yPercent: 0, duration: 0.8, ease: 'power3.out' },
                 '-=0.6',
               )
               // CTAs
-              .from(
-                ctaRef.current?.children ?? [],
-                { opacity: 0, y: 16, stagger: 0.1, duration: 0.7 },
-                '-=0.5',
-              )
-              // Floating navbar drops in
-              .from(
-                navRef.current,
-                { yPercent: -140, scale: 0.94, duration: 1.0, ease: 'power3.out' },
-                '-=0.5',
-              )
-              .from(
-                navRef.current?.querySelectorAll('[data-nav-item]') ?? [],
-                { opacity: 0, y: -8, stagger: 0.08, duration: 0.45 },
+              .to(
+                ctaChildren(),
+                { opacity: 1, y: 0, stagger: 0.1, duration: 0.7 },
                 '-=0.5',
               );
           } catch (error) {
@@ -257,10 +239,14 @@ export default function HeroIntroReveal({
   return (
     <section
       ref={rootRef}
-      className={`relative min-h-[100svh] overflow-hidden bg-[#f1f0ec] ${className}`}
+      className={`hir-pending relative min-h-[100svh] overflow-hidden bg-[#f1f0ec] ${className}`}
     >
+      {/* Without JS the intro never runs, so show the final state */}
+      <noscript>
+        <style>{'.hir-pending .hir-hide,.hir-pending .hir-hide-children>*{opacity:1!important}.hir-pending .hir-line-inner{transform:none!important}.hir-pending .hir-words{display:none}'}</style>
+      </noscript>
       {/* Intro words — push apart to open the clip-path window */}
-      <div ref={wordsWrapRef} className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap">
+      <div ref={wordsWrapRef} className="hir-words pointer-events-none absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap">
         <span
           ref={wordLeftRef}
           className="text-4xl font-bold tracking-tight text-black sm:text-6xl lg:text-7xl"
@@ -293,30 +279,12 @@ export default function HeroIntroReveal({
         />
       </div>
 
-      {/* Floating pill navbar */}
-      <nav
-        ref={navRef}
-        aria-label="Navegación principal"
-        className="hir-nav absolute left-1/2 top-4 z-30 flex -translate-x-1/2 items-center gap-5 rounded-full border border-black/10 bg-white/90 px-5 py-3 shadow-lg backdrop-blur sm:top-6 sm:gap-6 sm:px-6"
-      >
-        {navItems.map((item) => (
-          <a
-            key={item.label}
-            href={item.href}
-            data-nav-item
-            className="shrink-0 text-sm font-medium text-black/80 transition hover:text-black"
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
-
       {/* Hero content */}
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center gap-6 px-6 py-24 text-center">
         {/* Badge */}
         <div
           ref={badgeRef}
-          className="rounded-full border border-black/10 bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-black/70"
+          className="hir-hide rounded-full border border-black/10 bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-black/70"
         >
           Desarrollo de Software · Automatización · IA
         </div>
@@ -328,7 +296,7 @@ export default function HeroIntroReveal({
             <span key={i} className="hir-line-mask block overflow-hidden">
               <span
                 ref={(el) => { headlineLineRefs.current[i] = el; }}
-                className="block"
+                className="hir-line-inner block"
               >
                 {line}
               </span>
@@ -340,14 +308,14 @@ export default function HeroIntroReveal({
         <div className="overflow-hidden">
           <p
             ref={subcopyRef}
-            className="max-w-xl text-base text-black/60 sm:text-lg"
+            className="hir-hide max-w-xl text-base text-black/60 sm:text-lg"
           >
             {subcopy}
           </p>
         </div>
 
         {/* CTAs */}
-        <div ref={ctaRef} className="flex flex-wrap items-center justify-center gap-3">
+        <div ref={ctaRef} className="hir-hide-children flex flex-wrap items-center justify-center gap-3">
           <a
             href={ctaPrimary.href}
             className="rounded-full bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-black/80"

@@ -122,3 +122,10 @@ html.hero-intro-running nav[class*="fixed"] {
   pointer-events: none !important;
   transition: none !important;
 }
+
+/* Same as above, but before hydration (the HTML class isn't set yet) */
+html:has(.hir-pending) nav[class*="fixed"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
