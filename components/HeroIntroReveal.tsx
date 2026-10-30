@@ -36,32 +36,30 @@ export default function HeroIntroReveal({
   const bgWrapRef = useRef<HTMLDivElement>(null);
   const bgImgRef = useRef<HTMLDivElement>(null);
   const hazeRef = useRef<HTMLDivElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
-  // Ref to the full words container — hidden in finish() to guarantee it leaves the DOM flow
   const wordsWrapRef = useRef<HTMLDivElement>(null);
-  // Refs to individual headline line wrappers (the overflow:hidden masks)
   const headlineLineRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const subcopyRef = useRef<HTMLParagraphElement>(null);
+  const subcopyRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       let cancelled = false;
       let idleTween: gsap.core.Tween | undefined;
+      let failsafe: number | undefined;
+      let finished = false;
 
-      // Hide the site Navbar while the intro runs so it doesn't overlap
       document.documentElement.classList.add('hero-intro-running');
 
       const finish = () => {
+        if (finished) return;
+        finished = true;
+        if (failsafe !== undefined) window.clearTimeout(failsafe);
         gsap.set(bgWrapRef.current, { clipPath: 'inset(0px 0px 0px 0px round 0px)' });
         gsap.set(bgImgRef.current, { scale: 1, yPercent: 0, willChange: 'auto' });
-        // Hide the entire words container (not just the child spans) so no GSAP
-        // timing edge-case can leave "NEXORA TECH" floating over the Hero.
         gsap.set([wordLeftRef.current, wordRightRef.current], { clearProps: 'all' });
         if (wordsWrapRef.current) {
           wordsWrapRef.current.style.display = 'none';
         }
-        // Reveal the site Navbar after the intro completes
         document.documentElement.classList.remove('hero-intro-running');
         rootRef.current?.classList.remove('hir-pending');
       };
@@ -77,158 +75,136 @@ export default function HeroIntroReveal({
         });
       };
 
+      const ctaChildren = () => Array.from(ctaRef.current?.children ?? []);
+
       const revealFinalState = () => {
         finish();
-        // Show everything immediately without animation
-        gsap.set(
-          [badgeRef.current, subcopyRef.current, ...ctaChildren()],
-          { clearProps: 'all', opacity: 1 },
-        );
-        // Show the inner spans (the text) inside headline line masks
+        gsap.set([subcopyRef.current, ...ctaChildren()], { clearProps: 'all', opacity: 1 });
         headlineLineRefs.current.forEach((lineRef) => {
           if (lineRef) gsap.set(lineRef, { yPercent: 0, rotate: 0, opacity: 1 });
         });
         startDrift();
       };
 
-      const ctaChildren = () => Array.from(ctaRef.current?.children ?? []);
+      try {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          revealFinalState();
+          return;
+        }
 
-      // Timeout fallback so the page isn't stuck if fonts never load
-      const fontsReady = Promise.race([
-        document.fonts?.ready ?? Promise.resolve(),
-        new Promise<void>((resolve) => window.setTimeout(resolve, 1500)),
-      ]);
+        const left = wordLeftRef.current;
+        const right = wordRightRef.current;
+        const bgWrap = bgWrapRef.current;
+        const bgImageEl = bgImgRef.current;
+        if (!left || !right || !bgWrap || !bgImageEl) return;
 
-      fontsReady
-        .then(() => {
-          if (cancelled) return;
-
-          try {
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-              revealFinalState();
-              return;
-            }
-
-            const left = wordLeftRef.current;
-            const right = wordRightRef.current;
-            const bgWrap = bgWrapRef.current;
-            const bgImage = bgImgRef.current;
-            if (!left || !right || !bgWrap || !bgImage) return;
-
-            // ---------- clip-path state ----------
-            const clip = { top: 0, bottom: 0, left: 0, right: 0, radius: 999 };
-            const applyClip = () => {
-              bgWrap.style.clipPath = `inset(${clip.top}px ${clip.right}px ${clip.bottom}px ${clip.left}px round ${clip.radius}px)`;
-            };
-
-            const measureWords = (setHeight = false) => {
-              const leftRect = left.getBoundingClientRect();
-              const rightRect = right.getBoundingClientRect();
-              if (setHeight) {
-                clip.top = Math.max(0, leftRect.top);
-                clip.bottom = Math.max(0, window.innerHeight - leftRect.bottom);
-                clip.radius = Math.max(1, Math.min(leftRect.height, rightRect.height) / 2);
-              }
-              clip.left = Math.max(0, leftRect.right);
-              clip.right = Math.max(0, window.innerWidth - rightRect.left);
-              applyClip();
-            };
-
-            measureWords(true);
-            gsap.set(bgImage, { scale: 1.35, willChange: 'transform' });
-
-            // Set the intro start state inline, then drop the SSR `hir-pending`
-            // class that kept this content hidden before hydration.
-            gsap.set(badgeRef.current, { opacity: 0, y: 14, scale: 0.94 });
-            gsap.set(subcopyRef.current, { opacity: 0, yPercent: 100 });
-            gsap.set(ctaChildren(), { opacity: 0, y: 16 });
-            headlineLineRefs.current.forEach((lineRef) => {
-              if (lineRef) gsap.set(lineRef, { yPercent: 110, rotate: 2 });
-            });
-            rootRef.current?.classList.remove('hir-pending');
-
-            const leftRect = left.getBoundingClientRect();
-            const rightRect = right.getBoundingClientRect();
-            const leftExit = -(leftRect.right + 32);
-            const rightExit = window.innerWidth - rightRect.left + 32;
-
-            // Collect the inner text spans for staggered reveal
-            const headlineInners = headlineLineRefs.current.filter(Boolean) as HTMLSpanElement[];
-
-            const timeline = gsap.timeline({
-              defaults: { ease: 'power4.inOut' },
-              onComplete: () => {
-                finish();
-                startDrift();
-              },
-            });
-
-            timeline
-              // Words push apart → clip opens between them (cinematic, slow)
-              .to(left, { x: leftExit, duration: 1.8, onUpdate: measureWords }, 0)
-              .to(right, { x: rightExit, duration: 1.8, onUpdate: measureWords }, 0)
-              .to(bgImage, { scale: 1.15, duration: 1.8 }, 0)
-              // Clip grows to full screen (more gradual expand)
-              .to(
-                clip,
-                {
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
-                  radius: 0,
-                  duration: 2.0,
-                  ease: 'expo.out',
-                  onUpdate: applyClip,
-                },
-                '>-0.1',
-              )
-              .to(bgImage, { scale: 1, duration: 2.0, ease: 'expo.out' }, '<')
-              .to(hazeRef.current, { opacity: 1, duration: 1.4, ease: 'power2.out' }, '<+=0.3')
-              // Badge pop-in
-              // (.to, not .from: the start state is already set above, so a
-              // .from would animate opacity 0 → 0 and leave it invisible)
-              .to(
-                badgeRef.current,
-                { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.8)' },
-                '-=0.9',
-              )
-              // Headline lines rise out of their CSS masks (overflow:hidden on the outer span)
-              .to(
-                headlineInners,
-                {
-                  yPercent: 0,
-                  rotate: 0,
-                  stagger: 0.12,
-                  duration: 1.1,
-                  ease: 'power3.out',
-                },
-                '-=0.5',
-              )
-              // Subcopy
-              .to(
-                subcopyRef.current,
-                { opacity: 1, yPercent: 0, duration: 0.8, ease: 'power3.out' },
-                '-=0.6',
-              )
-              // CTAs
-              .to(
-                ctaChildren(),
-                { opacity: 1, y: 0, stagger: 0.1, duration: 0.7 },
-                '-=0.5',
-              );
-          } catch (error) {
-            console.error('HeroIntroReveal animation failed:', error);
-            if (!cancelled) revealFinalState();
-          }
-        })
-        .catch((error) => {
-          console.error('HeroIntroReveal font loading failed:', error);
+        // La animación arranca de inmediato, sin esperar a las fuentes.
+        failsafe = window.setTimeout(() => {
           if (!cancelled) revealFinalState();
+        }, 3500);
+
+        const clip = { top: 0, bottom: 0, left: 0, right: 0, radius: 999 };
+        const applyClip = () => {
+          bgWrap.style.clipPath = `inset(${clip.top}px ${clip.right}px ${clip.bottom}px ${clip.left}px round ${clip.radius}px)`;
+        };
+
+        const leftRect = left.getBoundingClientRect();
+        const rightRect = right.getBoundingClientRect();
+        clip.top = Math.max(0, leftRect.top);
+        clip.bottom = Math.max(0, window.innerHeight - leftRect.bottom);
+        clip.radius = Math.max(1, Math.min(leftRect.height, rightRect.height) / 2);
+        // Medidas tomadas una sola vez: durante la animación se interpolan
+        // con los valores de x, sin volver a leer el DOM en cada frame.
+        const startLeft = Math.max(0, leftRect.right);
+        const startRight = Math.max(0, window.innerWidth - rightRect.left);
+        clip.left = startLeft;
+        clip.right = startRight;
+        applyClip();
+
+        gsap.set(bgImageEl, { scale: 1.25, willChange: 'transform' });
+        gsap.set(subcopyRef.current, { opacity: 0, yPercent: 100 });
+        gsap.set(ctaChildren(), { opacity: 0, y: 16 });
+        headlineLineRefs.current.forEach((lineRef) => {
+          if (lineRef) gsap.set(lineRef, { yPercent: 110, rotate: 2 });
         });
+        rootRef.current?.classList.remove('hir-pending');
+
+        const leftExit = -(leftRect.right + 32);
+        const rightExit = window.innerWidth - rightRect.left + 32;
+        const headlineInners = headlineLineRefs.current.filter(Boolean) as HTMLSpanElement[];
+
+        const timeline = gsap.timeline({
+          defaults: { ease: 'power4.inOut' },
+          onComplete: () => {
+            finish();
+            startDrift();
+          },
+        });
+
+        timeline
+          .to(left, {
+            x: leftExit,
+            duration: 0.7,
+            ease: 'power3.inOut',
+            onUpdate: () => {
+              clip.left = Math.max(0, startLeft + (gsap.getProperty(left, 'x') as number));
+              applyClip();
+            },
+          }, 0)
+          .to(right, {
+            x: rightExit,
+            duration: 0.7,
+            ease: 'power3.inOut',
+            onUpdate: () => {
+              clip.right = Math.max(0, startRight - (gsap.getProperty(right, 'x') as number));
+              applyClip();
+            },
+          }, 0)
+          .to(bgImageEl, { scale: 1.12, duration: 0.7, ease: 'power3.inOut' }, 0)
+          .to(
+            clip,
+            {
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              radius: 0,
+              duration: 0.8,
+              ease: 'expo.out',
+              onUpdate: applyClip,
+            },
+            '-=0.15',
+          )
+          .to(bgImageEl, { scale: 1, duration: 0.8, ease: 'expo.out' }, '<')
+          .to(hazeRef.current, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '<+=0.15')
+          .to(
+            headlineInners,
+            {
+              yPercent: 0,
+              rotate: 0,
+              stagger: 0.08,
+              duration: 0.7,
+              ease: 'power3.out',
+            },
+            '-=0.55',
+          )
+          .to(
+            subcopyRef.current,
+            { opacity: 1, yPercent: 0, duration: 0.5, ease: 'power3.out' },
+            '-=0.45',
+          )
+          .to(
+            ctaChildren(),
+            { opacity: 1, y: 0, stagger: 0.07, duration: 0.45 },
+            '-=0.35',
+          );
+      } catch {
+        if (!cancelled) revealFinalState();
+      }
 
       return () => {
         cancelled = true;
+        if (failsafe !== undefined) window.clearTimeout(failsafe);
         idleTween?.kill();
         document.documentElement.classList.remove('hero-intro-running');
       };
@@ -241,11 +217,9 @@ export default function HeroIntroReveal({
       ref={rootRef}
       className={`hir-pending relative min-h-[100svh] overflow-hidden bg-[#f1f0ec] ${className}`}
     >
-      {/* Without JS the intro never runs, so show the final state */}
       <noscript>
         <style>{'.hir-pending .hir-hide,.hir-pending .hir-hide-children>*{opacity:1!important}.hir-pending .hir-line-inner{transform:none!important}.hir-pending .hir-words{display:none}'}</style>
       </noscript>
-      {/* Intro words — push apart to open the clip-path window */}
       <div ref={wordsWrapRef} className="hir-words pointer-events-none absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap">
         <span
           ref={wordLeftRef}
@@ -262,7 +236,6 @@ export default function HeroIntroReveal({
         </span>
       </div>
 
-      {/* Background image + haze */}
       <div
         ref={bgWrapRef}
         className="absolute inset-0 z-0 overflow-hidden"
@@ -279,18 +252,7 @@ export default function HeroIntroReveal({
         />
       </div>
 
-      {/* Hero content */}
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center gap-6 px-6 py-24 text-center">
-        {/* Badge */}
-        <div
-          ref={badgeRef}
-          className="hir-hide rounded-full border border-black/10 bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-black/70"
-        >
-          Desarrollo de Software · Automatización · IA
-        </div>
-
-        {/* Headline — each line gets an overflow:hidden wrapper so the inner span
-            can animate from yPercent 110 → 0 without needing SplitText */}
         <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-black sm:text-5xl lg:text-6xl">
           {headlineLines.map((line, i) => (
             <span key={i} className="hir-line-mask block overflow-hidden">
@@ -304,17 +266,15 @@ export default function HeroIntroReveal({
           ))}
         </h1>
 
-        {/* Subcopy — wrapped in overflow:hidden for the mask effect */}
         <div className="overflow-hidden">
-          <p
+          <h2
             ref={subcopyRef}
-            className="hir-hide max-w-xl text-base text-black/60 sm:text-lg"
+            className="hir-hide mx-auto max-w-xl text-base font-normal text-black/60 sm:text-lg"
           >
             {subcopy}
-          </p>
+          </h2>
         </div>
 
-        {/* CTAs */}
         <div ref={ctaRef} className="hir-hide-children flex flex-wrap items-center justify-center gap-3">
           <a
             href={ctaPrimary.href}
@@ -331,7 +291,6 @@ export default function HeroIntroReveal({
         </div>
       </div>
 
-      {/* TextLoop — wave ribbon at the bottom of the hero, hidden while intro runs */}
       <div className="hir-textloop absolute bottom-0 left-0 right-0 z-10 w-full">
         <TextLoop
           text="NEXORA TECH · SOFTWARE · AUTOMATIZACIÓN · IA"
