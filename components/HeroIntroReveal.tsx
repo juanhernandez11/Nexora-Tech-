@@ -101,10 +101,9 @@ export default function HeroIntroReveal({
           return;
         }
 
-        // La animación arranca de inmediato, sin esperar a las fuentes.
         failsafe = window.setTimeout(() => {
           if (!cancelled) revealFinalState();
-        }, 3500);
+        }, 6500);
 
         const clip = { top: 0, bottom: 0, left: 0, right: 0, radius: 999 };
         const applyClip = () => {
@@ -116,8 +115,6 @@ export default function HeroIntroReveal({
         clip.top = Math.max(0, leftRect.top);
         clip.bottom = Math.max(0, window.innerHeight - leftRect.bottom);
         clip.radius = Math.max(1, Math.min(leftRect.height, rightRect.height) / 2);
-        // Medidas tomadas una sola vez: durante la animación se interpolan
-        // con los valores de x, sin volver a leer el DOM en cada frame.
         const startLeft = Math.max(0, leftRect.right);
         const startRight = Math.max(0, window.innerWidth - rightRect.left);
         clip.left = startLeft;
@@ -147,7 +144,7 @@ export default function HeroIntroReveal({
         timeline
           .to(left, {
             x: leftExit,
-            duration: 0.7,
+            duration: 1.1,
             ease: 'power3.inOut',
             onUpdate: () => {
               clip.left = Math.max(0, startLeft + (gsap.getProperty(left, 'x') as number));
@@ -156,14 +153,14 @@ export default function HeroIntroReveal({
           }, 0)
           .to(right, {
             x: rightExit,
-            duration: 0.7,
+            duration: 1.1,
             ease: 'power3.inOut',
             onUpdate: () => {
               clip.right = Math.max(0, startRight - (gsap.getProperty(right, 'x') as number));
               applyClip();
             },
           }, 0)
-          .to(bgImageEl, { scale: 1.12, duration: 0.7, ease: 'power3.inOut' }, 0)
+          .to(bgImageEl, { scale: 1.12, duration: 1.1, ease: 'power3.inOut' }, 0)
           .to(
             clip,
             {
@@ -172,34 +169,34 @@ export default function HeroIntroReveal({
               bottom: 0,
               left: 0,
               radius: 0,
-              duration: 0.8,
+              duration: 1.2,
               ease: 'expo.out',
               onUpdate: applyClip,
             },
-            '-=0.15',
+            '-=0.2',
           )
-          .to(bgImageEl, { scale: 1, duration: 0.8, ease: 'expo.out' }, '<')
-          .to(hazeRef.current, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '<+=0.15')
+          .to(bgImageEl, { scale: 1, duration: 1.2, ease: 'expo.out' }, '<')
+          .to(hazeRef.current, { opacity: 1, duration: 0.9, ease: 'power2.out' }, '<+=0.2')
           .to(
             headlineInners,
             {
               yPercent: 0,
               rotate: 0,
-              stagger: 0.08,
-              duration: 0.7,
+              stagger: 0.12,
+              duration: 1,
               ease: 'power3.out',
             },
-            '-=0.55',
+            '-=0.7',
           )
           .to(
             subcopyRef.current,
-            { opacity: 1, yPercent: 0, duration: 0.5, ease: 'power3.out' },
-            '-=0.45',
+            { opacity: 1, yPercent: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.6',
           )
           .to(
             ctaChildren(),
-            { opacity: 1, y: 0, stagger: 0.07, duration: 0.45 },
-            '-=0.35',
+            { opacity: 1, y: 0, stagger: 0.1, duration: 0.7 },
+            '-=0.5',
           );
       } catch {
         if (!cancelled) revealFinalState();
@@ -298,9 +295,9 @@ export default function HeroIntroReveal({
         <TextLoop
           text="NEXORA TECH · SOFTWARE · AUTOMATIZACIÓN · IA"
           shape="wave"
-          speed={65}
+          speed={35}
           separator="✦"
-          curviness={28}
+          curviness={18}
           fontSize={26}
           fontWeight={700}
           letterSpacing={2}
@@ -316,3 +313,4 @@ export default function HeroIntroReveal({
     </section>
   );
 }
+

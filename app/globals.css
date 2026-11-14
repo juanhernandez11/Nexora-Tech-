@@ -1,88 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
-body {
-  font-family: 'Manrope', system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #fbfbfd;
-  color: #1d1d1f;
-  overflow-x: hidden;
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-.dark body,
-html.dark body {
-  background-color: #000000;
-  color: #f5f5f7;
-}
-
-h1, h2, h3, h4, .font-heading {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  letter-spacing: -0.03em;
-}
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
-.dark ::-webkit-scrollbar-thumb { background: #27272a; }
-.dark ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
-
-:focus-visible {
-  outline: 2px solid #0071e3;
-  outline-offset: 3px;
-  border-radius: 8px;
-}
-
-::selection { background-color: rgba(0, 113, 227, 0.2); color: inherit; }
-.dark ::selection { background-color: rgba(0, 113, 227, 0.4); color: #ffffff; }
-
-.signal-grid {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 36px 36px;
-}
-
-.dark .signal-grid {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-}
-
-.eyebrow {
-  color: #697064;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.dark .eyebrow { color: #a8b0a0; }
-
-/* Línea divisora sutil */
-.divider {
-  border: none;
-  border-top: 1px solid #F1F5F9;
-}
-.dark .divider { border-top-color: #1E293B; }
-
 /* Carrusel */
 @keyframes scroll-x {
-  0%   { transform: translateX(0); }
+  0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.animate-scroll-x { animation: scroll-x 28s linear infinite; }
-.animate-scroll-x:hover { animation-play-state: paused; }
+
+.animate-scroll-x {
+  animation: scroll-x 48s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.animate-scroll-x:hover {
+  animation-play-state: paused;
+}
 
 /* Accesibilidad */
 .high-contrast, .high-contrast body { background-color: #000 !important; color: #fff !important; }
@@ -115,17 +46,15 @@ h1, h2, h3, h4, .font-heading {
 }
 
 /* ─── Hero Intro Reveal ───────────────────────────────────────────────────── */
-/* While the intro animation runs, hide the fixed site Navbar so it doesn't
-   overlap the intro words and the floating pill nav inside the hero. */
 html.hero-intro-running nav[class*="fixed"] {
   opacity: 0 !important;
   pointer-events: none !important;
   transition: none !important;
 }
 
-/* Same as above, but before hydration (the HTML class isn't set yet) */
 html:has(.hir-pending) nav[class*="fixed"] {
   opacity: 0 !important;
   pointer-events: none !important;
   transition: none !important;
 }
+
