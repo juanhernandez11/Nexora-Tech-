@@ -23,7 +23,7 @@ const Hero = () => {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28 border-b border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-b from-white via-[#fbfbfd] to-[#f5f5f7] dark:from-black dark:via-[#0a0a0c] dark:to-[#111113] transition-colors duration-300"
+      className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28 border-b border-black/[0.06] dark:border-white/[0.08] bg-gradient-to-b from-white via-[#fbfbfd] to-[#f5f5f7] dark:from-black dark:to-[#0b0b0c]"
     >
       {/* Subtle Apple-style atmospheric light */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-[#0071e3]/[0.04] dark:bg-[#0071e3]/[0.08] rounded-full blur-[140px] pointer-events-none" />
@@ -32,12 +32,12 @@ const Hero = () => {
         <div className="grid lg:grid-cols-[minmax(0,1.2fr)_minmax(360px,0.8fr)] gap-12 lg:gap-16 items-center">
           <div>
             <h1
-              className={`text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1d1d1f] dark:text-white leading-[1.08] mb-6 transition-all duration-700 font-heading ${
+              className={`mx-auto max-w-2xl text-center text-4xl sm:text-5xl lg:mx-0 lg:max-w-none lg:text-left lg:text-6xl font-bold tracking-tight text-[#1d1d1f] dark:text-white leading-[1.08] mb-6 transition-all duration-700 font-heading ${
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
               }`}
             >
               Software pensado para la forma en que{' '}
-              <span className="text-[#0071e3] dark:text-[#2997ff]">
+              <span className="block text-[#0071e3] dark:text-[#2997ff]">
                 trabajas.
               </span>
             </h1>
@@ -64,7 +64,7 @@ const Hero = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto font-medium border-black/15 dark:border-white/15 bg-white/60 dark:bg-white/[0.04] hover:bg-black/5 dark:hover:bg-white/[0.08] text-[#1d1d1f] dark:text-white rounded-full h-12 px-6 backdrop-blur-sm transition-all"
+                  className="w-full sm:w-auto font-medium border-black/15 dark:border-white/15 bg-white/60 dark:bg-white/[0.04] hover:bg-black/5 dark:hover:bg-white/[0.08] text-[#1d1d1f] dark:text-white"
                 >
                   <span>{t('ctaSecondary')}</span>
                 </Button>
@@ -103,7 +103,7 @@ const Hero = () => {
           </div>
 
           {/* Panel interactivo estilo ventana macOS / Apple Pro Showcase */}
-          <div className="relative rounded-3xl border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#161617] shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)] p-6 sm:p-7 overflow-hidden transition-colors">
+          <div className="relative rounded-3xl border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#161617] shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
             {/* Header estilo ventana macOS */}
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-black/[0.06] dark:border-white/[0.08]">
               <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ const Hero = () => {
                 <a
                   key={idx}
                   href="#casos-de-exito"
-                  className="group block p-4 rounded-2xl border border-black/[0.04] dark:border-white/[0.06] bg-[#f5f5f7] dark:bg-[#222224] hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-all"
+                  className="group block p-4 rounded-2xl border border-black/[0.04] dark:border-white/[0.06] bg-[#f5f5f7] dark:bg-[#222224] hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-colors duration-300"
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
                     <span className="text-xs font-semibold text-[#86868b] dark:text-slate-400 uppercase tracking-wider">{project.company}</span>
@@ -167,3 +167,5 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
