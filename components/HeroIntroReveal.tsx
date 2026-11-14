@@ -96,7 +96,10 @@ export default function HeroIntroReveal({
         const right = wordRightRef.current;
         const bgWrap = bgWrapRef.current;
         const bgImageEl = bgImgRef.current;
-        if (!left || !right || !bgWrap || !bgImageEl) return;
+        if (!left || !right || !bgWrap || !bgImageEl) {
+          revealFinalState();
+          return;
+        }
 
         // La animación arranca de inmediato, sin esperar a las fuentes.
         failsafe = window.setTimeout(() => {
@@ -215,7 +218,7 @@ export default function HeroIntroReveal({
   return (
     <section
       ref={rootRef}
-      className={`hir-pending relative min-h-[100svh] overflow-hidden bg-[#f1f0ec] ${className}`}
+      className={`hir-pending relative min-h-[100svh] overflow-hidden bg-[#0a0a0a] ${className}`}
     >
       <noscript>
         <style>{'.hir-pending .hir-hide,.hir-pending .hir-hide-children>*{opacity:1!important}.hir-pending .hir-line-inner{transform:none!important}.hir-pending .hir-words{display:none}'}</style>
@@ -223,14 +226,14 @@ export default function HeroIntroReveal({
       <div ref={wordsWrapRef} className="hir-words pointer-events-none absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap">
         <span
           ref={wordLeftRef}
-          className="text-4xl font-bold tracking-tight text-black sm:text-6xl lg:text-7xl"
+          className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
         >
           {wordLeft}
         </span>
         <span className="w-3 shrink-0 sm:w-5" />
         <span
           ref={wordRightRef}
-          className="text-4xl font-bold tracking-tight text-black sm:text-6xl lg:text-7xl"
+          className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
         >
           {wordRight}
         </span>
@@ -238,7 +241,7 @@ export default function HeroIntroReveal({
 
       <div
         ref={bgWrapRef}
-        className="absolute inset-0 z-0 overflow-hidden"
+        className="hir-bgwrap absolute inset-0 z-0 overflow-hidden"
         style={{ clipPath: 'inset(0px 50% 0px 50% round 999px)' }}
       >
         <div
@@ -248,12 +251,12 @@ export default function HeroIntroReveal({
         />
         <div
           ref={hazeRef}
-          className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/10 to-transparent opacity-0"
+          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/10 opacity-0"
         />
       </div>
 
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center gap-6 px-6 py-24 text-center">
-        <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-black sm:text-5xl lg:text-6xl">
+        <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-6xl">
           {headlineLines.map((line, i) => (
             <span key={i} className="hir-line-mask block overflow-hidden">
               <span
@@ -269,7 +272,7 @@ export default function HeroIntroReveal({
         <div className="overflow-hidden">
           <h2
             ref={subcopyRef}
-            className="hir-hide mx-auto max-w-xl text-base font-normal text-black/60 sm:text-lg"
+            className="hir-hide mx-auto max-w-xl text-base font-normal text-white/80 drop-shadow-[0_1px_12px_rgba(0,0,0,0.5)] sm:text-lg"
           >
             {subcopy}
           </h2>
@@ -278,13 +281,13 @@ export default function HeroIntroReveal({
         <div ref={ctaRef} className="hir-hide-children flex flex-wrap items-center justify-center gap-3">
           <a
             href={ctaPrimary.href}
-            className="rounded-full bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-black/80"
+            className="rounded-full bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,113,227,0.45)] transition hover:bg-[#0077ed]"
           >
             {ctaPrimary.label}
           </a>
           <a
             href={ctaSecondary.href}
-            className="rounded-full border border-black/20 px-6 py-3 text-sm font-semibold text-black transition hover:bg-black/5"
+            className="rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
           >
             {ctaSecondary.label}
           </a>

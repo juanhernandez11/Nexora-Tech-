@@ -50,3 +50,35 @@ html.hero-intro-running .hir-textloop {
 .hir-pending .hir-textloop {
   opacity: 0;
 }
+
+/* Failsafe solo con CSS: si el JS/GSAP nunca corre (o falla antes de quitar
+   .hir-pending), el título igual aparece a los ~4s en vez de quedar oculto.
+   Cuando el JS funciona, la clase se quita mucho antes y esto no interfiere. */
+@keyframes hir-failsafe-show {
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0px 0px 0px 0px round 0px);
+  }
+}
+
+@keyframes hir-failsafe-hide {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Sin JS, las palabras de la intro ("NEXORA TECH") taparían el título:
+   se ocultan solas a los ~4s. */
+.hir-pending .hir-words {
+  animation: hir-failsafe-hide 0.6s ease 4s forwards;
+}
+
+.hir-pending .hir-hide,
+.hir-pending .hir-hide-children > *,
+.hir-pending .hir-line-inner,
+.hir-pending .hir-textloop,
+.hir-pending .hir-bgwrap {
+  animation: hir-failsafe-show 0.6s ease 4s forwards;
+}
