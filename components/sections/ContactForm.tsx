@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Send, CheckCircle2, AlertCircle, ChevronDown, Linkedin, MessageCircle, ShieldCheck } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, ChevronDown, Linkedin, MessageCircle } from 'lucide-react';
 import useInView from '@/hooks/useInView';
 import { projectTypesData, type Locale } from '@/i18n/data';
+import { BorderBeam } from '@/components/ui/BorderBeam';
 
 interface FormData {
   name: string;
@@ -14,7 +15,7 @@ interface FormData {
   website: string;
 }
 
-const ContactForm = () => {
+export default function ContactForm() {
   const t = useTranslations('contact');
   const locale = useLocale() as Locale;
   const base = locale === 'en' ? '/en' : '';
@@ -47,131 +48,147 @@ const ContactForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const inputClass = "w-full px-4 py-3 bg-white dark:bg-[#121214] border border-black/[0.1] dark:border-white/[0.12] rounded-2xl text-[#1d1d1f] dark:text-white text-sm focus:border-[#0071e3] dark:focus:border-[#2997ff] focus:outline-none transition-colors placeholder:text-[#86868b] dark:placeholder:text-slate-500 shadow-xs";
+  const inputClass = "w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-white text-sm focus:border-[#2997ff]/60 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-white/20";
 
   return (
-    <section id="contacto-form" className="scroll-mt-20 py-24 sm:py-32 bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] relative overflow-hidden transition-colors">
+    <section id="contacto-form" className="theme-surface relative overflow-hidden py-28 sm:py-36 bg-[#000]">
+
+      {/* Grid */}
+      <div className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+
+      {/* Glow */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-[#2997ff]/5 blur-[140px]" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div
           ref={ref}
-          className={`grid lg:grid-cols-2 gap-12 lg:gap-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          className={`grid lg:grid-cols-2 gap-12 lg:gap-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-          {/* Columna izquierda: Información del consultor y compromisos */}
+
+          {/* Left column */}
           <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1d1d1f] dark:text-white mb-4 font-heading leading-tight">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2997ff] mb-4">Contacto</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] text-white mb-4 leading-[1.05]">
               {t('title')}{' '}
-              <span className="text-[#0071e3] dark:text-[#2997ff]">
+              <span className="bg-gradient-to-r from-[#2997ff] to-[#5ac8fa] bg-clip-text text-transparent">
                 {t('titleHighlight')}
               </span>
             </h2>
-            <p className="text-[#86868b] dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
+            <p className="text-white/40 text-sm sm:text-base leading-relaxed mb-10">
               {t('subtitle')}
             </p>
 
-            {/* Ficha técnica del desarrollador */}
-            <div className="p-7 rounded-3xl border border-black/[0.05] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#161617] shadow-xs mb-8">
-              <div className="flex items-center gap-3.5 mb-3">
-                <div className="w-11 h-11 rounded-2xl bg-white dark:bg-white/10 text-[#0071e3] dark:text-[#2997ff] border border-black/[0.06] dark:border-white/[0.1] flex items-center justify-center font-bold text-sm shadow-xs">
+            {/* Developer card */}
+            <div className="relative rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 mb-8 overflow-hidden">
+              <BorderBeam size={120} duration={14} colorFrom="#2997ff" colorTo="#5ac8fa" borderWidth={0.8} />
+              <div className="flex items-center gap-3.5 mb-4">
+                <div className="w-11 h-11 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20 text-[#2997ff] flex items-center justify-center font-black text-sm">
                   JM
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-[#1d1d1f] dark:text-white font-heading">Juan Ramón Moreno Bravo</h3>
-                  <p className="text-xs text-[#0071e3] dark:text-[#2997ff] font-medium">Ingeniería de Software & Sistemas Distribuidos</p>
+                  <h3 className="text-sm font-bold text-white">Juan Ramón Moreno Bravo</h3>
+                  <p className="text-xs text-[#2997ff]">Software & Full-Stack Developer</p>
                 </div>
               </div>
-              <p className="text-xs text-[#86868b] dark:text-slate-400 leading-relaxed pt-3 border-t border-black/[0.06] dark:border-white/[0.08] font-normal">
+              <p className="text-xs text-white/30 leading-relaxed pt-4 border-t border-white/[0.06]">
                 {locale === 'en'
-                  ? 'Every engagement is developed directly by me with documented code, WCAG standards, and reproducible deployment pipelines.'
-                  : 'Cada proyecto es ejecutado de forma directa con código auditable, estándares de accesibilidad WCAG y pipelines de despliegue reproducibles.'}
+                  ? 'Every project is built directly by me — auditable code, WCAG standards, reproducible deployments.'
+                  : 'Cada proyecto es ejecutado por mí directamente — código auditable, estándares WCAG y deploys reproducibles.'}
               </p>
             </div>
 
-            {/* Beneficios directos */}
-            <div className="space-y-4 mb-8">
+            {/* Benefits */}
+            <div className="space-y-4 mb-10">
               {[
                 { title: t('benefit1Title'), desc: t('benefit1Desc') },
                 { title: t('benefit2Title'), desc: t('benefit2Desc') },
                 { title: t('benefit3Title'), desc: t('benefit3Desc') },
               ].map((item, i) => (
-                <div key={i} className="flex items-start gap-3.5">
-                  <div className="p-1.5 rounded-full bg-[#0071e3]/10 dark:bg-[#0071e3]/20 text-[#0071e3] dark:text-[#2997ff] shrink-0 mt-0.5">
-                    <ShieldCheck size={14} />
-                  </div>
+                <div key={i} className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#2997ff] mt-1.5 shrink-0 animate-glow-pulse" />
                   <div>
-                    <p className="text-xs font-bold text-[#1d1d1f] dark:text-white font-heading">{item.title}</p>
-                    <p className="text-xs text-[#86868b] dark:text-slate-400 mt-0.5 leading-relaxed font-normal">{item.desc}</p>
+                    <p className="text-sm font-bold text-white">{item.title}</p>
+                    <p className="text-xs text-white/30 mt-0.5 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Canales directos */}
-            <div className="pt-6 border-t border-black/[0.06] dark:border-white/[0.08]">
-              <p className="text-xs uppercase tracking-wider text-[#86868b] dark:text-slate-400 mb-3 font-semibold">{t('directContact')}</p>
+            {/* Direct channels */}
+            <div className="pt-6 border-t border-white/[0.06]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-4">{t('directContact')}</p>
               <div className="flex flex-wrap gap-3">
                 <a
                   href="https://www.linkedin.com/company/nexoratech-tehuacan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-medium text-[#1d1d1f] dark:text-white bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.14] px-4 py-2.5 rounded-full border border-black/[0.05] dark:border-white/[0.08] transition-all"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-white/60 bg-white/[0.04] hover:bg-white/[0.08] hover:text-white px-4 py-2.5 rounded-full border border-white/[0.08] transition-all"
                 >
-                  <Linkedin size={14} className="text-[#0071e3] dark:text-[#2997ff]" /> {t('linkedinBtn')}
+                  <Linkedin size={13} className="text-[#2997ff]" /> {t('linkedinBtn')}
                 </a>
                 <a
                   href="https://wa.me/522382440637?text=Hola%20Juan%2C%20me%20interesa%20una%20consultor%C3%ADa"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-medium text-[#1d1d1f] dark:text-white bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.14] px-4 py-2.5 rounded-full border border-black/[0.05] dark:border-white/[0.08] transition-all"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-white/60 bg-white/[0.04] hover:bg-white/[0.08] hover:text-white px-4 py-2.5 rounded-full border border-white/[0.08] transition-all"
                 >
-                  <MessageCircle size={14} className="text-[#0071e3] dark:text-[#2997ff]" /> {t('whatsappBtn')}
+                  <MessageCircle size={13} className="text-[#34d399]" /> {t('whatsappBtn')}
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Formulario en tarjeta limpia estilo Apple */}
-          <div className="bg-[#f5f5f7] dark:bg-[#161617] border border-black/[0.05] dark:border-white/[0.08] rounded-3xl p-7 sm:p-9 shadow-xs">
-            <h3 className="text-xl font-bold text-[#1d1d1f] dark:text-white font-heading mb-1">{t('formTitle')}</h3>
-            <p className="text-xs sm:text-sm text-[#86868b] dark:text-slate-400 mb-6">{t('formSubtitle')}</p>
+          {/* Form card */}
+          <div className="relative rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-7 sm:p-9 overflow-hidden">
+            <BorderBeam size={180} duration={18} colorFrom="#2997ff" colorTo="#a855f7" borderWidth={1} />
+
+            <h3 className="text-xl font-black tracking-[-0.03em] text-white mb-1">{t('formTitle')}</h3>
+            <p className="text-xs text-white/30 mb-7">{t('formSubtitle')}</p>
 
             {status === 'success' ? (
-              <div className="text-center py-12">
-                <CheckCircle2 className="text-[#0071e3] dark:text-[#2997ff] mx-auto mb-3" size={42} />
-                <h4 className="text-lg font-bold text-[#1d1d1f] dark:text-white font-heading mb-1">{t('successTitle')}</h4>
-                <p className="text-xs text-[#86868b] dark:text-slate-400">{t('successDesc')}</p>
+              <div className="text-center py-16">
+                <CheckCircle2 className="text-[#34d399] mx-auto mb-4" size={44} />
+                <h4 className="text-lg font-black text-white mb-2">{t('successTitle')}</h4>
+                <p className="text-xs text-white/40">{t('successDesc')}</p>
               </div>
             ) : status === 'error' ? (
-              <div className="text-center py-12">
-                <AlertCircle className="text-rose-500 mx-auto mb-3" size={42} />
-                <h4 className="text-lg font-bold text-[#1d1d1f] dark:text-white font-heading mb-1">{t('errorTitle')}</h4>
-                <p className="text-xs text-[#86868b] dark:text-slate-400">{t('errorDesc')}</p>
+              <div className="text-center py-16">
+                <AlertCircle className="text-rose-500 mx-auto mb-4" size={44} />
+                <h4 className="text-lg font-black text-white mb-2">{t('errorTitle')}</h4>
+                <p className="text-xs text-white/40">{t('errorDesc')}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-xs font-medium text-[#1d1d1f] dark:text-slate-300 mb-1.5">{t('labelName')} *</label>
+                  <label htmlFor="name" className="block text-xs font-semibold text-white/50 mb-1.5">{t('labelName')} *</label>
                   <input id="name" type="text" name="name" value={formData.name} onChange={handleChange} required autoComplete="name" placeholder={t('placeholderName')} className={inputClass} />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-xs font-medium text-[#1d1d1f] dark:text-slate-300 mb-1.5">{t('labelEmail')} *</label>
+                  <label htmlFor="email" className="block text-xs font-semibold text-white/50 mb-1.5">{t('labelEmail')} *</label>
                   <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} required autoComplete="email" placeholder={t('placeholderEmail')} className={inputClass} />
                 </div>
                 <div>
-                  <label htmlFor="projectType" className="block text-xs font-medium text-[#1d1d1f] dark:text-slate-300 mb-1.5">{t('labelProjectType')} *</label>
+                  <label htmlFor="projectType" className="block text-xs font-semibold text-white/50 mb-1.5">{t('labelProjectType')} *</label>
                   <div className="relative">
-                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none" size={15} />
-                    <select id="projectType" name="projectType" value={formData.projectType} onChange={handleChange} required className={`${inputClass} appearance-none pr-9 cursor-pointer`}>
-                      <option value="" className="bg-white dark:bg-[#161617] text-[#86868b]">{t('placeholderSelect')}</option>
-                      {projectTypes.map(pt => <option key={pt} value={pt} className="bg-white dark:bg-[#161617] text-[#1d1d1f] dark:text-white">{pt}</option>)}
+                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" size={14} />
+                    <select id="projectType" name="projectType" value={formData.projectType} onChange={handleChange} required
+                      className={`${inputClass} appearance-none pr-9 cursor-pointer`}
+                      style={{ colorScheme: 'dark' }}
+                    >
+                      <option value="" className="bg-[#0a0a0a] text-white/40">{t('placeholderSelect')}</option>
+                      {projectTypes.map(pt => <option key={pt} value={pt} className="bg-[#0a0a0a] text-white">{pt}</option>)}
                     </select>
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-xs font-medium text-[#1d1d1f] dark:text-slate-300 mb-1.5">{t('labelMessage')} *</label>
+                  <label htmlFor="message" className="block text-xs font-semibold text-white/50 mb-1.5">{t('labelMessage')} *</label>
                   <textarea id="message" name="message" value={formData.message} onChange={handleChange} required rows={4} placeholder={t('placeholderMessage')} className={`${inputClass} resize-none`} />
                 </div>
 
-                {/* Honeypot anti-spam */}
+                {/* Honeypot */}
                 <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' } as React.CSSProperties}>
                   <input type="text" name="website" value={formData.website} onChange={handleChange} autoComplete="off" tabIndex={-1} />
                 </div>
@@ -179,24 +196,23 @@ const ContactForm = () => {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="w-full bg-[#0071e3] hover:bg-[#0077ed] text-white py-3.5 rounded-full text-xs font-medium transition-all shadow-sm shadow-[#0071e3]/20 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer mt-2"
+                  className="w-full bg-white hover:bg-white/90 text-black py-3.5 rounded-full text-sm font-bold transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer mt-2 hover:scale-[1.01] active:scale-[0.98]"
                 >
                   {status === 'sending' ? (
                     <span className="flex items-center gap-2">
-                      <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
                       {t('sending')}
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
-                      {t('submitBtn')}
-                      <Send size={13} />
+                      {t('submitBtn')} <Send size={14} />
                     </span>
                   )}
                 </button>
 
-                <p className="text-[11px] text-[#86868b] dark:text-slate-500 text-center pt-1">
+                <p className="text-[11px] text-white/20 text-center pt-1">
                   {t('privacyText')}{' '}
-                  <a href={`${base}/privacy`} className="underline hover:text-[#1d1d1f] dark:hover:text-slate-300 transition-colors">{t('privacyLink')}</a>
+                  <a href={`${base}/privacy`} className="underline hover:text-white/50 transition-colors">{t('privacyLink')}</a>
                 </p>
               </form>
             )}
@@ -205,6 +221,4 @@ const ContactForm = () => {
       </div>
     </section>
   );
-};
-
-export default ContactForm;
+}

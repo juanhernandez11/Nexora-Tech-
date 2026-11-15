@@ -62,6 +62,7 @@ const TextLoop = ({
   ribbon = true,
   ribbonColor = '#5227FF',
   ribbonWidth = 86,
+  ribbonClassName = '',
   pauseOnHover = true,
   compact = false,   // When true, crops the SVG to only show the ribbon strip
   className = '',
@@ -193,6 +194,7 @@ const TextLoop = ({
         <path
           ref={pathRef}
           id={pathId}
+          className={ribbonClassName}
           d={d}
           fill="none"
           stroke={ribbon ? ribbonColor : 'none'}

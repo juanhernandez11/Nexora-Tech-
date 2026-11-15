@@ -2,10 +2,12 @@
 
 import '@/lib/client-guard';
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { flushSync } from 'react-dom';
 
 interface AppContextType {
   darkMode: boolean;
   setDarkMode: (v: boolean | ((prev: boolean) => boolean)) => void;
+  toggleTheme: (origin?: { x: number; y: number }) => void;
   fontSize: number;
   setFontSize: (v: number | ((prev: number) => number)) => void;
   highContrast: boolean;
@@ -35,21 +37,73 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [reduceMotion,   setReduceMotion]   = useState(false);
   const [dyslexiaFont,   setDyslexiaFont]   = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [themeReady, setThemeReady] = useState(false);
+
+  const toggleTheme = (origin?: { x: number; y: number }) => {
+    const nextDarkMode = !darkMode;
+    const applyTheme = () => {
+      document.documentElement.classList.toggle('dark', nextDarkMode);
+      localStorage.setItem('darkMode', String(nextDarkMode));
+      flushSync(() => setDarkMode(nextDarkMode));
+    };
+    const viewTransitionDocument = document as Document & {
+      startViewTransition?: (callback: () => void) => { finished: Promise<void> };
+    };
+
+    if (
+      !themeReady ||
+      reduceMotion ||
+      !viewTransitionDocument.startViewTransition ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setDarkMode(nextDarkMode);
+      return;
+    }
+
+    const x = origin?.x ?? window.innerWidth / 2;
+    const y = origin?.y ?? window.innerHeight / 2;
+    const radius = Math.max(
+      Math.hypot(x, y),
+      Math.hypot(window.innerWidth - x, y),
+      Math.hypot(x, window.innerHeight - y),
+      Math.hypot(window.innerWidth - x, window.innerHeight - y),
+    );
+
+    document.documentElement.style.setProperty('--theme-reveal-x', `${x}px`);
+    document.documentElement.style.setProperty('--theme-reveal-y', `${y}px`);
+    document.documentElement.style.setProperty('--theme-reveal-radius', `${radius}px`);
+
+    const clearRevealOrigin = () => {
+      document.documentElement.style.removeProperty('--theme-reveal-x');
+      document.documentElement.style.removeProperty('--theme-reveal-y');
+      document.documentElement.style.removeProperty('--theme-reveal-radius');
+    };
+    try {
+      const transition = viewTransitionDocument.startViewTransition(applyTheme);
+      void transition.finished.then(clearRevealOrigin, clearRevealOrigin);
+    } catch {
+      clearRevealOrigin();
+      setDarkMode(nextDarkMode);
+    }
+  };
 
   // Hidratación desde localStorage solo en cliente
   useEffect(() => {
-    setDarkMode(getLS('darkMode', 'true') === 'true');
+    const systemTheme = document.documentElement.classList.contains('dark');
+    setDarkMode(getLS('darkMode', String(systemTheme)) === 'true');
     setFontSize(Number(getLS('fontSize', '100')));
     setHighContrast(getLS('highContrast', 'false') === 'true');
     setScreenReader(getLS('screenReader', 'false') === 'true');
     setReduceMotion(getLS('reduceMotion', 'false') === 'true');
     setDyslexiaFont(getLS('dyslexiaFont', 'false') === 'true');
+    setThemeReady(true);
   }, []);
 
   useEffect(() => {
+    if (!themeReady) return;
     document.documentElement.classList.toggle('dark', darkMode);
     localStorage.setItem('darkMode', String(darkMode));
-  }, [darkMode]);
+  }, [darkMode, themeReady]);
 
   useEffect(() => {
     document.documentElement.style.fontSize = `${fontSize}%`;
@@ -83,6 +137,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AppContext.Provider value={{
       darkMode, setDarkMode,
+      toggleTheme,
       fontSize, setFontSize,
       highContrast, setHighContrast,
       screenReader, setScreenReader,

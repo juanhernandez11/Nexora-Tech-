@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { useLocale, useTranslations } from 'next-intl';
 
 import TextLoop from '@/components/ui/TextLoop';
 import './HeroIntroReveal.css';
@@ -23,13 +24,16 @@ export type HeroIntroRevealProps = {
 export default function HeroIntroReveal({
   wordLeft = 'NEXORA',
   wordRight = 'TECH',
-  headlineLines = ['Software pensado para', 'la forma en que trabajas.'],
-  subcopy = 'Diseñamos sitios, sistemas y automatizaciones a partir de los problemas reales de tu equipo.',
-  ctaPrimary = { label: 'Cuéntanos tu proyecto', href: '#contacto-form' },
-  ctaSecondary = { label: 'Ver nuestro trabajo', href: '#casos-de-exito' },
+  headlineLines,
+  subcopy,
+  ctaPrimary,
+  ctaSecondary,
   bgImage = '/hero-bg.svg',
   className = '',
 }: HeroIntroRevealProps) {
+  const t = useTranslations('hero');
+  const locale = useLocale();
+
   const rootRef = useRef<HTMLElement>(null);
   const wordLeftRef = useRef<HTMLSpanElement>(null);
   const wordRightRef = useRef<HTMLSpanElement>(null);
@@ -37,9 +41,35 @@ export default function HeroIntroReveal({
   const bgImgRef = useRef<HTMLDivElement>(null);
   const hazeRef = useRef<HTMLDivElement>(null);
   const wordsWrapRef = useRef<HTMLDivElement>(null);
-  const headlineLineRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const subcopyRef = useRef<HTMLHeadingElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const subcopyRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+
+  const finalSubcopy = subcopy ?? t('subtitle');
+  const finalCtaPrimary = ctaPrimary ?? { label: t('ctaPrimary'), href: '#contacto-form' };
+  const finalCtaSecondary = ctaSecondary ?? { label: t('ctaSecondary'), href: '#casos-de-exito' };
+
+  const lines = headlineLines ?? [
+    locale === 'en' ? 'Software shaped around' : 'Software pensado para',
+    locale === 'en' ? 'the way you work.' : 'la forma en que trabajas.',
+  ];
+
+  const renderLineContent = (line: string) => {
+    const highlight = locale === 'en' ? 'work.' : 'trabajas.';
+    if (line.includes(highlight)) {
+      const parts = line.split(highlight);
+      return (
+        <>
+          {parts[0]}
+          <span className="bg-gradient-to-r from-[#2997ff] to-[#5ac8fa] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(41,151,255,0.5)]">
+            {highlight}
+          </span>
+          {parts[1]}
+        </>
+      );
+    }
+    return line;
+  };
 
   useGSAP(
     () => {
@@ -48,6 +78,11 @@ export default function HeroIntroReveal({
       let failsafe: number | undefined;
       let finished = false;
 
+      if (bgWrapRef.current) {
+        bgWrapRef.current.style.clipPath = 'inset(0px 50% 0px 50% round 999px)';
+      }
+
+      rootRef.current?.classList.add('hir-animated');
       document.documentElement.classList.add('hero-intro-running');
 
       const finish = () => {
@@ -57,21 +92,16 @@ export default function HeroIntroReveal({
         gsap.set(bgWrapRef.current, { clipPath: 'inset(0px 0px 0px 0px round 0px)' });
         gsap.set(bgImgRef.current, { scale: 1, yPercent: 0, willChange: 'auto' });
         gsap.set([wordLeftRef.current, wordRightRef.current], { clearProps: 'all' });
-        if (wordsWrapRef.current) {
-          wordsWrapRef.current.style.display = 'none';
-        }
+        gsap.set(headlineRef.current, { clearProps: 'all', opacity: 1 });
+        if (wordsWrapRef.current) wordsWrapRef.current.style.display = 'none';
         document.documentElement.classList.remove('hero-intro-running');
         rootRef.current?.classList.remove('hir-pending');
       };
 
       const startDrift = () => {
         idleTween = gsap.to(bgImgRef.current, {
-          yPercent: -1.5,
-          scale: 1.03,
-          duration: 14,
-          ease: 'sine.inOut',
-          repeat: -1,
-          yoyo: true,
+          yPercent: -1.5, scale: 1.03, duration: 14,
+          ease: 'sine.inOut', repeat: -1, yoyo: true,
         });
       };
 
@@ -79,128 +109,59 @@ export default function HeroIntroReveal({
 
       const revealFinalState = () => {
         finish();
-        gsap.set([subcopyRef.current, ...ctaChildren()], { clearProps: 'all', opacity: 1 });
-        headlineLineRefs.current.forEach((lineRef) => {
-          if (lineRef) gsap.set(lineRef, { yPercent: 0, rotate: 0, opacity: 1 });
-        });
+        gsap.set([headlineRef.current, subcopyRef.current, ...ctaChildren()], { clearProps: 'all', opacity: 1 });
         startDrift();
       };
 
       try {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          revealFinalState();
-          return;
-        }
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { revealFinalState(); return; }
+        if (window.scrollY > 80 || (window.location.hash && window.location.hash !== '#' && window.location.hash !== '#main-content')) { revealFinalState(); return; }
 
         const left = wordLeftRef.current;
         const right = wordRightRef.current;
         const bgWrap = bgWrapRef.current;
         const bgImageEl = bgImgRef.current;
-        if (!left || !right || !bgWrap || !bgImageEl) {
-          revealFinalState();
-          return;
-        }
+        if (!left || !right || !bgWrap || !bgImageEl) { revealFinalState(); return; }
 
-        // La animación arranca de inmediato, sin esperar a las fuentes.
-        failsafe = window.setTimeout(() => {
-          if (!cancelled) revealFinalState();
-        }, 3500);
-
-        const clip = { top: 0, bottom: 0, left: 0, right: 0, radius: 999 };
-        const applyClip = () => {
-          bgWrap.style.clipPath = `inset(${clip.top}px ${clip.right}px ${clip.bottom}px ${clip.left}px round ${clip.radius}px)`;
-        };
+        failsafe = window.setTimeout(() => { if (!cancelled) revealFinalState(); }, 4800);
 
         const leftRect = left.getBoundingClientRect();
         const rightRect = right.getBoundingClientRect();
-        clip.top = Math.max(0, leftRect.top);
-        clip.bottom = Math.max(0, window.innerHeight - leftRect.bottom);
-        clip.radius = Math.max(1, Math.min(leftRect.height, rightRect.height) / 2);
-        // Medidas tomadas una sola vez: durante la animación se interpolan
-        // con los valores de x, sin volver a leer el DOM en cada frame.
+        const midY = (leftRect.top + leftRect.bottom) / 2 || window.innerHeight / 2;
+        const pillHeight = Math.max(leftRect.height || 64, 48);
+        const initialTop = Math.max(0, midY - pillHeight / 2);
+        const initialBottom = Math.max(0, window.innerHeight - (midY + pillHeight / 2));
+        const initialRadius = pillHeight / 2;
         const startLeft = Math.max(0, leftRect.right);
         const startRight = Math.max(0, window.innerWidth - rightRect.left);
-        clip.left = startLeft;
-        clip.right = startRight;
+
+        const clipState = { top: initialTop, bottom: initialBottom, left: startLeft, right: startRight, radius: initialRadius };
+        const applyClip = () => {
+          if (bgWrapRef.current) bgWrapRef.current.style.clipPath = `inset(${clipState.top}px ${clipState.right}px ${clipState.bottom}px ${clipState.left}px round ${clipState.radius}px)`;
+        };
         applyClip();
 
         gsap.set(bgImageEl, { scale: 1.25, willChange: 'transform' });
+        gsap.set(headlineRef.current, { opacity: 0, y: 18 });
         gsap.set(subcopyRef.current, { opacity: 0, yPercent: 100 });
         gsap.set(ctaChildren(), { opacity: 0, y: 16 });
-        headlineLineRefs.current.forEach((lineRef) => {
-          if (lineRef) gsap.set(lineRef, { yPercent: 110, rotate: 2 });
-        });
-        rootRef.current?.classList.remove('hir-pending');
 
-        const leftExit = -(leftRect.right + 32);
-        const rightExit = window.innerWidth - rightRect.left + 32;
-        const headlineInners = headlineLineRefs.current.filter(Boolean) as HTMLSpanElement[];
+        const leftExit = -(leftRect.right + 60);
+        const rightExit = window.innerWidth - rightRect.left + 60;
 
-        const timeline = gsap.timeline({
-          defaults: { ease: 'power4.inOut' },
-          onComplete: () => {
-            finish();
-            startDrift();
-          },
-        });
+        const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' }, onComplete: () => { finish(); startDrift(); } });
 
-        timeline
-          .to(left, {
-            x: leftExit,
-            duration: 0.7,
-            ease: 'power3.inOut',
-            onUpdate: () => {
-              clip.left = Math.max(0, startLeft + (gsap.getProperty(left, 'x') as number));
-              applyClip();
-            },
-          }, 0)
-          .to(right, {
-            x: rightExit,
-            duration: 0.7,
-            ease: 'power3.inOut',
-            onUpdate: () => {
-              clip.right = Math.max(0, startRight - (gsap.getProperty(right, 'x') as number));
-              applyClip();
-            },
-          }, 0)
-          .to(bgImageEl, { scale: 1.12, duration: 0.7, ease: 'power3.inOut' }, 0)
-          .to(
-            clip,
-            {
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
-              radius: 0,
-              duration: 0.8,
-              ease: 'expo.out',
-              onUpdate: applyClip,
-            },
-            '-=0.15',
-          )
-          .to(bgImageEl, { scale: 1, duration: 0.8, ease: 'expo.out' }, '<')
-          .to(hazeRef.current, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '<+=0.15')
-          .to(
-            headlineInners,
-            {
-              yPercent: 0,
-              rotate: 0,
-              stagger: 0.08,
-              duration: 0.7,
-              ease: 'power3.out',
-            },
-            '-=0.55',
-          )
-          .to(
-            subcopyRef.current,
-            { opacity: 1, yPercent: 0, duration: 0.5, ease: 'power3.out' },
-            '-=0.45',
-          )
-          .to(
-            ctaChildren(),
-            { opacity: 1, y: 0, stagger: 0.07, duration: 0.45 },
-            '-=0.35',
-          );
+        tl.to(left, { x: leftExit, opacity: 0, duration: 1.25 }, 0.25)
+          .to(right, { x: rightExit, opacity: 0, duration: 1.25 }, 0.25)
+          .to(clipState, { left: 0, right: 0, duration: 1.25, onUpdate: applyClip }, 0.25)
+          .to(bgImageEl, { scale: 1.12, duration: 1.25 }, 0.25)
+          .to(clipState, { top: 0, bottom: 0, radius: 0, duration: 1.05, ease: 'expo.out', onUpdate: applyClip }, '-=0.2')
+          .to(bgImageEl, { scale: 1, duration: 1.05, ease: 'expo.out' }, '<')
+          .to(hazeRef.current, { opacity: 1, duration: 0.8, ease: 'power2.out' }, '<+=0.1')
+          .to(headlineRef.current, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' }, 1.55)
+          .to(subcopyRef.current, { opacity: 1, yPercent: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5')
+          .to(ctaChildren(), { opacity: 1, y: 0, stagger: 0.08, duration: 0.55, ease: 'power3.out' }, '-=0.4');
+
       } catch {
         if (!cancelled) revealFinalState();
       }
@@ -218,97 +179,104 @@ export default function HeroIntroReveal({
   return (
     <section
       ref={rootRef}
-      className={`hir-pending relative min-h-[100svh] overflow-hidden bg-[#0a0a0a] ${className}`}
+      className={`hir-hero hir-pending relative min-h-[100svh] overflow-hidden bg-[#000000] ${className}`}
     >
       <noscript>
-        <style>{'.hir-pending .hir-hide,.hir-pending .hir-hide-children>*{opacity:1!important}.hir-pending .hir-line-inner{transform:none!important}.hir-pending .hir-words{display:none}'}</style>
+        <style>{'.hir-pending .hir-hide,.hir-pending .hir-hide-children>*{opacity:1!important}.hir-pending .hir-words{display:none}'}</style>
       </noscript>
-      <div ref={wordsWrapRef} className="hir-words pointer-events-none absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap">
-        <span
-          ref={wordLeftRef}
-          className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
-        >
+
+      {/* Intro words */}
+      <div
+        ref={wordsWrapRef}
+        aria-hidden="true"
+        className="hir-words pointer-events-none absolute inset-0 z-20 flex items-center justify-center whitespace-nowrap px-4"
+      >
+        <span ref={wordLeftRef} className="text-4xl font-extrabold tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
           {wordLeft}
         </span>
         <span className="w-3 shrink-0 sm:w-5" />
-        <span
-          ref={wordRightRef}
-          className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
-        >
+        <span ref={wordRightRef} className="text-4xl font-extrabold tracking-[-0.04em] text-white/60 sm:text-6xl lg:text-7xl">
           {wordRight}
         </span>
       </div>
 
-      <div
-        ref={bgWrapRef}
-        className="hir-bgwrap absolute inset-0 z-0 overflow-hidden"
-        style={{ clipPath: 'inset(0px 50% 0px 50% round 999px)' }}
-      >
-        <div
-          ref={bgImgRef}
-          className="hir-bg h-full w-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${bgImage})` }}
-        />
-        <div
-          ref={hazeRef}
-          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/10 opacity-0"
+      {/* Background */}
+      <div ref={bgWrapRef} className="hir-bgwrap absolute inset-0 z-0 overflow-hidden">
+        <div ref={bgImgRef} className="hir-bg h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }} />
+        {/* Dark overlay gradient */}
+        <div ref={hazeRef} className="hir-haze absolute inset-0 opacity-0"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.85) 100%)' }}
         />
       </div>
 
-      <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center gap-6 px-6 py-24 text-center">
-        <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-6xl">
-          {headlineLines.map((line, i) => (
+      {/* Noise grain overlay */}
+      <div className="pointer-events-none absolute inset-0 z-[1] opacity-[0.025]"
+        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")", backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }}
+      />
+
+      {/* Content */}
+      <div className="relative z-30 flex min-h-[100svh] flex-col items-center justify-center gap-6 px-4 sm:px-6 pt-20 pb-32 text-center max-w-5xl mx-auto w-full">
+
+        {/* Headline */}
+        <h1
+          ref={headlineRef}
+          className="hir-headline w-full max-w-4xl mx-auto font-heading font-black tracking-[-0.04em] text-white text-4xl sm:text-5xl lg:text-6xl xl:text-[5rem] leading-[1.05]"
+        >
+          {lines.map((line, i) => (
             <span key={i} className="hir-line-mask block overflow-hidden">
-              <span
-                ref={(el) => { headlineLineRefs.current[i] = el; }}
-                className="hir-line-inner block"
-              >
-                {line}
+              <span className="hir-line-inner block">
+                {renderLineContent(line)}
               </span>
             </span>
           ))}
         </h1>
 
-        <div className="overflow-hidden">
-          <h2
+        {/* Subtitle */}
+        <div className="overflow-hidden w-full max-w-2xl mx-auto">
+          <p
             ref={subcopyRef}
-            className="hir-hide mx-auto max-w-xl text-base font-normal text-white/80 drop-shadow-[0_1px_12px_rgba(0,0,0,0.5)] sm:text-lg"
+            className="hir-hide mx-auto text-center text-base sm:text-lg lg:text-xl font-normal text-white/60 leading-relaxed"
           >
-            {subcopy}
-          </h2>
+            {finalSubcopy}
+          </p>
         </div>
 
-        <div ref={ctaRef} className="hir-hide-children flex flex-wrap items-center justify-center gap-3">
+        {/* CTAs */}
+        <div ref={ctaRef} className="hir-hide-children flex flex-wrap items-center justify-center gap-3 pt-1">
           <a
-            href={ctaPrimary.href}
-            className="rounded-full bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,113,227,0.45)] transition hover:bg-[#0077ed]"
+            href={finalCtaPrimary.href}
+            className="group relative inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition-all hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_30px_rgba(255,255,255,0.15)]"
           >
-            {ctaPrimary.label}
+            {finalCtaPrimary.label}
+            <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           </a>
           <a
-            href={ctaSecondary.href}
-            className="rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
+            href={finalCtaSecondary.href}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white/80 backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10 hover:text-white hover:scale-[1.02] active:scale-[0.98]"
           >
-            {ctaSecondary.label}
+            {finalCtaSecondary.label}
           </a>
         </div>
+
       </div>
 
-      <div className="hir-textloop absolute bottom-0 left-0 right-0 z-10 w-full">
+      {/* TextLoop ribbon */}
+      <div className="hir-textloop absolute -bottom-8 left-0 right-0 z-10 w-full pointer-events-none">
         <TextLoop
-          text="NEXORA TECH · SOFTWARE · AUTOMATIZACIÓN · IA"
+          text={t('loopText')}
           shape="wave"
-          speed={65}
+          speed={60}
           separator="✦"
-          curviness={28}
-          fontSize={26}
+          curviness={26}
+          fontSize={24}
           fontWeight={700}
           letterSpacing={2}
           uppercase
           color="#ffffff"
           ribbon
-          ribbonColor="#111111"
-          ribbonWidth={54}
+          ribbonClassName="hir-ribbon-path"
+          ribbonColor="#0a0a0a"
+          ribbonWidth={52}
           compact
           pauseOnHover
         />

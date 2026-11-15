@@ -1,6 +1,6 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
-import { Linkedin, MapPin, Mail } from 'lucide-react';
+import { Linkedin, MapPin, Mail, ArrowUpRight } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 
 const NAV_ITEMS = [
@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { key: 'process', href: '#proceso' },
 ] as const;
 
-const Footer = () => {
+export default function Footer() {
   const t = useTranslations('footer');
   const tn = useTranslations('nav');
   const locale = useLocale();
@@ -19,37 +19,67 @@ const Footer = () => {
   const base = locale === 'en' ? '/en' : '';
 
   return (
-    <footer className="bg-[#f5f5f7] dark:bg-[#161617] border-t border-black/[0.06] dark:border-white/[0.08] text-[#86868b] dark:text-slate-400 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
-          {/* Marca */}
-          <div className="lg:col-span-2">
-            <Link href={base || '/'} className="inline-flex items-center gap-2.5 mb-4 group">
-              <div className="p-2 rounded-2xl bg-white dark:bg-white/10 border border-black/[0.06] dark:border-white/[0.1] shadow-xs">
-                <Logo className="w-5 h-5 text-[#0071e3] dark:text-[#2997ff]" />
+    <footer className="theme-surface relative overflow-hidden bg-[#000] border-t border-white/[0.06] text-white/40">
+
+      {/* Orbit glow */}
+      <div className="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[#2997ff]/5 blur-[120px]" />
+
+      {/* Grid */}
+      <div className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8">
+
+        {/* CTA band */}
+        <div className="mb-16 p-8 sm:p-10 rounded-2xl border border-white/[0.06] bg-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <h3 className="text-xl sm:text-2xl font-black tracking-[-0.03em] text-white mb-1">
+              ¿Listo para empezar?
+            </h3>
+            <p className="text-sm text-white/30">Consultoría gratuita · Respuesta en 24h</p>
+          </div>
+          <a
+            href="#contacto-form"
+            className="inline-flex items-center gap-2 bg-white text-black text-sm font-bold px-6 py-3.5 rounded-full transition-all hover:bg-white/90 hover:scale-[1.02] shrink-0"
+          >
+            {tn('cta')} <ArrowUpRight size={15} />
+          </a>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-14">
+          {/* Brand */}
+          <div className="col-span-2">
+            <Link href={base || '/'} className="inline-flex items-center gap-2.5 mb-5 group">
+              <div className="p-1.5 rounded-lg bg-white/[0.06] border border-white/[0.08]">
+                <Logo className="w-4 h-4 text-white" />
               </div>
-              <span className="font-heading font-bold text-base tracking-tight text-[#1d1d1f] dark:text-white">
-                NEXORA<span className="text-[#0071e3] dark:text-[#2997ff]">/TECH</span>
+              <span className="font-heading font-black text-sm tracking-[-0.03em] text-white">
+                NEXORA<span className="text-white/20">/</span><span className="text-[#2997ff]">TECH</span>
               </span>
             </Link>
-            <p className="text-xs sm:text-sm text-[#86868b] dark:text-slate-400 leading-relaxed max-w-sm mb-5">
+            <p className="text-xs text-white/30 leading-relaxed max-w-xs mb-5">
               {t('description')}
             </p>
-            <div className="inline-flex items-center gap-2 text-xs text-[#1d1d1f] dark:text-slate-300 bg-black/[0.04] dark:bg-white/[0.08] px-3.5 py-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.08]">
-              <MapPin size={13} className="shrink-0 text-[#0071e3] dark:text-[#2997ff]" />
-              <span>{t('location')}</span>
+            <div className="inline-flex items-center gap-2 text-xs text-white/30 bg-white/[0.04] px-3 py-1.5 rounded-full border border-white/[0.06]">
+              <MapPin size={11} className="text-[#2997ff] shrink-0" />
+              {t('location')}
             </div>
           </div>
 
-          {/* Navegación */}
+          {/* Nav */}
           <div>
-            <p className="text-xs uppercase tracking-wider text-[#1d1d1f] dark:text-white mb-4 font-semibold">{t('navTitle')}</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-4">{t('navTitle')}</p>
             <ul className="space-y-2.5">
               {NAV_ITEMS.map(({ key, href }) => (
                 <li key={key}>
                   <Link
                     href={href.startsWith('#') ? `${base}/${href}` : `${base}${href}`}
-                    className="text-xs text-[#86868b] dark:text-slate-400 hover:text-[#1d1d1f] dark:hover:text-white transition-colors"
+                    className="text-xs text-white/30 hover:text-white transition-colors"
                   >
                     {tn(key)}
                   </Link>
@@ -58,44 +88,41 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contacto */}
+          {/* Contact */}
           <div>
-            <p className="text-xs uppercase tracking-wider text-[#1d1d1f] dark:text-white mb-4 font-semibold">{t('contactTitle')}</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-4">{t('contactTitle')}</p>
             <div className="space-y-3">
               <a
                 href="https://www.linkedin.com/company/nexoratech-tehuacan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-xs text-[#86868b] dark:text-slate-400 hover:text-[#0071e3] dark:hover:text-white transition-colors"
+                target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs text-white/30 hover:text-white transition-colors"
               >
-                <Linkedin size={14} className="shrink-0 text-[#0071e3] dark:text-[#2997ff]" />
-                <span>{t('linkedinLabel')}</span>
+                <Linkedin size={12} className="text-[#2997ff]" />
+                {t('linkedinLabel')}
               </a>
               <a
                 href={`${base}/#contacto-form`}
-                className="flex items-center gap-2.5 text-xs text-[#86868b] dark:text-slate-400 hover:text-[#0071e3] dark:hover:text-white transition-colors"
+                className="flex items-center gap-2 text-xs text-white/30 hover:text-white transition-colors"
               >
-                <Mail size={14} className="shrink-0 text-[#0071e3] dark:text-[#2997ff]" />
-                <span>{t('formLabel')}</span>
+                <Mail size={12} className="text-[#2997ff]" />
+                {t('formLabel')}
               </a>
             </div>
           </div>
         </div>
 
-        {/* Pie inferior estilo Apple */}
-        <div className="pt-8 border-t border-black/[0.06] dark:border-white/[0.08] flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-[#86868b] dark:text-slate-500">
+        {/* Bottom bar */}
+        <div className="pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-[11px] text-white/20">
             © {year} Nexora Tech · {t('copyright')}
           </p>
-          <div className="flex items-center gap-6 text-xs text-[#86868b] dark:text-slate-400">
-            <a href={`${base}/privacy`} className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">{t('privacy')}</a>
-            <a href={`${base}/terms`} className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">{t('terms')}</a>
-            <a href={`${base}/cookies`} className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">{t('cookies')}</a>
+          <div className="flex items-center gap-6 text-[11px] text-white/20">
+            <a href={`${base}/privacy`} className="hover:text-white transition-colors">{t('privacy')}</a>
+            <a href={`${base}/terms`} className="hover:text-white transition-colors">{t('terms')}</a>
+            <a href={`${base}/cookies`} className="hover:text-white transition-colors">{t('cookies')}</a>
           </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

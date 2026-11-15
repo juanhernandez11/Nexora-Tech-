@@ -1,113 +1,129 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
-import { Clock, ShieldCheck, FileCheck, GitCommit } from 'lucide-react';
+import { Clock, ShieldCheck, FileCheck } from 'lucide-react';
 import useInView from '@/hooks/useInView';
 import { processData, type Locale } from '@/i18n/data';
 import TechCarousel from '@/components/ui/TechCarousel';
 
-const WorkProcess = () => {
+const STEP_COLORS = ['#2997ff', '#a855f7', '#34d399', '#f59e0b'];
+
+export default function WorkProcess() {
   const t = useTranslations('process');
   const locale = useLocale() as Locale;
   const [ref, inView] = useInView(0.06);
   const [techRef, techInView] = useInView(0.06);
   const { steps, guarantees } = processData[locale] ?? processData.es;
-
   const guaranteeIcons = [Clock, ShieldCheck, FileCheck];
 
   return (
-    <section id="proceso" className="scroll-mt-20 py-24 sm:py-32 bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] border-b border-black/[0.06] dark:border-white/[0.08] relative overflow-hidden transition-colors">
+    <section id="proceso" className="theme-surface relative overflow-hidden py-28 sm:py-36 bg-[#000]">
+
+      {/* Grid */}
+      <div className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Encabezado estilo Apple */}
+
+        {/* Header */}
         <div
           ref={ref}
-          className={`mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          className={`mb-20 transition-all duration-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1d1d1f] dark:text-white max-w-xl font-heading leading-tight">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2997ff] mb-4">Proceso</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] text-white max-w-xl leading-[1.05]">
             {t('title')}{' '}
-            <span className="text-[#0071e3] dark:text-[#2997ff]">
+            <span className="bg-gradient-to-r from-[#2997ff] to-[#5ac8fa] bg-clip-text text-transparent">
               {t('titleHighlight')}
             </span>
           </h2>
-          <p className="text-[#86868b] dark:text-slate-400 text-sm sm:text-base mt-3 max-w-lg leading-relaxed">
+          <p className="text-white/40 text-sm sm:text-base mt-4 max-w-lg leading-relaxed">
             {t('subtitle')}
           </p>
         </div>
 
-        {/* Pasos en tarjetas limpias estilo Apple */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
-          {steps.map((step, i) => (
-            <div
-              key={i}
-              className="p-7 rounded-3xl border border-black/[0.05] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#161617] flex flex-col justify-between hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all group"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <span className="text-xs font-semibold text-[#0071e3] dark:text-[#2997ff] px-2.5 py-1 rounded-full bg-[#0071e3]/10 dark:bg-[#0071e3]/20">
-                    ETAPA {step.number}
-                  </span>
-                  <span className="text-[11px] font-medium text-[#86868b] dark:text-slate-400">
-                    {step.duration}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-[#1d1d1f] dark:text-white mb-2.5 font-heading">
-                  {step.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] dark:text-slate-400 leading-relaxed font-normal">
-                  {step.description}
-                </p>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-black/[0.06] dark:border-white/[0.08] text-[11px] text-[#86868b] dark:text-slate-400 flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <GitCommit size={13} className="text-[#0071e3] dark:text-[#2997ff]" />
-                  <span>Entregable auditable</span>
-                </span>
-                <span className="text-[10px] font-medium">0{i + 1}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Garantías contractuales estilo Apple */}
-        <div className="grid sm:grid-cols-3 gap-5 mb-20 p-8 rounded-3xl bg-[#f5f5f7] dark:bg-[#161617] border border-black/[0.05] dark:border-white/[0.08] shadow-xs">
-          {guarantees.map((g, i) => {
-            const Icon = guaranteeIcons[i % guaranteeIcons.length];
+        {/* Steps — numbered cards with BorderBeam */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {steps.map((step, i) => {
+            const color = STEP_COLORS[i % STEP_COLORS.length];
             return (
               <div
                 key={i}
-                className="flex items-start gap-4 p-2"
+                className="relative rounded-2xl bg-white/[0.02] border border-white/[0.06] p-6 flex flex-col gap-4 overflow-hidden transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.1]"
               >
-                <div className="p-3 rounded-2xl bg-[#0071e3]/10 dark:bg-[#0071e3]/20 text-[#0071e3] dark:text-[#2997ff] shrink-0">
-                  <Icon size={20} />
+                {/* Step number */}
+                <div className="flex items-center justify-between">
+                  <span
+                    className="text-3xl font-black tracking-tight opacity-20 select-none"
+                    style={{ color }}
+                  >
+                    0{step.number}
+                  </span>
+                  <span className="text-[10px] font-bold text-white/20 border border-white/[0.06] px-2 py-0.5 rounded-full">
+                    {step.duration}
+                  </span>
                 </div>
+
                 <div>
-                  <p className="text-sm font-bold text-[#1d1d1f] dark:text-white mb-1 font-heading">{g.title}</p>
-                  <p className="text-xs text-[#86868b] dark:text-slate-400 leading-relaxed">{g.desc}</p>
+                  <h3 className="text-base font-black tracking-[-0.02em] text-white mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-white/40 leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
+
+                {/* Connector line */}
+                {i < steps.length - 1 && (
+                  <div
+                    className="absolute top-1/2 -right-3 w-6 h-px hidden lg:block z-10"
+                    style={{ background: `linear-gradient(to right, ${color}60, transparent)` }}
+                  />
+                )}
               </div>
             );
           })}
         </div>
 
-        {/* Stack Tecnológico */}
+        {/* Guarantees */}
+        <div className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 sm:p-8 mb-20 overflow-hidden">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-6">Garantías contractuales</p>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {guarantees.map((g, i) => {
+              const Icon = guaranteeIcons[i % guaranteeIcons.length];
+              return (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="p-2.5 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20 shrink-0">
+                    <Icon size={16} className="text-[#2997ff]" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-white mb-1">{g.title}</p>
+                    <p className="text-xs text-white/40 leading-relaxed">{g.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Tech Stack */}
         <div
           ref={techRef}
-          className={`transition-all duration-700 pt-8 border-t border-black/[0.06] dark:border-white/[0.08] ${techInView ? 'opacity-100' : 'opacity-0'}`}
+          className={`transition-all duration-700 ${techInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
-          <div className="text-center mb-8">
-            <h3 className="text-xl sm:text-2xl font-bold text-[#1d1d1f] dark:text-white font-heading">
+          <div className="text-center mb-10 pb-10 border-t border-white/[0.06] pt-10">
+            <h3 className="text-xl sm:text-2xl font-black tracking-[-0.03em] text-white mb-2">
               {t('techTitle')}
             </h3>
-            <p className="text-xs sm:text-sm text-[#86868b] dark:text-slate-400 mt-1 max-w-md mx-auto">
-              {t('techSubtitle')}
-            </p>
+            <p className="text-xs text-white/40 max-w-md mx-auto">{t('techSubtitle')}</p>
           </div>
           <TechCarousel />
         </div>
       </div>
     </section>
   );
-};
-
-export default WorkProcess;
+}

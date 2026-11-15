@@ -19,29 +19,9 @@ const MobileMenu = () => {
   const t = useTranslations('nav');
   const locale = useLocale();
   const pathname = usePathname();
-  const { mobileMenuOpen, setMobileMenuOpen, darkMode, setDarkMode } = useApp();
+  const { mobileMenuOpen, setMobileMenuOpen, darkMode, toggleTheme } = useApp();
   const homeHref = locale === 'en' ? '/en' : '/';
   const isHomePage = pathname === '/' || pathname === '/en' || pathname === '/es';
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.includes('#')) {
-      setMobileMenuOpen(false);
-      return;
-    }
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const targetId = href.replace(/^.*#/, '');
-    setTimeout(() => {
-      const el = document.getElementById(targetId);
-      if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top, behavior: 'smooth' });
-        window.history.pushState(null, '', `#${targetId}`);
-      } else {
-        window.location.href = `${homeHref}#${targetId}`;
-      }
-    }, 250);
-  };
 
   return (
     <div className={`fixed inset-0 z-[60] lg:hidden transition-all duration-500 ${mobileMenuOpen ? 'visible' : 'invisible'}`}>
@@ -65,19 +45,12 @@ const MobileMenu = () => {
         </div>
 
         <nav className="flex flex-col gap-1 px-5 py-6 flex-grow">
-          {NAV_ITEMS.map(({ key, href }) => href.startsWith('#') ? (
-            <a
-              key={key}
-              href={isHomePage ? href : `${homeHref}${href}`}
-              onClick={(e) => handleClick(e, href)}
-              className="text-lg font-bold text-[#1d1d1f] dark:text-white hover:text-[#0071e3] dark:hover:text-[#2997ff] px-3 py-3 rounded-2xl hover:bg-black/[0.03] dark:hover:bg-white/[0.05] transition-all tracking-tight"
-            >
-              {t(key)}
-            </a>
-          ) : (
+          {NAV_ITEMS.map(({ key, href }) => (
             <Link
               key={key}
-              href={`${locale === 'en' ? '/en' : ''}${href}`}
+              href={href.startsWith('#')
+                ? (isHomePage ? href : `${homeHref}${href}`)
+                : `${locale === 'en' ? '/en' : ''}${href}`}
               onClick={() => setMobileMenuOpen(false)}
               className="text-lg font-bold text-[#1d1d1f] dark:text-white hover:text-[#0071e3] dark:hover:text-[#2997ff] px-3 py-3 rounded-2xl hover:bg-black/[0.03] dark:hover:bg-white/[0.05] transition-all tracking-tight"
             >
@@ -99,7 +72,7 @@ const MobileMenu = () => {
             <div className="flex items-center gap-2">
               <LanguageSwitcher />
               <button
-                onClick={() => setDarkMode(v => !v)}
+                onClick={(event) => toggleTheme({ x: event.clientX, y: event.clientY })}
                 aria-label={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
                 className="p-2 rounded-full text-[#1d1d1f]/80 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-colors"
               >
@@ -108,14 +81,14 @@ const MobileMenu = () => {
             </div>
           </div>
 
-          <a
+          <Link
             href={isHomePage ? '#contacto-form' : `${homeHref}#contacto-form`}
-            onClick={(e) => handleClick(e, '#contacto-form')}
+            onClick={() => setMobileMenuOpen(false)}
             className="w-full bg-[#0071e3] hover:bg-[#0077ed] text-white py-3.5 rounded-full font-medium text-sm flex items-center justify-center gap-2 shadow-sm shadow-[#0071e3]/20 transition-all group"
           >
             <span>{t('cta')}</span>
             <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

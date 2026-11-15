@@ -260,6 +260,7 @@ export default async function LocaleLayout({
         {/* ── DNS preconnect — reduce latencia de fuentes ── */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
@@ -278,7 +279,7 @@ export default async function LocaleLayout({
           />
         ))}
       </head>
-      <body suppressHydrationWarning className="bg-white dark:bg-black text-[#1d1d1f] dark:text-white antialiased">
+      <body suppressHydrationWarning className="bg-[#fbfbfd] text-[#1d1d1f] dark:bg-black dark:text-white antialiased">
         <ClientGuard />
         <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>

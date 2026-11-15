@@ -10,8 +10,11 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 112px;
+  color-scheme: light;
 }
+
+html.dark { color-scheme: dark; }
 
 body {
   font-family: 'Manrope', system-ui, sans-serif;
@@ -20,7 +23,6 @@ body {
   background-color: #fbfbfd;
   color: #1d1d1f;
   overflow-x: hidden;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .dark body,
@@ -82,12 +84,101 @@ h1, h2, h3, h4, .font-heading {
   100% { transform: translateX(-50%); }
 }
 .animate-scroll-x {
-  animation: scroll-x 42s linear infinite;
+  animation: scroll-x 85s linear infinite;
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
 .animate-scroll-x:hover { animation-play-state: paused; }
+
+/* ─── Magic UI / MotionSite Animations ─────────────────────────────────────── */
+
+/* Spotlight sweep */
+@keyframes spotlight {
+  0%   { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
+}
+.animate-spotlight {
+  animation: spotlight 2s ease forwards;
+}
+
+/* Border beam orbit */
+@keyframes border-beam {
+  100% { offset-distance: 100%; }
+}
+.animate-border-beam {
+  animation: border-beam calc(var(--duration) * 1s) infinite linear;
+}
+
+/* Meteor shower */
+@keyframes meteor {
+  0%   { transform: rotate(215deg) translateX(0); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: rotate(215deg) translateX(-500px); opacity: 0; }
+}
+.animate-meteor {
+  animation: meteor linear infinite;
+}
+
+/* Shimmer sweep */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* Glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Grid fade-in */
+@keyframes grid-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Float vertical */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+.animate-float-y {
+  animation: float-y 4s ease-in-out infinite;
+}
+
+/* Spin slow */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Dash-line draw (SVG connecting lines) */
+@keyframes dash-draw {
+  to { stroke-dashoffset: 0; }
+}
+.animate-dash-draw {
+  animation: dash-draw 1.5s ease forwards;
+}
+
+/* Ping dot */
+@keyframes ping-dot {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+.animate-ping-dot {
+  animation: ping-dot 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
 
 /* Accesibilidad */
 .high-contrast, .high-contrast body { background-color: #000 !important; color: #fff !important; }
@@ -119,18 +210,168 @@ h1, h2, h3, h4, .font-heading {
   border-radius: 4px;
 }
 
+html:not(.dark) .theme-surface {
+  color: #1d1d1f;
+  background-color: #fbfbfd !important;
+}
+
+html:not(.dark) .theme-surface [class~="bg-[#000]"],
+html:not(.dark) .theme-surface [class~="bg-[#000000]"] {
+  background-color: #fbfbfd !important;
+}
+
+html:not(.dark) .theme-surface [class~="bg-[#0a0a0a]"] {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .theme-surface .theme-card {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html:not(.dark) .theme-surface [class*="bg-white/"] {
+  background-color: rgba(15, 23, 42, 0.035) !important;
+}
+
+html:not(.dark) .theme-surface [class*="bg-black/"] {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+}
+
+html:not(.dark) .theme-surface [class*="border-white/"] {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html:not(.dark) .theme-surface [class*="text-white/"] {
+  color: #596273 !important;
+}
+
+html:not(.dark) .theme-surface [class~="text-white"] {
+  color: #1d1d1f !important;
+}
+
+html:not(.dark) .theme-surface [class*="hover:text-white"]:hover,
+html:not(.dark) .theme-surface [class*="group-hover:text-white"] {
+  color: #1d1d1f !important;
+}
+
+html:not(.dark) .theme-surface [class*="bg-[#2997ff]"][class~="text-white"],
+html:not(.dark) .theme-surface [class*="bg-[#0071e3]"][class~="text-white"] {
+  color: #ffffff !important;
+}
+
+html:not(.dark) .theme-nav {
+  color: #1d1d1f;
+}
+
+html:not(.dark) .theme-nav [class*="text-white"] {
+  color: #1d1d1f !important;
+}
+
+html:not(.dark) .theme-nav [class*="bg-white/"] {
+  background-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+html:not(.dark) .theme-nav [class*="border-white/"] {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html:not(.dark) .theme-nav [class*="bg-white"][class~="text-black"] {
+  color: #ffffff !important;
+  background-color: #1d1d1f !important;
+}
+
+html:not(.dark) .theme-nav[data-scrolled="true"] {
+  background-color: rgba(251, 251, 253, 0.88) !important;
+}
+
+html:not(.dark) .hir-hero {
+  background-color: #f3f7ff !important;
+  color: #1d1d1f;
+}
+
+html:not(.dark) .hir-hero .hir-bg {
+  background-image:
+    radial-gradient(ellipse at 75% 30%, rgba(147, 197, 253, 0.48), transparent 48%),
+    radial-gradient(ellipse at 25% 80%, rgba(191, 219, 254, 0.55), transparent 46%),
+    linear-gradient(135deg, #f8fafc, #eaf2ff 55%, #f8fafc) !important;
+}
+
+html:not(.dark) .hir-hero .hir-haze {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.2)) !important;
+}
+
+html:not(.dark) .hir-hero .hir-headline,
+html:not(.dark) .hir-hero .hir-words span {
+  color: #1d1d1f !important;
+}
+
+html:not(.dark) .hir-hero .hir-hide {
+  color: #596273 !important;
+}
+
+html:not(.dark) .hir-hero .hir-hide-children > *:last-child {
+  color: #334155 !important;
+  border-color: rgba(15, 23, 42, 0.18) !important;
+  background-color: rgba(255, 255, 255, 0.65) !important;
+}
+
+html:not(.dark) .hir-hero .hir-ribbon-path {
+  stroke: #dbeafe;
+}
+
+html:not(.dark) .hir-hero .text-loop-text {
+  fill: #1d1d1f;
+}
+
+html.dark .theme-surface [class~="text-white/20"] { color: rgba(255, 255, 255, 0.55) !important; }
+html.dark .theme-surface [class~="text-white/30"] { color: rgba(255, 255, 255, 0.62) !important; }
+html.dark .theme-surface [class~="text-white/40"] { color: rgba(255, 255, 255, 0.7) !important; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 850ms;
+}
+
+::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  animation: theme-circle-reveal 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 2;
+}
+
+@keyframes theme-circle-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-reveal-x, 50vw) var(--theme-reveal-y, 50vh));
+  }
+  to {
+    clip-path: circle(var(--theme-reveal-radius, 150vmax) at var(--theme-reveal-x, 50vw) var(--theme-reveal-y, 50vh));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 1ms;
+  }
+}
+
 /* ─── Hero Intro Reveal ───────────────────────────────────────────────────── */
 /* While the intro animation runs, hide the fixed site Navbar so it doesn't
    overlap the intro words and the floating pill nav inside the hero. */
 html.hero-intro-running nav[class*="fixed"] {
   opacity: 0 !important;
   pointer-events: none !important;
-  transition: none !important;
+  transform: translateY(-16px) !important;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 /* Same as above, but before hydration (the HTML class isn't set yet) */
 html:has(.hir-pending) nav[class*="fixed"] {
   opacity: 0 !important;
   pointer-events: none !important;
-  transition: none !important;
+  transform: translateY(-16px) !important;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }

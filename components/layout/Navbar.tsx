@@ -8,7 +8,6 @@ import { Menu, Moon, Sun } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { useApp } from '@/context/AppContext';
-import GsapMagnetic from '@/components/ui/GsapMagnetic';
 
 const NAV_ITEMS = [
   { key: 'services', href: '/servicios' },
@@ -17,138 +16,90 @@ const NAV_ITEMS = [
   { key: 'blog',     href: '/blog' },
 ] as const;
 
-const Navbar = () => {
+export default function Navbar() {
   const t = useTranslations('nav');
   const locale = useLocale();
   const pathname = usePathname();
-  const { darkMode, setDarkMode, setMobileMenuOpen } = useApp();
+  const { setMobileMenuOpen, darkMode, toggleTheme } = useApp();
   const homeHref = locale === 'en' ? '/en' : '/';
   const isHomePage = pathname === '/' || pathname === '/en' || pathname === '/es';
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.includes('#')) return;
-    const targetId = href.replace(/^.*#/, '');
-    const el = document.getElementById(targetId);
-    if (el) {
-      e.preventDefault();
-      const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: 'smooth' });
-      window.history.pushState(null, '', `#${targetId}`);
-    } else {
-      e.preventDefault();
-      window.location.href = `${homeHref}#${targetId}`;
-    }
-  };
-
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      data-scrolled={scrolled}
+      className={`theme-nav fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-black/[0.08] dark:border-white/[0.08] shadow-sm dark:shadow-2xl dark:shadow-black/60'
-          : 'bg-white/40 dark:bg-black/30 backdrop-blur-md border-b border-transparent'
+          ? 'theme-surface bg-black/80 backdrop-blur-2xl border-b border-white/[0.06]'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-18 flex items-center justify-between">
 
         {/* Logo */}
         <Link href={homeHref} className="flex items-center gap-2.5 group" aria-label="Inicio">
-          <div className="p-1.5 rounded-xl bg-[#0071e3]/10 dark:bg-white/10 border border-[#0071e3]/20 dark:border-white/15 group-hover:border-[#0071e3]/40 dark:group-hover:border-white/30 transition-all duration-300">
-            <Logo className="w-5 h-5 text-[#0071e3] dark:text-[#2997ff] group-hover:scale-105 transition-transform" />
+          <div className="p-1.5 rounded-lg bg-white/[0.06] border border-white/[0.1] group-hover:border-white/20 transition-all">
+            <Logo className="w-4.5 h-4.5 text-white" />
           </div>
-          <span className="font-heading font-black text-base tracking-tight text-[#1d1d1f] dark:text-white">
-            NEXORA<span className="text-[#0071e3] dark:text-[#2997ff]">/TECH</span>
+          <span className="font-heading font-black text-sm tracking-[-0.03em] text-white">
+            NEXORA<span className="text-white/30">/</span><span className="text-[#2997ff]">TECH</span>
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-6">
-          <div className="flex items-center gap-1 bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08] rounded-full px-4 py-1.5 backdrop-blur-md">
-            {NAV_ITEMS.map(({ key, href }) =>
-              href.startsWith('#') ? (
-                <a
-                  key={key}
-                  href={isHomePage ? href : `${homeHref}${href}`}
-                  onClick={(e) => handleAnchorClick(e, href)}
-                  className="text-xs font-semibold tracking-wider uppercase text-[#1d1d1f]/75 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-all duration-200"
-                >
-                  {t(key)}
-                </a>
-              ) : (
-                <Link
-                  key={key}
-                  href={`${locale === 'en' ? '/en' : ''}${href}`}
-                  className="text-xs font-semibold tracking-wider uppercase text-[#1d1d1f]/75 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-all duration-200"
-                >
-                  {t(key)}
-                </Link>
-              )
-            )}
-          </div>
-
-          <GsapMagnetic strength={0.25}>
-            <a
-              href={isHomePage ? '#contacto-form' : `${homeHref}#contacto-form`}
-              onClick={(e) => handleAnchorClick(e, '#contacto-form')}
-              className="text-xs font-medium bg-[#0071e3] hover:bg-[#0077ed] text-white px-5 py-2.5 rounded-full transition-all shadow-sm shadow-[#0071e3]/20"
+        {/* Desktop nav pill */}
+        <div className="hidden lg:flex items-center gap-1 bg-white/[0.04] border border-white/[0.08] rounded-full px-1.5 py-1.5 backdrop-blur-md">
+          {NAV_ITEMS.map(({ key, href }) => (
+            <Link
+              key={key}
+              href={href.startsWith('#')
+                ? (isHomePage ? href : `${homeHref}${href}`)
+                : `${locale === 'en' ? '/en' : ''}${href}`}
+              className="px-4 py-1.5 text-xs font-semibold tracking-wide text-white/50 hover:text-white hover:bg-white/[0.06] rounded-full transition-all duration-200"
             >
-              {t('cta')}
-            </a>
-          </GsapMagnetic>
+              {t(key)}
+            </Link>
+          ))}
+        </div>
 
-          <div className="flex items-center gap-2 pl-2 border-l border-black/[0.1] dark:border-white/[0.1]">
-            <LanguageSwitcher />
-
-            <button
-              suppressHydrationWarning
-              onClick={() => setDarkMode(v => !v)}
-              aria-label={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
-              title={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
-              className="p-2 rounded-full text-[#1d1d1f]/70 dark:text-slate-400 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.06] dark:hover:bg-white/[0.08] transition-all"
-            >
-              {mounted && !darkMode ? (
-                <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
-              ) : (
-                <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
-              )}
-            </button>
-          </div>
+        {/* Right side */}
+        <div className="hidden lg:flex items-center gap-3">
+          <button
+            type="button"
+            onClick={(event) => toggleTheme({ x: event.clientX, y: event.clientY })}
+            aria-label={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            title={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            className="rounded-full p-2 text-white/60 transition-colors hover:bg-white/[0.08] hover:text-white"
+          >
+            {darkMode ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+          <LanguageSwitcher />
+          <Link
+            href={isHomePage ? '#contacto-form' : `${homeHref}#contacto-form`}
+            className="text-xs font-bold bg-white text-black px-5 py-2.5 rounded-full transition-all hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            {t('cta')}
+          </Link>
         </div>
 
         {/* Mobile */}
-        <div className="flex items-center gap-1.5 lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <LanguageSwitcher />
           <button
-            suppressHydrationWarning
-            onClick={() => setDarkMode(v => !v)}
-            aria-label={mounted ? (darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro') : 'Cambiar tema'}
-            className="p-2 rounded-full text-[#1d1d1f]/80 dark:text-slate-300 hover:text-[#1d1d1f] dark:hover:text-white transition-colors"
-          >
-            {mounted && !darkMode ? (
-              <Moon size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
-            ) : (
-              <Sun size={17} className="text-[#1d1d1f] dark:text-[#f5f5f7]" />
-            )}
-          </button>
-          <button
+            type="button"
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Abrir menú"
-            className="p-2 text-[#1d1d1f] dark:text-[#f5f5f7]"
+            className="p-2 text-white/60 hover:text-white transition-colors"
           >
-            <Menu size={22} />
+            <Menu size={20} />
           </button>
         </div>
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

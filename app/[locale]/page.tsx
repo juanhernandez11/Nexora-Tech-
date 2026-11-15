@@ -10,7 +10,6 @@ import WorkProcess from '@/components/sections/WorkProcess';
 import FAQ from '@/components/sections/FAQ';
 import ContactForm from '@/components/sections/ContactForm';
 import Footer from '@/components/layout/Footer';
-import SmoothScroll from '@/components/ui/SmoothScroll';
 import AccessibilityWidget from '@/components/layout/AccessibilityWidget';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexorate.netlify.app';
@@ -39,13 +38,12 @@ export default function HomePage({ params }: { params: { locale?: string } }) {
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] font-sans antialiased selection:bg-[#0071e3]/20">
+    <div className="theme-page min-h-screen bg-[#fbfbfd] text-[#1d1d1f] dark:bg-black dark:text-white font-sans antialiased selection:bg-[#2997ff]/20 selection:text-white">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-brand-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-xl focus:font-bold focus:text-sm">
         Skip to main content
       </a>
       <Navbar />
       <MobileMenu />
-      <SmoothScroll />
       <AccessibilityWidget />
       <main id="main-content">
         <HeroIntroReveal />
